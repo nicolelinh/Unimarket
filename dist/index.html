@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniMarket Dev Setup</title>
+</head>
+<body>
+    <h1>UniMarket Env Setup - Please enter your information into the form below: </h1>
+
+    <!-- <h2>Firebase User Management</h2> -->
+
+    <form class="add">
+        <label for="email">Email:</label>
+        <input type="text" name="email" required>
+        <label for="password">Password:</label>
+        <input type="text" name="password" required>
+        <label for="username">Username:</label>
+        <input type="text" name="username" required>
+
+        <button>Sign Up</button>
+    </form>
+
+    <div style="margin-top: 50px;">
+        <p>Looking for users? <button id="findusers">Find all Users</button> </p>
+        
+        <ul id="userlist">
+        </ul>
+    </div>
+
+    <!-- <form class="delete">
+        <label for="id">User ID:</label>
+        <input type="text" name="id" required>
+
+        <button>Delete a User</button> 
+    </form> -->
+
+
+
+    <script src="bundle.js"></script>
+</body>
+</html>
