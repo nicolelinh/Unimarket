@@ -54,11 +54,17 @@ const q = query(colRef);
 const querySnapshot = await getDocs(q);
 console.log(querySnapshot)
 
+// The "find all users" button, has an id of findusers
 const findBtn = document.getElementById('findusers')
+
+// The list, which contains all users, displayed to the interface
 const usersList = document.getElementById('userlist')
 
 function displayUsers() {
+    // Clear the list, incase the button is pressed again, so the data is not duplicated
     usersList.innerHTML = ""
+
+    // For every user in the database, create a new list element (li), add text for each user, then appent it to the list (using the const we declared earlier)
     querySnapshot.forEach((doc) => {
         const li = document.createElement("li");
         li.appendChild(document.createTextNode(`Username: ${doc.data().username},    Email: ${doc.data().email},    Password: ${doc.data().password}`));
