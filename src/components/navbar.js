@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import './navbar.css';
 
 class Navbar extends Component {
     //render is needed BECAUSE it extends from Component
@@ -6,7 +7,7 @@ class Navbar extends Component {
     render(){
         return(
             
-            <nav className="navbar navbar-expand-sm navbar-dark bg-black">
+            <nav className="navbar navbar-expand-sm navbar-dark bg-green">
                 <div className="container">
                     <a className="navbar-brand" href="/"><b>UniMarket</b></a>
                     
