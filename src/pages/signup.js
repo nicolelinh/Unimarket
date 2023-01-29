@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from "react";
 import '../App.css';
 //import { useState, useEffect } from 'react';
 import { auth, db } from '../firebaseConfig'
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 
 function SignUp() {
     // variables to set new email and password
@@ -13,9 +13,14 @@ function SignUp() {
     const signUp = (event) => {
         event.preventDefault();
         createUserWithEmailAndPassword(auth, newEmail, newPassword)
-            .then((userCredential) => {
+            .then(async (userCredential) => {
                 // Signed in 
+                await sendEmailVerification(auth.currentUser)
+                    .then(() => {
+                        console.log("email sent!");
+                    });
                 console.log(userCredential.user);
+                console.log(auth.currentUser.email);
                 // ...
             })
             .catch((error) => {
