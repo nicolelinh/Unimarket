@@ -1,0 +1,24 @@
+.padding{
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+}
+
+.pill-form{
+    margin-top: 1em;
+    margin-bottom: 1em;
+    width: 50%;
+    margin: auto;
+    background-color: rgb(102, 184, 102);
+}
+
+.search{
+    width: 50%;
+    margin: auto;
+}
+.question{
+    text-align: left;
+}
+
+a:link{
+    color:burlywood;
+}
