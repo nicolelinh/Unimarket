@@ -7,7 +7,7 @@ function Login() {
     // variables to set new email and password
     const [newEmail, setNewEmail] = useState("");
     const [newPassword, setNewPassword] = useState("");
-
+    
     const signIn = (event) => {
         event.preventDefault();
         signInWithEmailAndPassword(auth, newEmail, newPassword)
