@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import '../App.css';
 //import { useState, useEffect } from 'react';
-import { auth, db } from '../firebaseConfig'
+import { auth } from '../firebaseConfig'
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 
 function SignUp() {

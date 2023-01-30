@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import '../App.css';
-import { auth, db } from '../firebaseConfig'
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../firebaseConfig'
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 function Login() {
     // variables to set new email and password
