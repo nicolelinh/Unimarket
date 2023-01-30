@@ -26,6 +26,9 @@ class Navbar extends Component {
                             <li className="nav-item">
                                 <a className="nav-link" href="/signup">Sign Up</a>
                             </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/landing">Landing</a>
+                            </li>
                         </ul>
                         <form className="d-flex">
                             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input>

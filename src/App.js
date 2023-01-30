@@ -10,6 +10,7 @@ import Home from './pages/home';
 import SignUp from './pages/signup';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
+import Landing from './pages/landing';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/landing" element={<Landing/>}/>
         </Routes>
       </BrowserRouter>
       <Footer/>
