@@ -3,7 +3,7 @@ import '../App.css';
 import { auth } from '../firebaseConfig'
 import { signInWithEmailAndPassword } from "firebase/auth";
 
-function Login() {
+function SignIn() {
     // variables to set new email and password
     const [newEmail, setNewEmail] = useState("");
     const [newPassword, setNewPassword] = useState("");
@@ -23,8 +23,8 @@ function Login() {
     };
 
     return (
-        <div className="Login">
-            <h2>Login</h2>
+        <div className="SignIn">
+            <h2>Sign In</h2>
                 <form onSubmit={signIn}>
                     <div>
                     <h3>Enter email:
@@ -50,10 +50,10 @@ function Login() {
                     />
                     </h3>
                 </div>
-                <button type="submit"> Login </button>
+                <button type="submit"> Sign In </button>
                 </form>
         </div>
     );
 }
 
-export default Login;
+export default SignIn;

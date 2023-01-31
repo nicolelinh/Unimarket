@@ -7,7 +7,7 @@ import {
 }   
 from 'react-router-dom'; 
 import Home from './pages/home';
-import Login from './pages/login';
+import SignIn from './pages/signin';
 import SignUp from './pages/signup';
 import SignOut from './pages/signout';
 import AuthDetails from './components/authdetails';
@@ -23,7 +23,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home/>} />
-          <Route path="/login" element={<><Login /><AuthDetails /></>} />
+          <Route path="/signin" element={<><SignIn /><AuthDetails /></>} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signout" element={<SignOut />} />
           <Route path="/landing" element={<Landing/>}/>
