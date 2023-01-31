@@ -1,23 +1,4 @@
 {
-<<<<<<< HEAD
-  "name": "FirebaseTutorial",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.0"
-  },
-  "dependencies": {
-    "firebase": "^9.14.0"
-=======
   "name": "unimarket-front-end",
   "version": "0.1.0",
   "private": true,
@@ -59,6 +40,5 @@
   },
   "devDependencies": {
     "dotenv": "^16.0.3"
->>>>>>> main
   }
 }
