@@ -1,38 +1,31 @@
 import React, { Component, useState, useEffect } from "react";
 import '../App.css';
-//import { useState, useEffect } from 'react';
 import { auth } from '../firebaseConfig'
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
-function SignUp() {
-    // variables to set new email, password, and username
+function Login() {
+    // variables to set new email and password
     const [newEmail, setNewEmail] = useState("");
     const [newPassword, setNewPassword] = useState("");
-
-
-    const signUp = (event) => {
-        event.preventDefault();
-        createUserWithEmailAndPassword(auth, newEmail, newPassword)
-            .then(async (userCredential) => {
-                // Signed in 
-                await sendEmailVerification(auth.currentUser)
-                    .then(() => {
-                        console.log("email sent!");
-                    });
-                console.log(userCredential.user);
-                console.log(auth.currentUser.email);
-                // ...
-            })
-            .catch((error) => {
-                console.log(error);
-                // ..
-            });
-    };
     
+    const signIn = (event) => {
+        event.preventDefault();
+        signInWithEmailAndPassword(auth, newEmail, newPassword)
+        .then((userCredential) => {
+            // Signed in 
+            console.log(userCredential.user);
+            // ...
+        })
+        .catch((error) => {
+            console.log(error);
+            // ..
+        });
+    };
+
     return (
-        <div className="SignUp">
-            <h2>Sign Up</h2>
-                <form onSubmit={signUp}>
+        <div className="Login">
+            <h2>Login</h2>
+                <form onSubmit={signIn}>
                     <div>
                     <h3>Enter email:
                     <input
@@ -57,10 +50,10 @@ function SignUp() {
                     />
                     </h3>
                 </div>
-                <button type="submit"> Sign Up </button>
+                <button type="submit"> Login </button>
                 </form>
         </div>
     );
 }
 
-export default SignUp;
+export default Login;
