@@ -19,17 +19,17 @@ class Home extends Component {
                             <button className="search-btn btn-outline-success" type="submit">search by filter</button>
                         </form>
                         <div className="row">
-                            <div className="col">
+                            <div className="col col-spacing">
                                 <h4 className="question-1"><em>need to sell or request a market item?</em></h4>
-                                <h4 className="question-1"><em><a href="#">sell</a>&nbsp;&nbsp;&nbsp;<a href="#">request</a></em></h4>
+                                <h4 className="question-1"><em><a className="question-brown" href="#">sell</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="#">request</a></em></h4>
                             </div>
-                            <div className="col"></div>
+                            {/* <div className="col"></div> */}
                         </div>
                         <div className="row">
-                            <div className="col"></div>
-                            <div className="col">
+                            {/* <div className="col"></div> */}
+                            <div className="col col-spacing">
                                 <h4 className="question-2"><em>looking for carpool or other services?</em></h4>
-                                <h4 className="question-2"><em><a href="#">carpool</a>&nbsp;&nbsp;&nbsp;<a href="#">other services</a></em></h4>
+                                <h4 className="question-2"><em><a className="question-brown" href="#">carpool</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="#">other services</a></em></h4>
                             </div>
                         </div>
 
@@ -51,8 +51,13 @@ class Home extends Component {
                                     <Listing/>
                                 </div>
                             </div>
-
+                            <div className="row">
+                                <div className="col">
+                                    <Listing/>
+                                </div>
+                            </div>
                             <Pagination/>
+                            
                         </div>
                         
                         

@@ -18,19 +18,33 @@ class Navbar extends Component {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <a className="nav-link" href="/">Home</a>
+                                <a className="nav-link" href="/">following</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/login">Login</a>
+                                <a className="nav-link" href="/login">messages</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/signup">Sign Up</a>
+                                <a className="nav-link" href="/signup">profile</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/signup">history</a>
                             </li>
                         </ul>
-                        <form className="d-flex">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input>
-                            <button className="btn btn-outline-success" type="submit">Search</button>
-                        </form>
+                        <a href="/">#</a>
+                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li className="nav-item">
+                                <a className="nav-link" href="/">market</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/login">carpool</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/signup">services</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/signup">sign out</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </nav>
