@@ -4,19 +4,67 @@
 }
 
 .pill-form{
-    margin-top: 1em;
-    margin-bottom: 1em;
-    width: 50%;
+    /* margin-top: 1.5em;
+    margin-bottom: 5em; */
+    padding: 0.5em;
+    width: 75%;
     margin: auto;
-    background-color: rgb(102, 184, 102);
+    border-radius: 50px !important;
+    background-image: linear-gradient(to right, rgb(0, 107, 98), rgb(170, 154, 103));
+    color: white;
 }
 
-.search{
-    width: 50%;
+.search-form{
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+    width: 60%;
     margin: auto;
 }
-.question{
+
+.search-input{
+    outline: rgb(85, 85, 85) solid 2px;
+    border-radius: 50px !important;
+    background-image: linear-gradient(to right, white, gray);
+}
+
+.search-btn{
+    background-color: rgb(85, 85, 85);
+    color: white;
+    border: 2px solid;
+    width: 50%;
+    padding-left: -30px;
+}
+
+.search-btn:hover{
+    background:rgb(199, 199, 199);
+}
+
+.question-1{
     text-align: left;
+    background-color: white;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.question-2{
+    text-align: right;
+    background-color: white;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.listings-cont{
+    background-image:linear-gradient(rgb(132, 173, 151), white);
+    padding-top: 1em;
+}
+
+.listings-title{
+    text-align: left;
+    background-image: linear-gradient(to right, white, rgb(132, 173, 151));
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 1em;
+    
 }
 
 a:link{

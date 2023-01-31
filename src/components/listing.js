@@ -5,7 +5,6 @@ class Listing extends Component {
     render() {
         return (
             <>
-            <h1>Create New Listing</h1>
             <div class="card" style={{"width": "18rem"}}>
                 <img src={test} class="card-img-top" alt="..."/>
                 <div class="card-body">
