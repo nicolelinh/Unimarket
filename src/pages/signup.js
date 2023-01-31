@@ -1,45 +1,53 @@
 import React, { Component, useState, useEffect } from "react";
 import '../App.css';
 //import { useState, useEffect } from 'react';
-import { db } from '../firebaseConfig'
-import { collection, getDocs, addDoc } from "firebase/firestore"
+import { auth, db } from '../firebaseConfig'
+import { doc, setDoc } from "firebase/firestore"
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 
 function SignUp() {
-    // variables to set new email, password, and username
+    // variables to set new email and password
     const [newEmail, setNewEmail] = useState("");
     const [newPassword, setNewPassword] = useState("");
-    const [newUsername, setNewUsername] = useState("");
 
-    // creates an array type to store all information about each user
-    const [users, setUsers] = useState([]);
 
-    // gets data from the collection "users"
-    const usersCollectionRef = collection(db, "users");
-
-    // create users function
-    const createUser = async () => {
-    await addDoc(usersCollectionRef, {email: newEmail, password: newPassword, username: newUsername});
-    }
-
-    useEffect(() => {
-    const getUsers = async () => {
-        const data = await getDocs(usersCollectionRef);
-        setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
-        console.log(data);
-    }
-    getUsers();
-    }, []);
-
-    return (
-        <div className="App">
-            <h2>Sign Up!</h2>
+    const signUp = (event) => {
+        event.preventDefault();
+        createUserWithEmailAndPassword(auth, newEmail, newPassword)
+            .then(async (userCredential) => {
+                // Signed in 
+                await sendEmailVerification(auth.currentUser)
+                    .then(async () => {
+                        console.log("email sent!");
+                    });
+                await setDoc(doc(db, "userInfo", userCredential.user.uid), {
+                        uid: userCredential.user.uid,
+                        school: "CSULB"
+                })
+                await setDoc(doc(db, "userChats", userCredential.user.uid), {});
                 
-                <div>
+                console.log(userCredential.user);
+                console.log(auth.currentUser.email);
+                // ...
+            })
+            .catch((error) => {
+                console.log(error);
+                // ..
+            });
+    };
+    
+    return (
+        <div className="SignUp">
+            <h2>Sign Up</h2>
+                <form onSubmit={signUp}>
+                    <div>
                     <h3>Enter email:
                     <input
+                        type="email"
                         placeholder="Email..."
+                        value={newEmail}
                         onChange={(event) => {
-                        setNewEmail(event.target.value);
+                            setNewEmail(event.target.value);
                         }}
                     />          
                     </h3>
@@ -47,34 +55,17 @@ function SignUp() {
                 <div>
                     <h3> Enter password:
                     <input
+                        type="password"
                         placeholder="Password..."
+                        value={newPassword}
                         onChange={(event) => {
-                        setNewPassword(event.target.value);
+                            setNewPassword(event.target.value);
                         }}
                     />
                     </h3>
                 </div>
-                <div>
-                    <h3>Enter username:
-                    <input
-                        placeholder="Username..."
-                        onChange={(event) => {
-                        setNewUsername(event.target.value);
-                        }}
-                    />
-                    </h3>
-                </div>
-                <button>Show existing users</button>
-                <button onClick={createUser}> Create User </button>
-                {users.map((user) => {
-                    return (
-                    <div>
-                        <h4>Email: {user.email}</h4>
-                        <h4>Password: {user.password}</h4>
-                        <h4>Username: {user.username}</h4>
-                    </div>
-                    );
-                })}
+                <button type="submit"> Sign Up </button>
+                </form>
         </div>
     );
 }

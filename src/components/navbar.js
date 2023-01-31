@@ -7,7 +7,7 @@ class Navbar extends Component {
     render(){
         return(
             
-            <nav className="navbar navbar-expand-sm navbar-dark bg-green">
+            <nav className="navbar navbar-expand-sm navbar-dark bg-black">
                 <div className="container">
                     <a className="navbar-brand" href="/"><b>UniMarket</b></a>
                     
@@ -25,6 +25,9 @@ class Navbar extends Component {
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="/signup">Sign Up</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/signout">Sign Out</a>
                             </li>
                         </ul>
                         <form className="d-flex">
