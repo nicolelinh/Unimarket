@@ -11,6 +11,7 @@ import Login from './pages/login';
 import SignUp from './pages/signup';
 import SignOut from './pages/signout';
 import Chat from './pages/chat';
+import ChatPage from './pages/chatpage'
 
 import AuthDetails from './components/authdetails';
 import Navbar from './components/navbar';
@@ -33,6 +34,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signout" element={<SignOut />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/chatpage" element={<ChatPage />} />
         </Routes>
       </BrowserRouter>
       <Footer/>

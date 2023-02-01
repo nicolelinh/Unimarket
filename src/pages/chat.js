@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useContext } from "react";
+import { useNavigate, redirect } from "react-router-dom";
 import { db } from '../firebaseConfig'
 import { collection, getDocs, getDoc, setDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore"
 import '../App.css';
@@ -9,6 +10,7 @@ import { AuthContext } from "../context/AuthContext";
 
 function Chat() {
 
+    let navigate = useNavigate(); 
     const {currentUser} = useContext(AuthContext)
 
     const [users, setUsers] = useState([]);
@@ -39,24 +41,31 @@ function Chat() {
             if (!chatBetweenUsers.exists()) {
                 await setDoc(doc(db, "chats", combinedId), { messages: [] });
 
+                const s = combinedId + ".userInfo";
+                console.log('test1')
                 await updateDoc(doc(db, "userChats", currentUser.uid), {
+                    // test: "Hello",
                     [combinedId + ".userInfo"]: {
                         uid: user.uid,
-                        email: user.email,
                     },
                     [combinedId + ".date"]: serverTimestamp(),
-                })
+                });
+                console.log('test2')
 
                 await updateDoc(doc(db, "userChats", user.uid), {
+                    // test: "Hello",
                     [combinedId+".userInfo"]: {
                         uid: currentUser.uid,
-                        email: currentUser.email,
                     },
                     [combinedId+".date"]: serverTimestamp(),
-                })
-            } 
+                });
+
+            }
+            console.log('test!');
+            // return redirect("/chatpage");
+            navigate("/chatpage") 
         } catch (err) {
-            console.log("Error with establishing user chats")
+            console.log("Error establishing a chat with this uer")
             console.log(err)
         }
             
