@@ -5,6 +5,7 @@ function SignOut () {
     const userSignOut = () => {
         signOut(auth)
         .then(() => {
+            localStorage.clear();
             console.log('Sign out successful');
         })
         .catch((error) => {
