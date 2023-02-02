@@ -18,26 +18,13 @@ const Createlisting = () => {
             });
             console.log("doc submitted successfully");
         } catch (e) {
-            console.error("error addiing doc: ", e);
+            console.error("error adding doc: ", e);
         }
     }
 
     return (
         <div>
-            <center>
-                <form style={{marginTop:"50px" }} onSubmit={(event) => {addListing(event)}}>
-                    <input type="text" placeholder="your title"
-                      onChange={(e)=>{setTitle(e.target.value)}} />
-                      <br/><br/>
-                    <input type="text" placeholder="your desc"
-                      onChange={(e)=>{setDesc(e.target.value)}}/>
-                      <br/><br/>
-                    <input type="text" placeholder="your price"
-                      onChange={(e)=>{setPrice(e.target.value)}}/>
-                      <br/><br/>
-                    <button type="submit">Submit</button>
-                </form>
-            </center>
+            {/* Prototype page 15 */}
         </div>
     );
 }

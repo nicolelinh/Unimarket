@@ -14,6 +14,7 @@ import AuthDetails from './components/authdetails';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
 import Landing from './pages/landing';
+import Createlisting from './pages/createlisting';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signout" element={<SignOut />} />
           <Route path="/landing" element={<Landing/>}/>
+          <Route path="/create-listing" element={<Createlisting/>}/>
         </Routes>
       </BrowserRouter>
       <Footer/>

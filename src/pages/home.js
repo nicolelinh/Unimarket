@@ -1,13 +1,31 @@
-import React, { useState} from "react";
-import '../App.css';
-import './home.css';
+import React, { useEffect, useState} from "react";
+import {collection, getDocs} from "firebase/firestore";
+import { db } from '../firebaseConfig';
 import Listing from '../components/listing';
 import Pagination from "../components/pagination";
 import Landing from "./landing";
-import Createlisting from "./listingDetails";
+import '../App.css';
+import './home.css';
 
-// make this a functional component instead and put html code into the return
 const Home = () => {
+    const [info, setInfo] = useState([]);
+
+    window.addEventListener('load', () => {
+        Fetchdata();
+    });
+
+    const Fetchdata = async () => {
+        await getDocs(collection(db, "marketListings")).then((querySnapshot)=>{
+            const newData = querySnapshot.docs.map((doc)=> ({...doc.data(), id:doc.id}));
+            setInfo(newData);
+            console.log(info, newData);
+        })
+        
+    }
+    useEffect(()=>{
+        Fetchdata();
+    }, [])
+
     const [email, setEmail] = useState(() => {
         // getting stored value
         const saved = window.localStorage.getItem('USER_EMAIL');
@@ -30,7 +48,7 @@ const Home = () => {
                     <div className="row">
                         <div className="col col-spacing">
                             <h4 className="question-1"><em>need to sell or request a market item?</em></h4>
-                            <h4 className="question-1"><em><a className="question-brown" href="#">sell</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="#">request</a></em></h4>
+                            <h4 className="question-1"><em><a className="question-brown" href="/create-listing">sell</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="#">request</a></em></h4>
                         </div>
                         {/* <div className="col"></div> */}
                     </div>
@@ -46,32 +64,24 @@ const Home = () => {
                         <h3 className="listings-title"><em>most recent product listings</em></h3>
 
                         {/* need to dynamically create rows and columns based on how many listings are in database */}
-                        <Createlisting/>
-                        <Listing/>
-                        {/* <div className="row">
-                            <div className="col">
-                                <Listing/>
-                            </div>
-                            <div className="col">
-                                <Listing/>
-                            </div>
-                            <div className="col">
-                                <Listing/>
-                            </div>
-                            <div className="col">
-                                <Listing/>
-                            </div>
-                        </div>
                         <div className="row">
-                            <div className="col">
-                                <Listing/>
-                            </div>
-                        </div> */}
+                            {
+                                info?.map((data, i)=>(
+                                    <div className="col-3">
+                                        <Listing
+                                        title={data.title}
+                                        description={data.description}
+                                        price={data.price}
+                                        photo={data.photo}
+                                        />
+                                    </div>
+                    
+                                ))
+                            }
+                        </div>
+
                         <Pagination/>
-                        
                     </div>
-                    
-                    
                 </div>
             </section>
         </main>
@@ -82,7 +92,6 @@ const Home = () => {
         <Landing/>
         )
     }
-    
 }
 
 export default Home;
