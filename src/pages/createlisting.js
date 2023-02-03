@@ -16,9 +16,9 @@ const Createlisting = () => {
                 description: desc,
                 price: price
             });
-            console.log("doc submitted successfully");
+            console.log("Document submitted successfully");
         } catch (e) {
-            console.error("error adding doc: ", e);
+            console.error("Error adding document: ", e);
         }
     }
 

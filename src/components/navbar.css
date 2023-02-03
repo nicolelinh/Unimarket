@@ -1,3 +1,7 @@
 .bg-green {
-    background-color: rgb(132, 173, 151) !important;
+    background-color: rgb(132, 173, 151);
+}
+
+.bg-gray{
+    background-color: gray;
 }

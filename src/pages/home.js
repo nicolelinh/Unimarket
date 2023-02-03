@@ -63,7 +63,7 @@ const Home = () => {
                     <div className="listings-cont">
                         <h3 className="listings-title"><em>most recent product listings</em></h3>
 
-                        {/* need to dynamically create rows and columns based on how many listings are in database */}
+                        {/* dynamically create rows and columns based on how many listings are in database */}
                         <div className="row">
                             {
                                 info?.map((data, i)=>(
@@ -73,6 +73,7 @@ const Home = () => {
                                         description={data.description}
                                         price={data.price}
                                         photo={data.photo}
+                                        docid={data.id}
                                         />
                                     </div>
                     

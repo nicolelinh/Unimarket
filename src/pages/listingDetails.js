@@ -1,32 +1,36 @@
 import React, { useEffect, useState } from "react";
 import {collection, addDoc} from "firebase/firestore";
 import { db } from '../firebaseConfig';
+import { useLocation, Link } from "react-router-dom";
+import './listingdetails.css';
 
-const Createlisting = () => {
-    const[title, setTitle] = useState("");
-    const[desc, setDesc] = useState("");
-    const[price, setPrice] = useState("");
+// will display all listing details when a listing is clicked on from home page
+const Listingdetails = _ => {
+    const did = window.location.pathname.split("/")[2];
 
-    const addListing = async (e) => {
-        e.preventDefault();
-
-        try {
-            const docRef = await addDoc(collection(db, "marketListings"), {
-                Title: title,
-                Description: desc,
-                Price: price
-            });
-            console.log("doc submitted successfully");
-        } catch (e) {
-            console.error("error adding doc: ", e);
-        }
-    }
-
+    document.title="Listing Details";
     return (
-        <div>
-            {/* Prototype page 15 */}
+        <div className="padding container">
+            <form className="d-flex search-form">
+                <input className="form-control me-2 search-input" type="search" placeholder="search here" aria-label="Search"></input>
+                <button className="search-btn btn-outline-success" type="submit">search by filter</button>
+            </form>
+            <div className="row row-style">
+                <div className="col col-style">
+                    <p>item image goes here</p>
+                    <p>compare item link goes here</p>
+                </div>
+                <div className="col col-style">
+                    <div>
+                        <p>listing title</p>
+                        <p>listing seller</p>
+                        <p>listing description</p>
+                        <p>dm user button</p>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
 
-export default Createlisting;
+export default Listingdetails;
