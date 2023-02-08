@@ -15,6 +15,7 @@ const Home = () => {
     });
 
     const Fetchdata = async () => {
+        // need to filter/query db to only show listings from your school and by creation date? and those that arent yours? 
         await getDocs(collection(db, "marketListings")).then((querySnapshot)=>{
             const newData = querySnapshot.docs.map((doc)=> ({...doc.data(), id:doc.id}));
             setInfo(newData);
@@ -80,7 +81,8 @@ const Home = () => {
                                 ))
                             }
                         </div>
-
+                        
+                        {/* allow max of 4 listings per page to test, if over, then go to next page */}
                         <Pagination/>
                     </div>
                 </div>

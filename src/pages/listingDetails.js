@@ -1,18 +1,16 @@
 import React, { Component, useEffect, useState } from "react";
-import {doc, getDoc} from "firebase/firestore";
+import {doc, getDoc, deleteDoc} from "firebase/firestore";
 import { db } from '../firebaseConfig';
-import { useLocation, Link } from "react-router-dom";
 import './listingdetails.css';
 import test from '../images/nintendo-switch-console.png';
 
 // will display all listing details when a listing is clicked on from home page
 const Listingdetails = () => {
-
+    // get document id by parsing url
+    const did = window.location.pathname.split("/")[2];
     const [details, setDetails] = useState([]);
 
     const getDetails = async () => {
-        // get document id by parsing url
-        const did = window.location.pathname.split("/")[2];
         const docRef = doc(db, "marketListings", did); // getting document reference 
         await getDoc(docRef).then((docData)=>{
             const newData = docData.data();
@@ -25,6 +23,33 @@ const Listingdetails = () => {
         getDetails();
     }, []);
     
+    // checking if seller of listing is current user or not to display correct format
+    let listingButton;
+    let submitEvent;
+    if (details.seller !== JSON.parse(window.localStorage.getItem('USER_EMAIL'))){
+        listingButton = <button type="submit">dm user button</button>
+        //submitEvent = navigate to dm user or similar....
+        
+    } else {
+        listingButton = <button type="submit">delete listing</button>
+        submitEvent = (event)=>deleteListing(event);
+    }
+
+    // BE CAREFUL DEBUGGING!!!!!!!!!!
+    const deleteListing = async (e) => {
+        e.preventDefault();
+
+        try{
+            const docRef = doc(db, "marketListings", did);
+            await deleteDoc(docRef);
+            console.log("Document successfully deleted! ");
+            window.location.href='/home';
+        } catch(e){
+            console.log("Error deleting document: ", e);
+        }
+        
+    }
+
     document.title="Listing Details";
     return (
         <div className="padding container">
@@ -45,7 +70,7 @@ const Listingdetails = () => {
                         <p><a href="#">{details.seller}</a></p>
                         <h5>Description:</h5>
                         <p>{details.description}</p>
-                        <button type="submit">dm user button</button>
+                        <form onSubmit={submitEvent}>{listingButton}</form>
                     </div>
                 </div>
             </div>
