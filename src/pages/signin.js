@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState } from "react";
 import '../App.css';
 import { auth } from '../firebaseConfig'
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -50,6 +50,7 @@ function SignIn() {
                     />
                     </h3>
                 </div>
+                <button class="forgotpassword"><a href="/forgotpassword">forgotpassword</a></button>
                 <button type="submit"> Sign In </button>
                 </form>
         </div>

@@ -11,6 +11,7 @@ function SignUp() {
     const [newUserName, setNewUserName] = useState("");
     const [newEmail, setNewEmail] = useState("");
     const [newPassword, setNewPassword] = useState("");
+    const [newPhoneNumber, setNewPhoneNumber] = useState("");
 
 
     const signUp = (event) => {
@@ -25,7 +26,8 @@ function SignUp() {
                     await setDoc(doc(db, "userInfo", userCredential.user.uid), {
                         uid: userCredential.user.uid,
                         school: newSchool,
-                        username: newUserName
+                        username: newUserName,
+                        phoneNumber: newPhoneNumber
                     })
                 
 
@@ -87,6 +89,18 @@ function SignUp() {
                                 value={newPassword}
                                 onChange={(event) => {
                                     setNewPassword(event.target.value);
+                                }}
+                            />
+                        </h3>
+                    </div>
+                    <div>
+                        <h3> Enter phone number:
+                            <input
+                                type="text"
+                                placeholder="Phone Number..."
+                                value={newPhoneNumber}
+                                onChange={(event) => {
+                                    setNewPhoneNumber(event.target.value);
                                 }}
                             />
                         </h3>
