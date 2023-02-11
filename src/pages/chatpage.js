@@ -32,13 +32,13 @@ function ChatPage() {
     const [chats, setChats] = useState([]);
     useEffect(() => {
         const getChats = () => {
-            const unsub = onSnapshot(doc(db, "chatBetweenTwoUsers", currentUser.uid), (doc) => {
+            const chatDoc = onSnapshot(doc(db, "chatBetweenTwoUsers", currentUser.uid), (doc) => {
                 setChats(doc.data());
             });
             console.log(chats)
 
         return () => {
-            unsub();
+            chatDoc();
         }
     };
         if (currentUser.uid) {
@@ -80,7 +80,7 @@ function ChatPage() {
                     <div className="chat-sidebar">
                         
                         <h5 className="chat-recent">Recent</h5>
-                        {Object.entries(chats)?.sort((first, second)=>second[1].date - first[1].date).map((chat) => {
+                        {Object.entries(chats).sort((first, second)=>second[1].date - first[1].date).map((chat) => {
                             return <div className="chat-userChat" 
                                     key={chat[0]}
                                     onClick={() => handleSelect(chat[1].uid)}>
