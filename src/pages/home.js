@@ -14,6 +14,7 @@ const Home = () => {
         Fetchdata();
     });
 
+    // grabs all documents in marketListings collection in db
     const Fetchdata = async () => {
         // need to filter/query db to only show listings from your school and by creation date? and those that arent yours? 
         await getDocs(collection(db, "marketListings")).then((querySnapshot)=>{
@@ -28,7 +29,7 @@ const Home = () => {
     }, [])
 
     const [email, setEmail] = useState(() => {
-        // getting stored value
+        // getting user details from local storage
         const saved = window.localStorage.getItem('USER_EMAIL');
         const initialValue = JSON.parse(saved);
         return initialValue || "";
@@ -36,6 +37,7 @@ const Home = () => {
 
     document.title="Home";
 
+    // if email is not empty, someone is signed in so it shows actual home page, NOT landing page
     if (email !== "") {
         return (
             <main>
@@ -66,8 +68,10 @@ const Home = () => {
 
                         {/* dynamically create rows and columns based on how many listings are in database */}
                         <div className="row">
+                            {/* this maps all the documents grabbed earlier and uses the data from each to create a Listing card */}
                             {
                                 info?.map((data, i)=>(
+                                    // only allow 4 listings per column by dividing col by 3 (col-3)because containers have 12 columns total
                                     <div className="col-3">
                                         <Listing
                                         title={data.title}

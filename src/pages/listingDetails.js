@@ -10,6 +10,7 @@ const Listingdetails = () => {
     const did = window.location.pathname.split("/")[2];
     const [details, setDetails] = useState([]);
 
+    // grabs the single document from db based on the document ID
     const getDetails = async () => {
         const docRef = doc(db, "marketListings", did); // getting document reference 
         await getDoc(docRef).then((docData)=>{
@@ -23,16 +24,17 @@ const Listingdetails = () => {
         getDetails();
     }, []);
     
-    // checking if seller of listing is current user or not to display correct format
-    let listingButton;
-    let submitEvent;
+    // checking if seller of listing is current user or not to display correct HTML
+    let listingButton; // this will either read "dm user" or "delete listing" based on who the seller is
+    let submitEvent; // this will determine if user will delete the listing or be sent to "dm user" page...
+    // checking is the seller of THIS listing is same as current user by checking emails since they're unique
     if (details.seller !== JSON.parse(window.localStorage.getItem('USER_EMAIL'))){
         listingButton = <button type="submit">dm user button</button>
         //submitEvent = navigate to dm user or similar....
         
     } else {
         listingButton = <button type="submit">delete listing</button>
-        submitEvent = (event)=>deleteListing(event);
+        submitEvent = (event)=>deleteListing(event); // DELETES LISTING FROM DATABASE
     }
 
     // BE CAREFUL DEBUGGING!!!!!!!!!!
@@ -40,10 +42,11 @@ const Listingdetails = () => {
         e.preventDefault();
 
         try{
+            // grabs the document in database by the document ID
             const docRef = doc(db, "marketListings", did);
-            await deleteDoc(docRef);
+            await deleteDoc(docRef); // deletes document
             console.log("Document successfully deleted! ");
-            window.location.href='/home';
+            window.location.href='/home'; // takes user to home page once record has been deleted
         } catch(e){
             console.log("Error deleting document: ", e);
         }
@@ -64,12 +67,14 @@ const Listingdetails = () => {
                 </div>
                 <div className="col col-style">
                     <div>
+                        {/* uses details from document grabbed earlier to fill out the HTML elements */}
                         <h4>{details.price}</h4> 
                         <h4>{details.title}</h4>
                         <h5>Seller:</h5>
                         <p><a href="#">{details.seller}</a></p>
                         <h5>Description:</h5>
                         <p>{details.description}</p>
+                        {/* based on if listing belongs to current user, action of the button is different, as shown above */}
                         <form onSubmit={submitEvent}>{listingButton}</form>
                     </div>
                 </div>

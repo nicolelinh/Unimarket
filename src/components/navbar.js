@@ -3,12 +3,13 @@ import './navbar.css';
 
 const Navbar = () => {
     const [email, setEmail] = useState(() => {
-        // getting stored value
+        // getting stored user data
         const saved = window.localStorage.getItem('USER_EMAIL');
         const initialValue = JSON.parse(saved);
         return initialValue || "";
       }, []);
 
+    // checking if USER_EMAIL is empty or not, if not then someone is signed in so navbar links change
     if (email !== "") {
         return (
             <nav className="navbar navbar-expand-sm navbar-dark bg-green">

@@ -9,7 +9,7 @@ const AuthDetails = () => {
         const listen = onAuthStateChanged(auth, (user) => {
             if (user){
                 setAuthUser(user);
-                //saving user to local storage to reference throughout site
+                //saving user info to local storage to reference throughout site
                 window.localStorage.setItem('USER_EMAIL', JSON.stringify(user.email));
             }else {
                 setAuthUser(null);
