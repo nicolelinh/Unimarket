@@ -3,7 +3,6 @@ import { ChatContext } from '../../context/ChatContext';
 import { AuthContext } from '../../context/AuthContext'
 import { updateDoc, doc, arrayUnion, Timestamp, serverTimestamp } from "firebase/firestore";
 import { db, storage } from '../../firebaseConfig';
-import { v4 as uuid } from "uuid"
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
 
 
@@ -12,10 +11,12 @@ const ChatInput = () => {
     const [ text, setText ] = useState("")
     const [ img, setImg ] = useState(null)
 
+    // Imports for context
     const {currentUser} = useContext(AuthContext);
     const {currentChat} = useContext(ChatContext);
-    const currentChatContext = useContext(ChatContext);
+    // const currentChatContext = useContext(ChatContext);
 
+    // Function to generate a unique ID, used for generating an ID when successfully sending a message
     function generateId() {
         return "id" + Math.random().toString(16).slice(2)
     }
@@ -30,11 +31,10 @@ const ChatInput = () => {
             combinedId = currentChat.uid + currentUser.uid
         }
 
-
+        try {
         if (img) {
-            const storageRef = ref(storage, uuid())
+            const storageRef = ref(storage, generateId())
             const uploadTask = uploadBytesResumable(storageRef, img);
-
             uploadTask.on(
                 (error) => {
                     console.log(error)
@@ -87,9 +87,14 @@ const ChatInput = () => {
         // https://firebase.google.com/docs/firestore/manage-data/add-data#update-data
         // Update nested data, use dot (.) notation
 
+        // Clear inputs for next message
         setText("")
         setImg(null)
-    };
+    } catch (e) {
+        console.log('error chatinput')
+        console.log(e)
+    }
+    }
 
 
     return (

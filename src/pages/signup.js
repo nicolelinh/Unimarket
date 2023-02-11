@@ -29,6 +29,8 @@ function SignUp() {
                     username: newUserName
                 })
 
+                // On signup, create a new database document that will store all chats between two users for this particular user
+                // It is not saved directly to the userInfo collection, so we use the users ID to reference it (one to one relationship)
                 await setDoc(doc(db, "chatBetweenTwoUsers", userCredential.user.uid), {});
                 
                 // console.log(userCredential.user);
