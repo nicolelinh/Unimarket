@@ -4,10 +4,23 @@ import { useLocation, Link } from "react-router-dom";
 import { db } from '../firebaseConfig';
 
 const Createlisting = () => {
-    const[title, setTitle] = useState("");
-    const[desc, setDesc] = useState("");
-    const[price, setPrice] = useState("");
     const currUser = window.localStorage.getItem('USER_EMAIL');
+    const [title, setTitle] = useState("");
+    const [desc, setDesc] = useState("");
+    const [price, setPrice] = useState("");
+    const [image, setImage] = useState([]);
+    const [imageURL, setImageURL] = useState([]);
+
+    useEffect(() => {
+        if (image.length < 1) return;
+        const newImageURL = [];
+        image.forEach(img => newImageURL.push(URL.createObjectURL(img)));
+        setImageURL(newImageURL);
+    }, [image]);
+
+    function onImageChange(e){
+        setImage([...e.target.files]);
+    }
 
     const addListing = async (e) => {
         e.preventDefault();
@@ -31,8 +44,9 @@ const Createlisting = () => {
         <div className="padding container">
             <div className="row row-style">
                 <div className="col col-style">
-                    <img src=""></img>
-                    <p>item upload goes here</p>
+                    { imageURL.map(imageSrc => <img src={imageSrc} width="300" height="300" />) }
+                    <br></br>
+                    <input type="file" onChange={onImageChange}></input>
                 </div>
                 <div className="col col-style">
                     <div>
