@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { auth } from "../firebaseConfig"
 
 const AuthDetails = () => {
+    // variable to set new current authorized user
     const [authUser, setAuthUser] = useState(null);
 
     useEffect(() => {
@@ -19,6 +20,7 @@ const AuthDetails = () => {
         };
     }, []);
 
+    // visible portion of the page(show the currently sign in user and if email is verified)
     return (
         <div>
             {authUser ? <p>{`Signed In as ${authUser.email}, Email Verified: ${auth.currentUser.emailVerified}`}</p> : <p>Signed Out</p>}

@@ -14,11 +14,13 @@ function SignUp() {
     const [newPhoneNumber, setNewPhoneNumber] = useState("");
 
 
+    //sign up function
     const signUp = (event) => {
         event.preventDefault();
         createUserWithEmailAndPassword(auth, newEmail, newPassword)
             .then(async (userCredential) => {
-                // Signed in 
+                // Signed in
+                // Send verification email to user
                 await sendEmailVerification(auth.currentUser)
                     .then(() => {
                         console.log("email sent!");
@@ -29,8 +31,6 @@ function SignUp() {
                         username: newUserName,
                         phoneNumber: newPhoneNumber
                     })
-                
-
                 console.log(userCredential.user);
                 console.log(auth.currentUser.email);
                 // ...
@@ -41,6 +41,7 @@ function SignUp() {
             });
     };
     
+    // visible portion of the page(buttons and input fields)
     return (
         <div className="SignUp">
             <h2>Sign Up</h2>

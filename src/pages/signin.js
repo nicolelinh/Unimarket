@@ -8,6 +8,7 @@ function SignIn() {
     const [newEmail, setNewEmail] = useState("");
     const [newPassword, setNewPassword] = useState("");
     
+    // sign in function
     const signIn = (event) => {
         event.preventDefault();
         signInWithEmailAndPassword(auth, newEmail, newPassword)
@@ -22,6 +23,7 @@ function SignIn() {
         });
     };
 
+    // visible portion of the page(buttons and input fields)
     return (
         <div className="SignIn">
             <h2>Sign In</h2>

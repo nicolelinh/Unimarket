@@ -7,10 +7,12 @@ function ForgotPassword (){
     // variable to get email from user input
     const [newEmail, setNewEmail] = useState("");
 
+    // forgot password function
     const forgotPassword = () => {
         sendPasswordResetEmail(auth, newEmail)
         .then(() => {
             // Password reset email sent!
+            console.log("password reset email sent!")
             // ..
         })
         .catch((error) => {
@@ -19,6 +21,7 @@ function ForgotPassword (){
         });
     };
 
+    // visible portion of the page(buttons and input fields)
     return (
         <div className="ForgotPassword">
             <h2>ForgotPassword</h2>
