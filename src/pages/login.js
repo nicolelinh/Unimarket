@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import '../App.css';
-import { auth } from '../firebaseConfig'
+import { auth, db } from '../firebaseConfig'
+import { doc, setDoc } from "firebase/firestore"
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 function Login() {
@@ -11,8 +12,9 @@ function Login() {
     const signIn = (event) => {
         event.preventDefault();
         signInWithEmailAndPassword(auth, newEmail, newPassword)
-        .then((userCredential) => {
+        .then(async(userCredential) => {
             // Signed in 
+            await setDoc(doc(db, "chatBetweenTwoUsers", userCredential.user.uid), {}, { merge: true });
             console.log(userCredential.user);
             // ...
         })

@@ -1,0 +1,142 @@
+.chat-home {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.chat-container {
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 70%;
+    height: 80%; 
+    display: flex;
+    overflow: hidden;
+}
+
+.chat-sidebar {
+    flex: 1;
+    border-right: 1px solid black;
+}
+
+.chat-main {
+    flex: 2;
+}
+
+.chat-userChat {
+    /* display: flex;
+    align-items: center; */
+    padding: 8px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.chat-userChat:hover {
+    background-color: #d3d3d3 ;
+}
+
+.chat-span {
+    font-size: 18px;
+}
+
+.chat-p {
+    font-size: 14px
+}
+
+.chat-recent {
+    height: 70px;
+    padding: 20px;
+    background-color: #d3d3d3;
+}
+
+.chat-info {
+    height: 70px;
+    padding: 20px;
+    background-color: #d3d3d3;
+}
+
+.chat-messages { /*messages*/
+    height: 560px;
+    overflow: scroll;
+    padding: 10px;
+}
+
+
+.chat-input {
+    height: 50px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#chat-img {
+    display: none;
+}
+
+.chat-input-form {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 15px;
+}
+
+.chat-submit {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chat-message-container { /*message*/
+    display: flex;
+    gap: 20px;
+}
+
+
+.chat-message { /*messageContent*/
+    flex-direction: column;
+}
+
+.chat-message-owner {
+    flex-direction: row-reverse;
+}
+
+.chat-message-div-owner {
+    display: flex;
+    align-items: flex-end;
+}
+
+.chat-message-text {
+    flex-direction: column;
+    background-color:#d3d3d3;
+    border-radius: 0px 10px 10px 10px;
+    padding: 10px 20px;
+    max-width: max-content;
+}
+
+.chat-message-text-owner {
+    flex-direction: row-reverse;
+    background-color:#E7FFE7;
+    border-radius: 10px 0px 10px 10px;
+    padding: 10px 20px;
+    max-width: max-content;
+
+}
+
+.chat-img-message-owner {
+    display: flex;
+    align-items: flex-end;
+}
+
+.chat-img-message {
+    display: flex;
+    align-items: flex-start;
+}
+
+.chat-img {
+    padding-bottom: 10px;
+}
+
+
+
