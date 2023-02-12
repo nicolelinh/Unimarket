@@ -7,8 +7,10 @@ import { collection, getDoc, doc } from "firebase/firestore"
 export const AuthContext = createContext()
 
 export const AuthContextProvider = ({children}) => {
+    // Variable and setter for out current user
     const [currentUser, setCurrentUser] = useState({})
 
+    // Referenced https://johnwcassidy.medium.com/firebase-authentication-hooks-and-context-d0e47395f402
     useEffect(() => {
         // Fetches the user from the database, used React hooks to set the user
         // This user's auth state is then persisted using React context
@@ -16,6 +18,8 @@ export const AuthContextProvider = ({children}) => {
             setCurrentUser(user)
         })
 
+        // This part "cleans up" the React hook
+        // https://dev.to/elijahtrillionz/cleaning-up-async-functions-in-reacts-useeffect-hook-unsubscribing-3dkk
         return () => {
             userDoc();
         }
