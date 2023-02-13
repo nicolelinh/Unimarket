@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import './footer.css';
 
-
 class Footer extends Component {
 
+    // add links to href once we decide what footer should display to users
     render() {
         return (
             

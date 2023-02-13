@@ -22,8 +22,8 @@ const Home = () => {
             setInfo(newData);
             console.log(info, newData);
         })
-        
     }
+
     useEffect(()=>{
         Fetchdata();
     }, [])
@@ -62,7 +62,6 @@ const Home = () => {
                             <h4 className="question-2"><em><a className="question-brown" href="#">carpool</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="#">other services</a></em></h4>
                         </div>
                     </div>
-
                     <div className="listings-cont">
                         <h3 className="listings-title"><em>most recent product listings</em></h3>
 
@@ -81,12 +80,10 @@ const Home = () => {
                                         docid={data.id}
                                         />
                                     </div>
-                    
                                 ))
                             }
                         </div>
-                        
-                        {/* allow max of 4 listings per page to test, if over, then go to next page */}
+                        {/* allow max of 4 listings per page to test, if over, then go to next page OR continuous scrolling*/}
                         <Pagination/>
                     </div>
                 </div>
