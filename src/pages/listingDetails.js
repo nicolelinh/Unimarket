@@ -62,7 +62,7 @@ const Listingdetails = () => {
             </form>
             <div className="row row-style">
                 <div className="col col-style">
-                    <img src={test} class="col-style" alt="..."/>
+                    <img src={details.photo} class="col-style" alt="..."/>
                     <p>compare item link goes here</p>
                 </div>
                 <div className="col col-style">

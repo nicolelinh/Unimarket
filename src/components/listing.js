@@ -9,7 +9,7 @@ const Listing = props => {
     return (
         <div class="card card-spacing" style={{"width": "18rem"}}>
             {/* will need to replace image src with an actual img NOT stock, but need to find how to store imgURLS in firestore db */}
-            <img src={test} class="card-img-top" alt="..."/>
+            <img src={ props.photo} class="card-img-top" width="300" height="300" alt="..."/>
             <div class="card-body">
                 {/* uses the passed in props to display the actual data in the HTML elements/tags*/}
                 <div class="card-title diamond-shape"><h5 className="listing-price">{ props.price }</h5></div>
