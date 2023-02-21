@@ -1,8 +1,7 @@
 import React, { useEffect, useState} from "react";
-import {collection, getDocs} from "firebase/firestore";
+import {collection, getDocs, orderBy, query} from "firebase/firestore";
 import { db } from '../firebaseConfig';
 import Listing from '../components/listing';
-import Pagination from "../components/pagination";
 import Landing from "./landing";
 import '../App.css';
 import './home.css';
@@ -15,9 +14,10 @@ const Home = () => {
     });
 
     // grabs all documents in marketListings collection in db
+    // need to filter/query db to only show listings from your school and by creation date? and those that arent yours? 
+    const marketRef = collection(db, "marketListings");
     const Fetchdata = async () => {
-        // need to filter/query db to only show listings from your school and by creation date? and those that arent yours? 
-        await getDocs(collection(db, "marketListings")).then((querySnapshot)=>{
+        await getDocs(query(marketRef, orderBy('timeCreated', 'desc'))).then((querySnapshot)=>{
             const newData = querySnapshot.docs.map((doc)=> ({...doc.data(), id:doc.id}));
             setInfo(newData);
             console.log(info, newData);
@@ -84,7 +84,7 @@ const Home = () => {
                             }
                         </div>
                         {/* allow max of 4 listings per page to test, if over, then go to next page OR continuous scrolling*/}
-                        <Pagination/>
+                        
                     </div>
                 </div>
             </section>

@@ -23,7 +23,7 @@ const Createlisting = () => {
         image.forEach(img => newImageURL.push(URL.createObjectURL(img))); // creates temporary local source for img
         setImageURL(newImageURL);
 
-        // To-Do: MOVE THIS INTO addListing FUNCTION
+        //TO-DO: Move this into addListing
         // adding image to firebase storage and creating img URL to add to firebase collection
         var uploadFileName = image[0].name;
         const storage = getStorage();
@@ -34,7 +34,7 @@ const Createlisting = () => {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                 console.log("file at: ", downloadURL);
                 setImgURL(downloadURL);
-                console.log(imgURL);
+                console.log(imgURL[0]);
             })
         })
     }, [image]);
@@ -54,7 +54,8 @@ const Createlisting = () => {
                 description: desc,
                 price: price,
                 seller: JSON.parse(currUser), // need to parse first or else string contains ""
-                photo: imgURL
+                photo: imgURL,
+                timeCreated: Date().toLocaleString()
             })
             console.log("Document submitted successfully");
             window.location.href='/listing-details/'+docRef.id; // on creation, redirect to the listing details user just created
@@ -66,15 +67,15 @@ const Createlisting = () => {
 
     document.title="Create Listing";
     return (
-        <div className="padding container">
-            <div className="row row-style">
-                <div className="col col-style">
+        <div className="padding container"> {/* using grid system (className=container/row/col) for layout: https://react-bootstrap.github.io/layout/grid/*/}
+            <div className="row">
+                <div className="col">
                     {/* allows user to upload an image and will preview that image back to the user, this maps image saved to img element */}
                     { imageURL.map(imageSrc => <img src={imageSrc} width="300" height="300" />) } 
                     <br></br>
                     <input type="file" onChange={onImageChange} required/>
                 </div>
-                <div className="col col-style">
+                <div className="col">
                     <div>
                         {/* sets all listing details on change event of each input area */}
                         <form style={{marginTop:"50px" }} onSubmit={(event) => {addListing(event)}}>

@@ -11,6 +11,7 @@ import Footer from './components/footer';
 import Landing from './pages/landing';
 import Createlisting from './pages/createlisting';
 import Listingdetails from './pages/listingdetails';
+import Editlisting from './pages/editlisting';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/landing" element={<Landing/>}/>
           <Route path="/create-listing" element={<Createlisting/>}/>
           <Route exact path="/listing-details/:docid" element={<Listingdetails/>}/>
+          <Route exact path="/edit-listing/:docid" element={<Editlisting/>}/>
         </Routes>
       </BrowserRouter>
       <Footer/>

@@ -1,8 +1,7 @@
 import React, { Component, useEffect, useState } from "react";
 import {doc, getDoc, deleteDoc} from "firebase/firestore";
 import { db } from '../firebaseConfig';
-import './listingdetails.css';
-import test from '../images/nintendo-switch-console.png';
+import { Link } from 'react-router-dom';
 
 // will display all listing details when a listing is clicked on from home page
 const Listingdetails = () => {
@@ -25,6 +24,7 @@ const Listingdetails = () => {
     }, []);
     
     // checking if seller of listing is current user or not to display correct HTML
+    let editButton;
     let listingButton; // this will either read "dm user" or "delete listing" based on who the seller is
     let submitEvent; // this will determine if user will delete the listing or be sent to "dm user" page...
     // checking is the seller of THIS listing is same as current user by checking emails since they're unique
@@ -33,11 +33,12 @@ const Listingdetails = () => {
         //submitEvent = navigate to dm user or similar....
         
     } else {
+        editButton = <Link to={{pathname:`/edit-listing/${did}`}}>edit</Link>
         listingButton = <button type="submit">delete listing</button>
         submitEvent = (event)=>deleteListing(event); // DELETES LISTING FROM DATABASE
     }
 
-    // BE CAREFUL DEBUGGING!!!!!!!!!!
+    // BE CAREFUL DEBUGGING!
     const deleteListing = async (e) => {
         e.preventDefault();
 
@@ -49,31 +50,33 @@ const Listingdetails = () => {
             window.location.href='/home'; // takes user to home page once record has been deleted
         } catch(e){
             console.log("Error deleting document: ", e);
-        }
-        
+        } 
     }
 
     document.title="Listing Details";
+
     return (
-        <div className="padding container">
+        <div className="padding container"> {/* using grid system (className=container/row/col) for layout: https://react-bootstrap.github.io/layout/grid/*/}
+            {/* using bootstrap for search bar form */}
             <form className="d-flex search-form">
                 <input className="form-control me-2 search-input" type="search" placeholder="search here" aria-label="Search"></input>
                 <button className="search-btn btn-outline-success" type="submit">search by filter</button>
             </form>
-            <div className="row row-style">
-                <div className="col col-style">
-                    <img src={details.photo} class="col-style" alt="..."/>
+            <div className="row">
+                <div className="col">
+                    <img src={details.photo} alt="..." width="300" height="300"/>
                     <p>compare item link goes here</p>
                 </div>
-                <div className="col col-style">
+                <div className="col">
                     <div>
-                        {/* uses details from document grabbed earlier to fill out the HTML elements */}
-                        <h4>{details.price}</h4> 
-                        <h4>{details.title}</h4>
+                        {/* uses details from document grabbed earlier to fill out elements below */}
+                        <h4>Price: {details.price}</h4> 
+                        <h4>Title: {details.title}</h4>
                         <h5>Seller:</h5>
-                        <p><a href="#">{details.seller}</a></p>
+                        <p><a href="#">{details.seller}</a></p> {/* TO-DO: link to user profile*/}
                         <h5>Description:</h5>
                         <p>{details.description}</p>
+                        {editButton}
                         {/* based on if listing belongs to current user, action of the button is different, as shown above */}
                         <form onSubmit={submitEvent}>{listingButton}</form>
                     </div>
