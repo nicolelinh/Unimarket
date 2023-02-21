@@ -14,7 +14,8 @@ function SignIn() {
         .then((userCredential) => {
             // Signed in 
             console.log(userCredential.user);
-            // ...
+            // refreshes page after signed in to update navbar
+            window.location.reload(true);
         })
         .catch((error) => {
             console.log(error);
