@@ -1,0 +1,24 @@
+.diamond-shape {
+    background: gray;
+    opacity: 80%;
+    height: 60px;
+    text-align: center;
+    transform:rotate(45deg);
+    width:60px;
+    margin:auto;
+    margin-top: -46px;
+}
+
+.listing-price {
+    color: white;
+    display: table-cell;
+    height: 60px;
+    transform: rotate(-45deg);
+    vertical-align: middle;
+    width:60px;
+}
+
+.card-spacing{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
