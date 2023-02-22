@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState } from "react";
 import '../App.css';
 import { auth } from '../firebaseConfig'
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -8,6 +8,7 @@ function SignIn() {
     const [newEmail, setNewEmail] = useState("");
     const [newPassword, setNewPassword] = useState("");
     
+    // sign in function
     const signIn = (event) => {
         event.preventDefault();
         signInWithEmailAndPassword(auth, newEmail, newPassword)
@@ -23,6 +24,7 @@ function SignIn() {
         });
     };
 
+    // visible portion of the page(buttons and input fields)
     return (
         <div className="SignIn">
             <h2>Sign In</h2>
@@ -51,6 +53,7 @@ function SignIn() {
                     />
                     </h3>
                 </div>
+                <button class="forgotpassword"><a href="/forgotpassword">forgotpassword</a></button>
                 <button type="submit"> Sign In </button>
                 </form>
         </div>

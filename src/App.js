@@ -6,6 +6,7 @@ import SignIn from './pages/signin';
 import SignUp from './pages/signup';
 import SignOut from './pages/signout';
 import AuthDetails from './components/authdetails';
+import ForgotPassword from './pages/forgotpassword';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
 import Landing from './pages/landing';
@@ -25,6 +26,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signout" element={<SignOut />} />
           <Route path="/landing" element={<Landing/>}/>
+          <Route path="/forgotpassword" element={<ForgotPassword/>}/>
           <Route path="/create-listing" element={<Createlisting/>}/>
           <Route exact path="/listing-details/:docid" element={<Listingdetails/>}/>
           <Route exact path="/edit-listing/:docid" element={<Editlisting/>}/>
