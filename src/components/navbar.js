@@ -43,6 +43,9 @@ const Navbar = () => {
                             <li className="nav-item">
                                 <a className="nav-link" href="/">carpool</a>
                             </li>
+                            <li>
+                                <a className="nav-link" href="/request">request item</a>
+                            </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="/">services</a>
                             </li>

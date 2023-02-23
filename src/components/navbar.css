@@ -5,3 +5,7 @@
 .bg-gray{
     background-color: gray;
 }
+
+.btn {
+    background-color: rgb(45, 109, 71) !important;
+}
