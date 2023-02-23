@@ -1,23 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
-import {  
-  BrowserRouter,  
-  Routes,  
-  Route
-}   
-from 'react-router-dom'; 
+import { BrowserRouter, Routes, Route }   from 'react-router-dom'; 
 import Home from './pages/home';
 import SignIn from './pages/signin';
 import SignUp from './pages/signup';
 import SignOut from './pages/signout';
 import AuthDetails from './components/authdetails';
+import ForgotPassword from './pages/forgotpassword';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
 import Landing from './pages/landing';
-//Item and Carpool Listing Request pages imported to UniMarket site. 
+import Createlisting from './pages/createlisting';
+import Listingdetails from './pages/listingdetails';
+import Editlisting from './pages/editlisting';
 import Request from './pages/request'
 import CarpoolRequest from './pages/carpoolrequest'
-
 
 function App() {
   return (
@@ -26,12 +23,15 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home/>} />
+          <Route path="/home" element={<Home/>} />
           <Route path="/signin" element={<><SignIn /><AuthDetails /></>} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signout" element={<SignOut />} />
           <Route path="/landing" element={<Landing/>}/>
-          <Route path="/request" element={<Request/>}/>
-          <Route path="/carpoolrequest" element={<CarpoolRequest/>}/>
+          <Route path="/forgotpassword" element={<ForgotPassword/>}/>
+          <Route path="/create-listing" element={<Createlisting/>}/>
+          <Route exact path="/listing-details/:docid" element={<Listingdetails/>}/>
+          <Route exact path="/edit-listing/:docid" element={<Editlisting/>}/>
         </Routes>
       </BrowserRouter>
       <Footer/>
