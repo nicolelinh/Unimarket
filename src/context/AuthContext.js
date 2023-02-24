@@ -1,3 +1,7 @@
+// This file essentially does what the authdetails.js does. I didn't realize we already had this functionality.
+// Messaging relies on this though, so I will leave it for now, but I might refactor the messaging to use
+// authdetails.js instead of this file if I have time.
+
 import { onAuthStateChanged } from "firebase/auth";
 import { createContext, useState, useEffect } from "react";
 import { auth, db } from "../firebaseConfig"
