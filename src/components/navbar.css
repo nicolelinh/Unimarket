@@ -1,5 +1,9 @@
 .bg-green {
-    background-color: rgb(74, 178, 115) !important;
+    background-color: rgb(132, 173, 151);
+}
+
+.bg-gray{
+    background-color: gray;
 }
 
 .btn {
