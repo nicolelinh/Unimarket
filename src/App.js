@@ -12,11 +12,12 @@ import Navbar from './components/navbar';
 import Footer from './components/footer';
 import Landing from './pages/landing';
 import Createlisting from './pages/createlisting';
-import Listingdetails from './pages/listingdetails';
+import Listingdetails from './pages/listingDetails';
 import Editlisting from './pages/editlisting';
 import Request from './pages/request'
 import CarpoolRequest from './pages/carpoolrequest'
 import Chat from './pages/chat';
+import Following from './pages/following'
 import ChatPage from './pages/chatpage'
 import { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
@@ -44,7 +45,8 @@ function App() {
           <Route exact path="/edit-listing/:docid" element={<Editlisting/>}/>
           <Route path="/chat" element={<Chat />} />
           <Route path="/chatpage" element={<ChatPage />} />
-          
+          <Route path="/following" element={<Following />} />
+  
         </Routes>
       </BrowserRouter>
       <Footer/>

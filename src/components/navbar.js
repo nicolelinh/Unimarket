@@ -23,10 +23,10 @@ const Navbar = () => {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <a className="nav-link" href="/">following</a>
+                                <a className="nav-link" href="/following">following</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/chat">messages</a>
+                                <a className="nav-link" href="/chatpage">messages</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="/">profile</a>

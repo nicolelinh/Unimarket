@@ -27,6 +27,7 @@ function SignUp() {
                     });
                     await setDoc(doc(db, "userInfo", userCredential.user.uid), {
                         uid: userCredential.user.uid,
+                        email: newEmail,
                         school: newSchool,
                         username: newUserName,
                         phoneNumber: newPhoneNumber

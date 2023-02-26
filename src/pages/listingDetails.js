@@ -1,13 +1,17 @@
-import React, { Component, useEffect, useState } from "react";
-import {doc, getDoc, deleteDoc} from "firebase/firestore";
+import React, { Component, useEffect, useState, useContext } from "react";
+import {doc, getDoc, getDocs, deleteDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { db } from '../firebaseConfig';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
 // will display all listing details when a listing is clicked on from home page
 const Listingdetails = () => {
     // get document id by parsing url
+    const {currentUser} = useContext(AuthContext);
     const did = window.location.pathname.split("/")[2];
     const [details, setDetails] = useState([]);
+    const [followingText, setFollowingText] = useState();
+
 
     // grabs the single document from db based on the document ID
     const getDetails = async () => {
@@ -53,10 +57,40 @@ const Listingdetails = () => {
         } 
     }
 
+    // --------Walid-----------------------------
+    useEffect(() => {
+        async function setInitialFollowLogic() {
+            const userDoc = await getDoc(doc(db, "userInfo", currentUser.uid))
+            if (userDoc.data().following.includes(details.seller)) {
+                setFollowingText("Unfollow")
+            } else {
+                setFollowingText("Follow")
+            }
+        }
+        setInitialFollowLogic();
+    }, [details.seller]);
+
+    const handleFollow = async (userEmail) => {
+        const userDoc = await getDoc(doc(db, "userInfo", currentUser.uid))
+        if (!userDoc.data().following.includes(userEmail)) {
+            await updateDoc(doc(db, "userInfo", currentUser.uid), {
+                following: arrayUnion(userEmail) // arrayUnion is an append
+            });
+            setFollowingText("Unfollow")
+        } else {
+            await updateDoc(doc(db, "userInfo", currentUser.uid), {
+                following: arrayRemove(userEmail)
+            });
+            setFollowingText("Follow")
+        }
+    }
+    // --------------------------------------------
+
     document.title="Listing Details";
 
     return (
         <div className="padding container"> {/* using grid system (className=container/row/col) for layout: https://react-bootstrap.github.io/layout/grid/*/}
+
             {/* using bootstrap for search bar form */}
             <form className="d-flex search-form">
                 <input className="form-control me-2 search-input" type="search" placeholder="search here" aria-label="Search"></input>
@@ -74,6 +108,7 @@ const Listingdetails = () => {
                         <h4>Title: {details.title}</h4>
                         <h5>Seller:</h5>
                         <p><a href="#">{details.seller}</a></p> {/* TO-DO: link to user profile*/}
+                        <p><button id="following" onClick={() => {handleFollow(details.seller)}}>{followingText}</button></p>
                         <h5>Description:</h5>
                         <p>{details.description}</p>
                         {editButton}
