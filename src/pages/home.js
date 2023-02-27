@@ -5,9 +5,11 @@ import Listing from '../components/listing';
 import Landing from "./landing";
 import '../App.css';
 import './home.css';
+import Searchresults from "./searchresults";
 
 const Home = () => {
     const [info, setInfo] = useState([]);
+    const [searchResults, setSearchResults] = useState([]);
 
     window.addEventListener('load', () => {
         Fetchdata();
@@ -33,8 +35,37 @@ const Home = () => {
         const saved = window.localStorage.getItem('USER_EMAIL');
         const initialValue = JSON.parse(saved);
         return initialValue || "";
-      }, []);
+    }, []);
 
+    // makes sure search bar input is valid
+    async function validateData(e) {
+        var searchBarInput = document.getElementById('usersearch').value;
+        var searchBarInputURL = searchBarInput.replace(/\s/g, '_');
+        var searchBarInputQuery = searchBarInput.split(" ");
+        var searchBarLimit = document.getElementById('usersearch').value.length;
+        var isValidSearch = false;
+
+        if (searchBarLimit <= 40) {
+            isValidSearch = true;
+        } else {
+            alert('Search Bar character limit is 40 characters.');
+        }
+
+        if (isValidSearch) {
+            //https://firebase.google.com/docs/firestore/query-data/queries 
+            await getDocs(query(marketRef, where("title", "in", searchBarInputQuery), where("description", "in", searchBarInputQuery))).then((querySnapshot)=>{
+                const newSearchResults = querySnapshot.docs.map((doc)=> ({...doc.data(), id:doc.id}));
+                setSearchResults(newSearchResults);
+                console.log(info, newSearchResults);
+            });
+            
+            // takes user to /search-results/words_entered_in_search_bar
+            <Searchresults results={searchResults}/>
+            window.location.href='/search-results/'+searchBarInputURL;
+            
+        }
+    }
+    
     document.title="Home";
 
     // if email is not empty, someone is signed in so it shows actual home page, NOT landing page
@@ -44,8 +75,8 @@ const Home = () => {
             <section>
                 <div className="padding container">
                     <h1 className="pill-form">Welcome {email}</h1>
-                    <form className="d-flex search-form">
-                        <input className="form-control me-2 search-input" type="search" placeholder="search here" aria-label="Search"></input>
+                    <form className="d-flex search-form" onSubmit={(event) => {validateData(event)}}>
+                        <input className="form-control me-2 search-input" id="usersearch" type="search" placeholder="search here" aria-label="Search"></input>
                         <button className="search-btn btn-outline-success" type="submit">search by filter</button>
                     </form>
                     <div className="row">

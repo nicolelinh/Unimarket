@@ -20,6 +20,7 @@ import Chat from './pages/chat';
 import ChatPage from './pages/chatpage'
 import { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
+import Searchresults from './pages/searchresults';
 
 
 
@@ -45,6 +46,8 @@ function App() {
           <Route path="/chatpage" element={<ChatPage />} />
           <Route path="/create-carpool-request" element={<CarpoolRequest/>}/>
           <Route path="/create-request" element={<Request/>}/>
+          <Route exact path="/search-results/:searchBarInput" element={<Searchresults/>} />
+
         </Routes>
       </BrowserRouter>
       <Footer/>

@@ -43,6 +43,7 @@ const Createlisting = () => {
         setImage([...e.target.files]);
     }
 
+    // needs to be async for "await" in addListing to work 
     async function validateData(e) {
         var allowedExtensions = ['jpeg', 'jpg', 'png'];
         var imgExt = document.getElementById('userimg').value.split('.').pop().toLowerCase();
