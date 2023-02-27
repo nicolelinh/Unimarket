@@ -59,7 +59,7 @@ const Home = () => {
                         {/* <div className="col"></div> */}
                         <div className="col col-spacing">
                             <h4 className="question-2"><em>looking for carpool or other services?</em></h4>
-                            <h4 className="question-2"><em><a className="question-brown" href="/create-carpool-request">carpool</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="#">other services</a></em></h4>
+                            <h4 className="question-2"><em><a className="question-brown" href="/create-carpool-request">carpool</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="">other services</a></em></h4>
                         </div>
                     </div>
                     <div className="listings-cont">
