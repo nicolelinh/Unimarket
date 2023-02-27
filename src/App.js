@@ -32,7 +32,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home/>} />
-
           <Route path="/home" element={<Home/>} />
           <Route path="/signin" element={<><SignIn /><AuthDetails /></>} />
           <Route path="/signup" element={<SignUp />} />
@@ -44,7 +43,8 @@ function App() {
           <Route exact path="/edit-listing/:docid" element={<Editlisting/>}/>
           <Route path="/chat" element={<Chat />} />
           <Route path="/chatpage" element={<ChatPage />} />
-          
+          <Route path="/create-carpool-request" element={<CarpoolRequest/>}/>
+          <Route path="/create-request" element={<Request/>}/>
         </Routes>
       </BrowserRouter>
       <Footer/>

@@ -51,7 +51,7 @@ const Home = () => {
                     <div className="row">
                         <div className="col col-spacing">
                             <h4 className="question-1"><em>need to sell or request a market item?</em></h4>
-                            <h4 className="question-1"><em><a className="question-brown" href="/create-listing">sell</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="#">request</a></em></h4>
+                            <h4 className="question-1"><em><a className="question-brown" href="/create-listing">sell</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="/create-request">request</a></em></h4>
                         </div>
                         {/* <div className="col"></div> */}
                     </div>
@@ -59,7 +59,7 @@ const Home = () => {
                         {/* <div className="col"></div> */}
                         <div className="col col-spacing">
                             <h4 className="question-2"><em>looking for carpool or other services?</em></h4>
-                            <h4 className="question-2"><em><a className="question-brown" href="#">carpool</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="#">other services</a></em></h4>
+                            <h4 className="question-2"><em><a className="question-brown" href="/create-carpool-request">carpool</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="#">other services</a></em></h4>
                         </div>
                     </div>
                     <div className="listings-cont">
