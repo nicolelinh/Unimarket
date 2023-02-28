@@ -10,39 +10,47 @@ const Following = () => {
     const [listings, setListings] = useState([]);
 
     useEffect(() => {
-        console.log('test')
-        try {
-            const follow = async() => {
-                const userDoc = await getDoc(doc(db, "userInfo", currentUser.uid))
-                if (userDoc.data().following) {
-                    setFollowingList(userDoc.data().following)
+        if (currentUser.uid) {
+            try {
+                const follow = async() => {
+                    const userDoc = await getDoc(doc(db, "userInfo", currentUser.uid))
+                    if (userDoc.data().following) {
+                        setFollowingList(userDoc.data().following)
+                    }
                 }
+                follow();
+            } catch (e) {
+                console.log("Error establishing followingList " + e);
             }
-            follow();
-        } catch (e) {
-            console.log(e)
         }
     }, [currentUser.uid]);
 
-    const weee = async() => {
-        const marketListingsRef = collection(db, "marketListings");
-        const q = query(marketListingsRef, where("seller", "in", followingList));
-        const querySnapshot = await getDocs(q);
-        const x = querySnapshot.docs.map((doc) => ({...doc.data(), id: doc.id }))
-        console.log(x)
-        setListings(x)
-        
-        console.log(listings)
+    const followingListQuery = async() => {
+        if (followingList && followingList.length) {
+            const marketListingsRef = collection(db, "marketListings");
+            const q = query(marketListingsRef, where("seller", "in", followingList));
+            const querySnapshot = await getDocs(q);
+            const x = querySnapshot.docs.map((doc) => ({...doc.data(), id: doc.id }))
+            console.log(x)
+            setListings(x)
+        } else {
+            console.log('test1')
+        }
     }
 
     useEffect(() => {
-        weee();
+        followingListQuery();
     }, [followingList])
     
 
 
     return (
         <main>
+        <section>
+            {listings?.map((data) => {
+
+            })}
+        </section>
         <section>
             <div className="padding container">
                 <div className="listings-cont">

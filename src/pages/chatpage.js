@@ -2,21 +2,28 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from '../context/AuthContext';
-import { db } from '../firebaseConfig';
-import { getDoc, doc, onSnapshot } from "firebase/firestore"
-import { ConvoContext } from "../context/ConvoContext";
-import ChatInput from "../components/chat/ChatInput"
+import { db, storage } from '../firebaseConfig';
+import { getDoc, doc, onSnapshot, updateDoc, arrayUnion, Timestamp } from "firebase/firestore"
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
 import Message from "../components/chat/Message"
-
 import "../components/chat/chat.css"
 
 function ChatPage() {
     //https://stackoverflow.com/questions/70076937/how-to-change-value-of-react-context-from-another-component-react
     const {currentUser} = useContext(AuthContext);
-    const {currentConvo} = useContext(ConvoContext);
-    const currentConvoContext = useContext(ConvoContext);
 
-    // navigate is from the react-router-dom, used to change pages
+    const [ messages, setMessages ] = useState([]);
+    const [ chats, setChats ] = useState([]);
+    const [ convoID, setConvoID ] = useState([]);
+    const [ text, setText ] = useState("");
+    const [ image, setImage ] = useState(null);
+    const [ currentChatUsername, setCurrentChatUsername] = useState("");
+    const [ currentChatUid, setCurrentChatUid] = useState("");
+
+    function generateId() {
+        return "id" + Math.random().toString(16).slice(2)
+    }
+
     let navigate = useNavigate(); 
 
     // If we aren't loggedIn
@@ -25,21 +32,16 @@ function ChatPage() {
     }
 
     // If we don't have someone we are currently chatting with
-    if (!currentConvo) {
-        navigate("/chat")
-    }
+    // if (!currentConvo) {
+    //     navigate("/chat")
+    // }
 
-    // Variable for holding our conversations
-    const [chats, setChats] = useState([]);
     useEffect(() => {
-        //React hook
         const getChats = () => {
-            // onSnapshot is a firebase function that will listen and continually update when the database is updates
-            // Needed because the UI changes as new messages are made
-            const chatDoc = onSnapshot(doc(db, "chatBetweenTwoUsers", currentUser.uid), (doc) => {
-                setChats(doc.data());
+            console.log('getchats')
+            const chatDoc = onSnapshot(doc(db, "userInfo", currentUser.uid), (doc) => {
+                setChats(doc.data().conversations);
             });
-            console.log(chats)
 
         return () => {
             chatDoc();
@@ -49,26 +51,24 @@ function ChatPage() {
             getChats()
         }
 
-    }, [currentUser.uid]); // React hook dependency
-    
-    // Our array of messages variable
-    const [messages, setMessages] = useState([]);
+    }, [currentUser.uid]);
+
 
     const changeConvo = async(uid) => {
+        console.log('changeconvo')
         // This function fires when clicking a certain user in the chat UI sidebar, so we find the user based on the id
         const data = await getDoc(doc(db, "userInfo", uid));
-        // Setting the ChatContext to the information of the clicked user
-        currentConvoContext.changeCurrentConvo(data.data())
+        setCurrentChatUsername(data.data().userName)
+        setCurrentChatUid(uid);
 
         // Conversations are stored as a combination of the two ids, with the greater being first, this logic handles that
-        let convoID = null;
-        if (currentUser.uid > currentConvo.uid) {
-            convoID = currentUser.uid + currentConvo.uid
+        if (currentUser.uid > uid) {
+            setConvoID(currentUser.uid + uid)
         } else {
-            convoID = currentConvo.uid + currentUser.uid
+            setConvoID(uid + currentUser.uid)
         }
             // Finding the conversation (array of messages) with the combined ID and setting it
-            const chatDoc = onSnapshot(doc(db, "chats", convoID), (doc) => {
+            const chatDoc = onSnapshot(doc(db, "messages", convoID), (doc) => {
                 setMessages(doc.data().messages)
             })
     
@@ -76,6 +76,66 @@ function ChatPage() {
                 chatDoc();
             }
     }
+
+    const handleSubmit = async() => {
+        if (image) {
+            // Firebase reference to storage, takes an ID, which we generate with our function above
+            const storageRef = ref(storage, 'messages/', generateId())
+            // Firebase function needed to upload image
+            const uploadTask = uploadBytesResumable(storageRef, image);
+            uploadTask.on(
+                (error) => {
+                    alert('Erorr uploading image. Please try again')
+                    console.log(error)
+                }, () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+                        await updateDoc(doc(db, "messages", convoID), {
+                            messages: arrayUnion({
+                                text: text, 
+                                senderId: currentUser.uid,
+                                date: Timestamp.now(),
+                                img: downloadURL
+                            })
+                        }).then(async() => {
+                            await updateDoc(doc(db, "userInfo", currentUser.uid), {
+                                ["conversations."+convoID+".lastMessage"]: text,
+                                ["conversations."+convoID+".date"]: Timestamp.now()
+                            })
+    
+                            await updateDoc(doc(db, "userInfo", currentChatUid), {
+                                ["conversations."+convoID+".lastMessage"]: text, 
+                                ["conversations."+convoID+".date"]: Timestamp.now()
+                            })
+                        })
+                    })
+                }
+            )
+        } else {
+            // If we don't have an image, do the same process above but without image data
+            await updateDoc(doc(db, "messages", convoID), {
+                messages: arrayUnion({ 
+                    text: text,
+                    senderId: currentUser.uid,
+                    date: Timestamp.now()
+                })
+            }).then(async () => {
+
+                // updating both chats with the last message and the time for sorting
+                await updateDoc(doc(db, "userInfo", currentUser.uid), {
+                    ["conversations."+convoID+".lastMessage"]: text,
+                    ["conversations."+convoID+".date"]: Timestamp.now()
+                })
+
+                await updateDoc(doc(db, "userInfo", currentChatUid), {
+                    ["conversations."+convoID+".lastMessage"]: text, // dot (.) notation as explained in the above comment
+                    ["conversations."+convoID+".date"]: Timestamp.now()
+                })
+            })
+        }
+        setText("")
+        setImage(null)
+    }
+
 
     return (
             
@@ -90,6 +150,7 @@ function ChatPage() {
                         {/* Strategy taken for this sorting taken from here: https://stackoverflow.com/questions/10123953/how-to-sort-an-object-array-by-date-property*/}
                         {/* Also referenced https://www.youtube.com/watch?v=k4mjF4sPITE*/}
                         {Object.entries(chats).sort((first, second)=>second[1].date - first[1].date).map((chat) => {
+                            {console.log("chat")}
                             return <div className="chat-userChat" 
                                     onClick={() => changeConvo(chat[1].uid)}>
 
@@ -105,19 +166,28 @@ function ChatPage() {
                     <div className="chat-main">
                         <div className="chat-info">
                             <span className="chat-username">
-                                {currentConvoContext.currentConvoUsername}
+                                { 'testees' }
                             </span>
                         </div>
                         <div className="chat-messages">
                             {/* Printing all messages, we render the message component created in another file. We pass the current message as an input to that component*/}
-                            {messages.map((m) => {
+                            {messages.length > 0 && messages.map((m) => {
+                                {console.log('message')}
                                 return <Message data={m} />
                             })}
                         </div>
                         
                         <div> 
-                            {/* Render the chatinput component, needed*/}
-                            <ChatInput/>
+                            <div className="chat-input">
+                                <input className="chat-input-form" type="text" placeholder="text" onChange={(text) => setText(text.target.value)} value={text}/>
+                                <div className="chat-submit">
+                                    <input type="file" id="chat-img" onChange={(image) => setImage(image.target.files[0])}/>
+                                    <label htmlFor="chat-img" style={{ cursor: "pointer" }}>
+                                        Image
+                                    </label>
+                                    <button className="" onClick={handleSubmit}>Send</button>
+                                </div>  
+                            </div>
                         </div>
                     </div>
 

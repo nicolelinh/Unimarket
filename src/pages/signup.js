@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState } from "react";
 import '../App.css';
 //import { useState, useEffect } from 'react';
 import { auth, db } from '../firebaseConfig'
@@ -30,12 +30,13 @@ function SignUp() {
                         email: newEmail,
                         school: newSchool,
                         username: newUserName,
-                        phoneNumber: newPhoneNumber
+                        phoneNumber: newPhoneNumber,
+                        conversations: {}
                     })
                     
                 // On signup, create a new database document that will store all chats between two users for this particular user
                 // It is not saved directly to the userInfo collection, so we use the users ID to reference it (one to one relationship)
-                await setDoc(doc(db, "chatBetweenTwoUsers", userCredential.user.uid), {});
+                // await setDoc(doc(db, "chatBetweenTwoUsers", userCredential.user.uid), {});
                 
                 console.log(userCredential.user);
                 console.log(auth.currentUser.email);

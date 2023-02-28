@@ -17,7 +17,7 @@ function Login() {
 
             // On login, we possible create another database document which stores the conversations between two users
             // Do this in case of errors. It doesn't override, just creates incase it doesn't exist (using the merge keyword)
-            await setDoc(doc(db, "chatBetweenTwoUsers", userCredential.user.uid), {}, { merge: true });
+            // await setDoc(doc(db, "chatBetweenTwoUsers", userCredential.user.uid), {}, { merge: true });
             console.log(userCredential.user);
             // ...
         })
