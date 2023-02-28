@@ -12,7 +12,7 @@ import Navbar from './components/navbar';
 import Footer from './components/footer';
 import Landing from './pages/landing';
 import Createlisting from './pages/createlisting';
-import Listingdetails from './pages/listingDetails';
+import Listingdetails from './pages/listingdetails';
 import Editlisting from './pages/editlisting';
 import Request from './pages/request'
 import CarpoolRequest from './pages/carpoolrequest'
@@ -21,8 +21,6 @@ import ChatPage from './pages/chatpage'
 import { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
 import Searchresults from './pages/searchresults';
-
-
 
 function App() {
 
@@ -46,7 +44,7 @@ function App() {
           <Route path="/chatpage" element={<ChatPage />} />
           <Route path="/create-carpool-request" element={<CarpoolRequest/>}/>
           <Route path="/create-request" element={<Request/>}/>
-          <Route exact path="/search-results/:searchBarInput" element={<Searchresults/>} />
+          <Route exact path="/search-results/:docid" element={<Searchresults/>} />
 
         </Routes>
       </BrowserRouter>

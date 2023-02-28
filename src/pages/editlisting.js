@@ -9,7 +9,12 @@ import { getStorage, ref, uploadBytes, getDownloadURL, uploadBytesResumable } fr
 const Editlisting = () => {
     // get document id by parsing url
     const did = window.location.pathname.split("/")[2];
+    // info needed to update listing
+    const [t, setTitle] = useState("");
+    const [d, setDesc] = useState("");
+    const [p, setPrice] = useState("");
     const [details, setDetails] = useState([]);
+    
 
     // grabs the single document from db based on the document ID
     const getDetails = async () => {
@@ -25,22 +30,22 @@ const Editlisting = () => {
         getDetails();
     }, []);
 
-    // info needed to update listing
-    const [t, setTitle] = useState(String(details.title));
-    const [d, setDesc] = useState(String(details.description));
-    const [p, setPrice] = useState(String(details.price));
-
     // edits listing in marketListings collection in database
     const updateListing = async (e) => {
         e.preventDefault();
 
         try {
+            setTitle(details.title);
+            setDesc(details.description);
+            setPrice(details.price);
             console.log("title: "+t);
+            console.log("desc: "+d);
+            console.log("price: "+p);
             // updating document in collection
             const docRef = await updateDoc(doc(db, "marketListings", did), {
                 title: t,
                 description: d,
-                price: p,
+                price: "$" + p,
                 //photo: imgURL,
                 timeUpdated: Date().toLocaleString()
             })
@@ -74,7 +79,7 @@ const Editlisting = () => {
                             onChange={(e)=>{setDesc(e.target.value)}} required />
                             <br/><br/>
                             <h5>item price:</h5>
-                            <input type="text" placeholder="$0" defaultValue={details.price}
+                            <input type="number" placeholder="$0" defaultValue={details.price}
                             onChange={(e)=>{setPrice(e.target.value)}} required />
                             <br/><br/>
                             <button type="submit">re-list item</button>

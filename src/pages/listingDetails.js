@@ -2,6 +2,7 @@ import React, { Component, useEffect, useState } from "react";
 import {doc, getDoc, deleteDoc} from "firebase/firestore";
 import { db } from '../firebaseConfig';
 import { Link } from 'react-router-dom';
+import { getStorage, ref, deleteObject } from "firebase/storage";
 
 // will display all listing details when a listing is clicked on from home page
 const Listingdetails = () => {
@@ -47,6 +48,18 @@ const Listingdetails = () => {
             const docRef = doc(db, "marketListings", did);
             await deleteDoc(docRef); // deletes document
             console.log("Document successfully deleted! ");
+
+            // delete photo from storage
+            const storage = getStorage();
+            const photoRef = ref(storage, 'images/'+details.photo);
+            // Delete the file
+            //https://firebase.google.com/docs/storage/web/delete-files
+            deleteObject(photoRef).then(() => {
+                console.log("Photo deleted successfully!");
+            }).catch((error) => {
+                // Uh-oh, an error occurred!
+                console.log("Error deleting photo: ", e);
+            });
             window.location.href='/home'; // takes user to home page once record has been deleted
         } catch(e){
             console.log("Error deleting document: ", e);
@@ -58,10 +71,6 @@ const Listingdetails = () => {
     return (
         <div className="padding container"> {/* using grid system (className=container/row/col) for layout: https://react-bootstrap.github.io/layout/grid/*/}
             {/* using bootstrap for search bar form */}
-            <form className="d-flex search-form">
-                <input className="form-control me-2 search-input" type="search" placeholder="search here" aria-label="Search"></input>
-                <button className="search-btn btn-outline-success" type="submit">search by filter</button>
-            </form>
             <div className="row">
                 <div className="col">
                     <img src={details.photo} alt="..." width="300" height="300"/>

@@ -45,6 +45,8 @@ const Createlisting = () => {
 
     // needs to be async for "await" in addListing to work 
     async function validateData(e) {
+        e.preventDefault();
+
         var allowedExtensions = ['jpeg', 'jpg', 'png'];
         var imgExt = document.getElementById('userimg').value.split('.').pop().toLowerCase();
         var titleLimit = document.getElementById('usertitle').value.length;
@@ -95,22 +97,23 @@ const Createlisting = () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                     console.log("file at: ", downloadURL);
                     setImgURL(downloadURL);
-                    console.log(imgURL[0]);
+                    console.log(imgURL);
                 })
             })
             console.log("inside validate data" + imgURL);
             //To-Do: move the code inside of addListing here instead of calling the function
             // so theres no issues with the photoURL being empty bc it didn't get a chance to post
-            addListing(e)
-
-        } else {
-            return e; // needed?
+            addListing(e);
+            
+            return true;
         }
-        
+        return false;
     }
     // adds listing to marketListings collection in database
     const addListing = async (e) => {
         e.preventDefault();
+        //await validateData();
+        console.log("in addlisting top");
 
         try {
             // adding new document to collection
