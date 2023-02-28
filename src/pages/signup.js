@@ -31,7 +31,8 @@ function SignUp() {
                         school: newSchool,
                         username: newUserName,
                         phoneNumber: newPhoneNumber,
-                        conversations: {}
+                        conversations: {},
+                        following: []
                     })
                     
                 // On signup, create a new database document that will store all chats between two users for this particular user

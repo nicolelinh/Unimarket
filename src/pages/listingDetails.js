@@ -1,13 +1,17 @@
-import React, { Component, useEffect, useState, useContext } from "react";
-import {doc, getDoc, getDocs, deleteDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import React, { useEffect, useState, useContext } from "react";
+import { doc, setDoc, getDoc, getDocs, deleteDoc, updateDoc, arrayUnion, arrayRemove, collection, query, where, Timestamp } from "firebase/firestore";
 import { db } from '../firebaseConfig';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 // will display all listing details when a listing is clicked on from home page
 const Listingdetails = () => {
     // get document id by parsing url
+
+    //--------------------Walid---------------
     const {currentUser} = useContext(AuthContext);
+    let navigate = useNavigate(); 
+    //-------------------------------------------
     const did = window.location.pathname.split("/")[2];
     const [details, setDetails] = useState([]);
     const [followingText, setFollowingText] = useState();
@@ -34,7 +38,7 @@ const Listingdetails = () => {
     // checking is the seller of THIS listing is same as current user by checking emails since they're unique
     if (details.seller !== JSON.parse(window.localStorage.getItem('USER_EMAIL'))){
         listingButton = <button type="submit">dm user button</button>
-        //submitEvent = navigate to dm user or similar....
+        submitEvent = (event) => handleMessageSelect(event, details.seller); 
         
     } else {
         editButton = <Link to={{pathname:`/edit-listing/${did}`}}>edit</Link>
@@ -57,9 +61,10 @@ const Listingdetails = () => {
         } 
     }
 
-    // --------Walid-----------------------------
+    // --------Walid------------------------------------------------
     useEffect(() => {
         async function setInitialFollowLogic() {
+            console.log(currentUser.uid)
             const userDoc = await getDoc(doc(db, "userInfo", currentUser.uid))
             if (userDoc.data().following.includes(details.seller)) {
                 setFollowingText("Unfollow")
@@ -84,7 +89,51 @@ const Listingdetails = () => {
             setFollowingText("Follow")
         }
     }
-    // --------------------------------------------
+
+    const handleMessageSelect = async (event, userEmail) => {
+        // https://stackoverflow.com/questions/58408111/firebase-firestore-query-get-one-result
+        event.preventDefault();
+        const userDoc = await getDoc(doc(db, "userInfo", currentUser.uid))
+        const userInfoRef = collection(db, "userInfo");
+        const q = query(userInfoRef, where("email", "==", userEmail));
+        const querySnapshot = await getDocs(q);
+        const x = querySnapshot.docs.map((doc) => ({...doc.data(), id: doc.id }))
+        const dmUID = x[0].uid
+
+        let convoID = null;
+        if (currentUser.uid > dmUID) {
+
+            convoID = currentUser.uid + dmUID;
+        } else {
+            convoID = dmUID + currentUser.uid;
+        }
+        const existingChat = await getDoc(doc(db, "messages", convoID))
+
+        if (!existingChat.exists() && convoID) {
+            await setDoc(doc(db, "messages", convoID), { messages: [] });
+
+            // Update the database for both the currently logged in user and the clicked user to reflect the new conversation
+            await updateDoc(doc(db, "userInfo", currentUser.uid), {
+                ["conversations."+convoID]: {
+                    uid: dmUID,
+                    userName: details.seller, // The clicked user's information
+                    date: Timestamp.now(), // Needed for sorting messages, (most recent)
+                    lastMessage: "" // Lastmessage for ease of access, needed in the UI
+                }
+            });
+
+            await updateDoc(doc(db, "userInfo", dmUID), {
+                ["conversations."+convoID]: {
+                    uid: currentUser.uid,
+                    userName: userDoc.data().username, 
+                    date: Timestamp.now(), 
+                    lastMessage: "" 
+                }
+            });
+        }
+        navigate('/chatpage');   
+    }
+    // ----------------------End Walid's Contribution-----------------------------------
 
     document.title="Listing Details";
 

@@ -43,7 +43,7 @@ const Following = () => {
     }, [followingList])
     
 
-
+    //---------------------I did not write anything in this return, reused from other pages-----------------------------
     return (
         <main>
         <section>
@@ -81,6 +81,7 @@ const Following = () => {
         </section>
     </main>
     )
+    //---------------------I did not write anything in this return, reused from other pages-----------------------------
 }
 
 export default Following;
