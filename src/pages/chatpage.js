@@ -166,7 +166,7 @@ function ChatPage() {
                     <div className="chat-main">
                         <div className="chat-info">
                             <span className="chat-username">
-                                { 'testees' }
+                                { 'insert username here and maybe date of last sent message' }
                             </span>
                         </div>
                         <div className="chat-messages">

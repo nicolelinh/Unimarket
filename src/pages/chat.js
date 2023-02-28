@@ -1,4 +1,5 @@
 // chat.js
+// THIS FILE NOT NEEDED. KEEP FOR REFERENCE, BUT WILL EVENTUALLY GET DELETED
 
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
