@@ -15,6 +15,7 @@ function SignOut () {
         });
     };
 
+
     // visible portion of the page(sign out the current user)
     return (
         <div>

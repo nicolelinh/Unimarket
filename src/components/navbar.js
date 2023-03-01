@@ -26,7 +26,7 @@ const Navbar = () => {
                                 <a className="nav-link" href="/">following</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/">messages</a>
+                                <a className="nav-link" href="/chat">messages</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="/">profile</a>
