@@ -41,7 +41,7 @@ const Navbar = () => {
                                 <a className="nav-link" href="/">market</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/">carpool</a>
+                                <a className="nav-link" href="/carpoolrequest">carpool</a>
                             </li>
                             <li>
                                 <a className="nav-link" href="/request">request item</a>
