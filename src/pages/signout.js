@@ -19,7 +19,7 @@ function SignOut () {
     // visible portion of the page(sign out the current user)
     return (
         <div>
-            {<button onClick={userSignOut}>Sign Out</button>}
+            {<button onClick={userSignOut}><a href="/home">Sign Out</a></button>}
         </div>
     );
 }
