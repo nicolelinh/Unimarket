@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
-import { collection, addDoc, getDoc, doc, getDocs, query, where } from "firebase/firestore";
+import { collection, getDoc, doc, getDocs, query, where } from "firebase/firestore";
 import { db } from '../firebaseConfig';
 import { AuthContext } from '../context/AuthContext';
 import Listing from '../components/listing';
 
 const Following = () => {
+    // Set up React states for keeping track of the following list (users), and the listings
     const {currentUser} = useContext(AuthContext);
     const [followingList, setFollowingList] = useState([]);
     const [listings, setListings] = useState([]);
@@ -12,6 +13,7 @@ const Following = () => {
     useEffect(() => {
         if (currentUser.uid) {
             try {
+                // Create a list of all users currently being followed
                 const follow = async() => {
                     const userDoc = await getDoc(doc(db, "userInfo", currentUser.uid))
                     if (userDoc.data().following) {
@@ -25,10 +27,11 @@ const Following = () => {
         }
     }, [currentUser.uid]);
 
+    // Building a query to extract the listings from the followed users
     const followingListQuery = async() => {
-        if (followingList && followingList.length) {
+        if (followingList && followingList.length) { // If at least one user is being followed
             const marketListingsRef = collection(db, "marketListings");
-            const q = query(marketListingsRef, where("seller", "in", followingList));
+            const q = query(marketListingsRef, where("seller", "in", followingList)); // Firebase query, we check if the seller attribute (email), is in the following list
             const querySnapshot = await getDocs(q);
             const x = querySnapshot.docs.map((doc) => ({...doc.data(), id: doc.id }))
             console.log(x)
@@ -43,7 +46,8 @@ const Following = () => {
     }, [followingList])
     
 
-    //---------------------I did not write anything in this return, reused from other pages-----------------------------
+    // The following renders the listings from the currently followed users.
+    //---------------------I did not write this code, reused from the home.js page-----------------------------
     return (
         <main>
         <section>

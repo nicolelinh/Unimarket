@@ -31,11 +31,6 @@ function ChatPage() {
         navigate("/login");
     }
 
-    // If we don't have someone we are currently chatting with
-    // if (!currentConvo) {
-    //     navigate("/chat")
-    // }
-
     useEffect(() => {
         const getChats = () => {
             console.log('getchats')

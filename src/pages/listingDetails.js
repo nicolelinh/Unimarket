@@ -1,3 +1,7 @@
+// listingDetails.js
+// NOTE: This code file was not originally created by me (Walid)
+// My contributions are marked accordingly
+
 import React, { useEffect, useState, useContext } from "react";
 import { doc, setDoc, getDoc, getDocs, deleteDoc, updateDoc, arrayUnion, arrayRemove, collection, query, where, Timestamp } from "firebase/firestore";
 import { db } from '../firebaseConfig';
@@ -61,7 +65,10 @@ const Listingdetails = () => {
         } 
     }
 
-    // --------Walid------------------------------------------------
+    // ----------------------------------------------------Walid Contribution--------------------------------------------------------------------
+    // React hook to dictate the text of the following button
+    // We get the currently logged in User's ID, 
+    // then set the text according to whether or not they are following or unfollowing
     useEffect(() => {
         async function setInitialFollowLogic() {
             console.log(currentUser.uid)
@@ -75,31 +82,40 @@ const Listingdetails = () => {
         setInitialFollowLogic();
     }, [details.seller]);
 
+    // This is the button to handle the follow logic
+    // We get the currently logged in user, then use a Firestore Query to check
+    // whether or not the current listing's user is being followed
+    // Then change button text accordingly
     const handleFollow = async (userEmail) => {
         const userDoc = await getDoc(doc(db, "userInfo", currentUser.uid))
         if (!userDoc.data().following.includes(userEmail)) {
-            await updateDoc(doc(db, "userInfo", currentUser.uid), {
+            await updateDoc(doc(db, "userInfo", currentUser.uid), { // Follow user if they are not in the following list
                 following: arrayUnion(userEmail) // arrayUnion is an append
             });
             setFollowingText("Unfollow")
         } else {
-            await updateDoc(doc(db, "userInfo", currentUser.uid), {
+            await updateDoc(doc(db, "userInfo", currentUser.uid), { // Remove if they are in the following list
                 following: arrayRemove(userEmail)
             });
             setFollowingText("Follow")
         }
     }
 
+
+    // Handles logic for message button
     const handleMessageSelect = async (event, userEmail) => {
         // https://stackoverflow.com/questions/58408111/firebase-firestore-query-get-one-result
         event.preventDefault();
+        // Building the query for finding the user ID of the current page
         const userDoc = await getDoc(doc(db, "userInfo", currentUser.uid))
         const userInfoRef = collection(db, "userInfo");
-        const q = query(userInfoRef, where("email", "==", userEmail));
+        const q = query(userInfoRef, where("email", "==", userEmail)); // We know the email, but we need ID
         const querySnapshot = await getDocs(q);
         const x = querySnapshot.docs.map((doc) => ({...doc.data(), id: doc.id }))
-        const dmUID = x[0].uid
+        const dmUID = x[0].uid // Since the query only returns ONE value (email is unique), first element of the array will hold the value
 
+        // A conversation in the database is identified by a combination of ID's
+        // the greater of the ID is first, this logic handles that
         let convoID = null;
         if (currentUser.uid > dmUID) {
 
@@ -109,6 +125,7 @@ const Listingdetails = () => {
         }
         const existingChat = await getDoc(doc(db, "messages", convoID))
 
+        // If this is the first time being messaged, create a new conversation
         if (!existingChat.exists() && convoID) {
             await setDoc(doc(db, "messages", convoID), { messages: [] });
 
@@ -122,6 +139,7 @@ const Listingdetails = () => {
                 }
             });
 
+            // Update the database for the other user (listing page owner, NOT logged in user)
             await updateDoc(doc(db, "userInfo", dmUID), {
                 ["conversations."+convoID]: {
                     uid: currentUser.uid,
@@ -131,9 +149,10 @@ const Listingdetails = () => {
                 }
             });
         }
+        // If the chat already exists, we are just taken to the chat page
         navigate('/chatpage');   
     }
-    // ----------------------End Walid's Contribution-----------------------------------
+    // -----------------------------------------------End Walid's Contribution-----------------------------------------------------------
 
     document.title="Listing Details";
 
