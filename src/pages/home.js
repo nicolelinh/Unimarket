@@ -1,7 +1,6 @@
 import React, { useEffect, useState} from "react";
-import {collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import {collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from '../firebaseConfig';
-import { Link, Redirect } from 'react-router-dom';
 import Listing from '../components/listing';
 import Landing from "./landing";
 import '../App.css';
@@ -84,7 +83,7 @@ const Home = () => {
                         {/* <div className="col"></div> */}
                         <div className="col col-spacing">
                             <h4 className="question-2"><em>looking for carpool or other services?</em></h4>
-                            <h4 className="question-2"><em><a className="question-brown" href="/create-carpool-request">carpool</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="">other services</a></em></h4>
+                            <h4 className="question-2"><em><a className="question-brown" href="/create-carpool-request">carpool</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="/">other services</a></em></h4>
                         </div>
                     </div>
                     <div className="listings-cont">

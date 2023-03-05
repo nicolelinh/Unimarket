@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {collection, updateDoc} from "firebase/firestore";
-import { useLocation, Link } from "react-router-dom";
-import {doc, getDoc, deleteDoc} from "firebase/firestore";
+import { updateDoc} from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from '../firebaseConfig';
-import { getStorage, ref, uploadBytes, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { getStorage, ref, getDownloadURL, uploadBytesResumable, deleteObject } from "firebase/storage";
 
 // will allow the user to edit a listing they've previously created
 const Editlisting = () => {
@@ -14,47 +13,154 @@ const Editlisting = () => {
     const [d, setDesc] = useState("");
     const [p, setPrice] = useState("");
     const [details, setDetails] = useState([]);
-    
-
-    // grabs the single document from db based on the document ID
-    const getDetails = async () => {
-        const docRef = doc(db, "marketListings", did); // getting document reference 
-        await getDoc(docRef).then((docData)=>{
-            const newData = docData.data();
-            setDetails(newData);
-            console.log(details, newData);
-        })
-    }
+    const [image, setImage] = useState([]);
+    const [imageURL, setImageURL] = useState([]);
 
     useEffect(()=>{
+        // grabs the single document from db based on the document ID
+        const getDetails = async () => {
+            const docRef = doc(db, "marketListings", did); // getting document reference 
+            await getDoc(docRef).then((docData)=>{
+                const newData = docData.data();
+                setDetails(newData);
+                setTitle(details.title);
+                setDesc(details.description);
+                setPrice(details.price);
+                setImageURL(details.photo);
+                console.log(details, newData);
+            })
+        }
         getDetails();
     }, []);
 
-    // edits listing in marketListings collection in database
-    const updateListing = async (e) => {
+    useEffect(() => {
+        // if no image has been uploaded, nothing will be previewed
+        if (image.length < 1) return;
+        const newImageURL = [];
+        // adding image to array to save the URL
+        image.forEach(img => newImageURL.push(URL.createObjectURL(img))); // creates temporary local source for img
+        setImageURL(newImageURL);
+
+        //photo was originally added to storage bucket here
+    }, [image]);
+
+    function onImageChange(e){
+        setImage([...e.target.files]);
+    }
+
+    const validateData = async (e) => {
         e.preventDefault();
 
-        try {
-            setTitle(details.title);
-            setDesc(details.description);
-            setPrice(details.price);
-            console.log("title: "+t);
-            console.log("desc: "+d);
-            console.log("price: "+p);
-            // updating document in collection
-            const docRef = await updateDoc(doc(db, "marketListings", did), {
-                title: t,
-                description: d,
-                price: "$" + p,
-                //photo: imgURL,
-                timeUpdated: Date().toLocaleString()
-            })
-            console.log("Document updated successfully");
-            window.location.href='/listing-details/'+did; // on update, redirect to the listing details user just created
-            
-        } catch (e) {
-            console.error("Error updating document: ", e);
+        var allowedExtensions = ['jpeg', 'jpg', 'png'];
+        var imgExt = document.getElementById('userimg').value.split('.').pop().toLowerCase();
+        var titleLimit = document.getElementById('usertitle').value.length;
+        var descLimit = document.getElementById('userdesc').value.length;
+        var priceLimit = document.getElementById('userprice').value;
+        var isValidImg = false;
+        var isValidTitle = false;
+        var isValidDesc = false;
+        var isValidPrice = false;
+
+        if (image.length > 0) {
+            for (var curr in allowedExtensions) {
+                if (imgExt === allowedExtensions[curr]) {
+                    isValidImg = true;
+                    break;
+                }
+            }
+    
+            if (!isValidImg) {
+                alert('Allowed extensions are: *.' + allowedExtensions.join(', *.'));
+            }
         }
+
+        if (titleLimit <= 40) {
+            isValidTitle = true;
+        } else {
+            alert('Title character limit is 40 characters.');
+        }
+
+        if (descLimit <= 250) {
+            isValidDesc = true;
+        } else {
+            alert('Description character limit is 250.');
+        }
+
+        if (priceLimit < 9999) {
+            isValidPrice = true;
+        } else {
+            alert('Price limit is 9999.');
+        }
+
+        if (isValidImg) {
+            console.log("new image has been chosen!");
+            // delete old photo from storage
+            const storage = getStorage();
+            const photoRef = ref(storage, 'marketListings/'+details.photoFileName);
+            console.log(details.photoFileName);
+            // Delete the file
+            //https://firebase.google.com/docs/storage/web/delete-files
+            deleteObject(photoRef).then(() => {
+                console.log("Photo deleted successfully!");
+            }).catch((error) => {
+                // Uh-oh, an error occurred!
+                console.log("Error deleting photo: ", e);
+            });
+
+            // adding image to firebase storage and creating img URL to add to firebase collection
+            var uploadFileName = image[0].name;
+            const imgFileName = Date.now() + uploadFileName;
+            const userImgRef = ref(storage, 'marketListings/' + imgFileName);
+            const uploadTask = uploadBytesResumable(userImgRef, image[0]);
+            uploadTask.on('state_changed',
+            (snapshot) => {
+                getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+                    console.log("file at: ", downloadURL);
+
+                    console.log("title: "+t);
+                    console.log("desc: "+d);
+                    console.log("price: "+p);
+                    // updating document in collection
+                    await updateDoc(doc(db, "marketListings", did), {
+                        title: t,
+                        description: d,
+                        price: "$" + p,
+                        photo: downloadURL,
+                        photoFileName: imgFileName,
+                        timeUpdated: Date().toLocaleString()
+                    })
+                    console.log("Document updated successfully");
+                    window.location.href='/listing-details/'+did; // on update, redirect to the listing details user just created
+                })
+            })
+            return true;
+
+        } else {
+            if (isValidTitle && isValidDesc && isValidPrice) {
+                console.log("inside updatelisting");
+                try {
+                    console.log("title: "+t);
+                    console.log("desc: "+d);
+                    console.log("price: "+p);
+                    // updating document in collection
+                    await updateDoc(doc(db, "marketListings", did), {
+                        title: t,
+                        description: d,
+                        price: "$" + p,
+                        timeUpdated: Date().toLocaleString()
+                    })
+                    console.log("Document updated successfully");
+                    window.location.href='/listing-details/'+did; // on update, redirect to the listing details user just created
+                    
+                } catch (e) {
+                    console.error("Error updating document: ", e);
+                }
+                
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     document.title="Edit Listing"
@@ -64,22 +170,25 @@ const Editlisting = () => {
             <div className="row">
                 <div className="col">
                     {/* allows user to upload an image and will preview that image back to the user, this maps image saved to img element */}
-                    
+                    { imageURL ? ( imageURL.map(imageSrc => <img src={imageSrc} width="300" height="300" alt="something user uploaded"/>)) : (<img src={details.photo} width="300" height="300" alt="something user uploaded"/>) } 
+                    <br></br>
+                    <input id="userimg" type="file" onChange={onImageChange}/>
+                    <p>only files types "jpg, jpeg, png" allowed</p>
                 </div>
                 <div className="col">
                     <div>
                         {/* sets all listing details on change event of each input area */}
-                        <form style={{marginTop:"50px" }} onSubmit={(event) => {updateListing(event)}}>
+                        <form style={{marginTop:"50px" }} onSubmit={(event) => {validateData(event)}}>
                             <h5>item title:</h5>
-                            <input type="text" placeholder="title" defaultValue={details.title}
+                            <input type="text" id="usertitle" placeholder="title" defaultValue={details.title}
                             onChange={(e)=>{setTitle(e.target.value)}} required />
                             <br/><br/>
                             <h5>item description:</h5>
-                            <textarea type="text" placeholder="description" defaultValue={details.description}
+                            <textarea type="text" id="userdesc" placeholder="description" defaultValue={details.description}
                             onChange={(e)=>{setDesc(e.target.value)}} required />
                             <br/><br/>
                             <h5>item price:</h5>
-                            <input type="number" placeholder="$0" defaultValue={details.price}
+                            <input type="number" id="userprice" placeholder={details.price} defaultValue={details.price}
                             onChange={(e)=>{setPrice(e.target.value)}} required />
                             <br/><br/>
                             <button type="submit">re-list item</button>

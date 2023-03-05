@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {doc, getDoc, deleteDoc} from "firebase/firestore";
 import { db } from '../firebaseConfig';
 import { Link } from 'react-router-dom';
@@ -11,16 +11,15 @@ const Listingdetails = () => {
     const [details, setDetails] = useState([]);
 
     // grabs the single document from db based on the document ID
-    const getDetails = async () => {
-        const docRef = doc(db, "marketListings", did); // getting document reference 
-        await getDoc(docRef).then((docData)=>{
-            const newData = docData.data();
-            setDetails(newData);
-            console.log(details, newData);
-        })
-    }
-
     useEffect(()=>{
+        const getDetails = async () => {
+                const docRef = doc(db, "marketListings", did); // getting document reference 
+                await getDoc(docRef).then((docData)=>{
+                    const newData = docData.data();
+                    setDetails(newData);
+                    console.log(details, newData);
+                })
+        }
         getDetails();
     }, []);
     
@@ -44,14 +43,10 @@ const Listingdetails = () => {
         e.preventDefault();
 
         try{
-            // grabs the document in database by the document ID
-            const docRef = doc(db, "marketListings", did);
-            await deleteDoc(docRef); // deletes document
-            console.log("Document successfully deleted! ");
-
             // delete photo from storage
             const storage = getStorage();
-            const photoRef = ref(storage, 'images/'+details.photo);
+            const photoRef = ref(storage, 'marketListings/'+details.photoFileName);
+            console.log(details.photoFileName);
             // Delete the file
             //https://firebase.google.com/docs/storage/web/delete-files
             deleteObject(photoRef).then(() => {
@@ -60,6 +55,12 @@ const Listingdetails = () => {
                 // Uh-oh, an error occurred!
                 console.log("Error deleting photo: ", e);
             });
+
+            // grabs the document in database by the document ID
+            const docRef = doc(db, "marketListings", did);
+            await deleteDoc(docRef); // deletes document
+            console.log("Document successfully deleted! ");
+
             window.location.href='/home'; // takes user to home page once record has been deleted
         } catch(e){
             console.log("Error deleting document: ", e);
@@ -82,7 +83,7 @@ const Listingdetails = () => {
                         <h4>Price: {details.price}</h4> 
                         <h4>Title: {details.title}</h4>
                         <h5>Seller:</h5>
-                        <p><a href="#">{details.seller}</a></p> {/* TO-DO: link to user profile*/}
+                        <p><a href="/">{details.seller}</a></p> {/* TO-DO: link to user profile*/}
                         <h5>Description:</h5>
                         <p>{details.description}</p>
                         {editButton}

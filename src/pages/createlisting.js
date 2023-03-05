@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {collection, addDoc} from "firebase/firestore";
-import { useLocation, Link } from "react-router-dom";
 import { db } from '../firebaseConfig';
-import { getStorage, ref, uploadBytes, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 const Createlisting = () => {
     // grabs user data from local storage
@@ -13,7 +12,6 @@ const Createlisting = () => {
     const [price, setPrice] = useState("");
     const [image, setImage] = useState([]);
     const [imageURL, setImageURL] = useState([]);
-    const [imgURL, setImgURL] = useState([]);
 
     useEffect(() => {
         // if no image has been uploaded, nothing will be previewed
@@ -23,28 +21,15 @@ const Createlisting = () => {
         image.forEach(img => newImageURL.push(URL.createObjectURL(img))); // creates temporary local source for img
         setImageURL(newImageURL);
 
-        //TO-DO: Move this into addListing
-        // adding image to firebase storage and creating img URL to add to firebase collection
-        // var uploadFileName = image[0].name;
-        // const storage = getStorage();
-        // const userImgRef = ref(storage, 'marketListings/' + Date.now() + uploadFileName);
-        // const uploadTask = uploadBytesResumable(userImgRef, image[0]);
-        // uploadTask.on('state_changed',
-        // (snapshot) => {
-        //     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        //         console.log("file at: ", downloadURL);
-        //         setImgURL(downloadURL);
-        //         console.log(imgURL[0]);
-        //     })
-        // })
+        //photo was originally added to storage bucket here
     }, [image]);
 
     function onImageChange(e){
         setImage([...e.target.files]);
     }
 
-    // needs to be async for "await" in addListing to work 
-    async function validateData(e) {
+    //async function validateData(e) {
+    const validateData = async (e) => {
         e.preventDefault();
 
         var allowedExtensions = ['jpeg', 'jpg', 'png'];
@@ -90,48 +75,31 @@ const Createlisting = () => {
             // adding image to firebase storage and creating img URL to add to firebase collection
             var uploadFileName = image[0].name;
             const storage = getStorage();
-            const userImgRef = ref(storage, 'marketListings/' + Date.now() + uploadFileName);
+            const imgFileName = Date.now() + uploadFileName;
+            const userImgRef = ref(storage, 'marketListings/' + imgFileName);
             const uploadTask = uploadBytesResumable(userImgRef, image[0]);
             uploadTask.on('state_changed',
             (snapshot) => {
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
                     console.log("file at: ", downloadURL);
-                    setImgURL(downloadURL);
-                    console.log(imgURL);
+                    
+                    // adding new document to collection
+                    const docRef = await addDoc(collection(db, "marketListings"), {
+                        title: title,
+                        description: desc,
+                        price: "$" + price,
+                        seller: JSON.parse(currUser), // need to parse first or else string contains ""
+                        photo: downloadURL,
+                        photoFileName: imgFileName,
+                        timeCreated: Date().toLocaleString()
+                    })
+                    console.log("Document submitted successfully");
+                    window.location.href='/listing-details/'+docRef.id; // on creation, redirect to the listing details user just created
                 })
             })
-            console.log("inside validate data" + imgURL);
-            //To-Do: move the code inside of addListing here instead of calling the function
-            // so theres no issues with the photoURL being empty bc it didn't get a chance to post
-            addListing(e);
-            
             return true;
         }
         return false;
-    }
-    // adds listing to marketListings collection in database
-    const addListing = async (e) => {
-        e.preventDefault();
-        //await validateData();
-        console.log("in addlisting top");
-
-        try {
-            // adding new document to collection
-            console.log("inside add listing" + imgURL);
-            const docRef = await addDoc(collection(db, "marketListings"), {
-                title: title,
-                description: desc,
-                price: "$" + price,
-                seller: JSON.parse(currUser), // need to parse first or else string contains ""
-                photo: imgURL,
-                timeCreated: Date().toLocaleString()
-            })
-            console.log("Document submitted successfully");
-            window.location.href='/listing-details/'+docRef.id; // on creation, redirect to the listing details user just created
-            
-        } catch (e) {
-            console.error("Error adding document: ", e);
-        }
     }
 
     document.title="Create Listing";
@@ -140,7 +108,7 @@ const Createlisting = () => {
             <div className="row">
                 <div className="col">
                     {/* allows user to upload an image and will preview that image back to the user, this maps image saved to img element */}
-                    { imageURL.map(imageSrc => <img src={imageSrc} width="300" height="300" />) } 
+                    { imageURL.map(imageSrc => <img src={imageSrc} width="300" height="300" alt="something user uploaded"/>) } 
                     <br></br>
                     <input id="userimg" type="file" onChange={onImageChange} required/>
                     <p>only files types "jpg, jpeg, png" allowed</p>
