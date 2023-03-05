@@ -43,7 +43,7 @@ const Listingdetails = () => {
         e.preventDefault();
 
         try{
-            // delete photo from storage
+            // delete photo from storage first
             const storage = getStorage();
             const photoRef = ref(storage, 'marketListings/'+details.photoFileName);
             console.log(details.photoFileName);
@@ -52,7 +52,6 @@ const Listingdetails = () => {
             deleteObject(photoRef).then(() => {
                 console.log("Photo deleted successfully!");
             }).catch((error) => {
-                // Uh-oh, an error occurred!
                 console.log("Error deleting photo: ", e);
             });
 

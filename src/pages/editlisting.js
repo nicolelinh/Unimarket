@@ -19,6 +19,7 @@ const Editlisting = () => {
 
     useEffect(()=>{
         // grabs the single document from db based on the document ID
+        // sets variables to current information thats in the listing, in case they dont make any changes
         const getDetails = async () => {
             const docRef = doc(db, "marketListings", did); // getting document reference 
             await getDoc(docRef).then((docData)=>{
@@ -31,9 +32,9 @@ const Editlisting = () => {
             })
         }
         getDetails();
-        console.log("test:"+imageURL.length);
     }, []);
 
+    // this will show the user the photo they chose
     useEffect(() => {
         // if no image has been uploaded, nothing will be previewed
         if (image.length < 1) return;
@@ -47,6 +48,7 @@ const Editlisting = () => {
         setImage([...e.target.files]);
     }
 
+    // making sure user only enters correct file types and not infinite long strings or insane prices...
     const validateData = async (e) => {
         e.preventDefault();
 
@@ -60,6 +62,7 @@ const Editlisting = () => {
         var isValidDesc = false;
         var isValidPrice = false;
 
+        // checking if file extension is valid, if they've uploaded a new photo
         if (image.length > 0) {
             for (var curr in allowedExtensions) {
                 if (imgExt === allowedExtensions[curr]) {
@@ -102,11 +105,10 @@ const Editlisting = () => {
             deleteObject(photoRef).then(() => {
                 console.log("Photo deleted successfully!");
             }).catch((error) => {
-                // Uh-oh, an error occurred!
                 console.log("Error deleting photo: ", e);
             });
 
-            // adding image to firebase storage and creating img URL to add to firebase collection
+            // adding new image to firebase storage and creating img URL to add to firebase collection
             var uploadFileName = image[0].name;
             const imgFileName = Date.now() + uploadFileName;
             const userImgRef = ref(storage, 'marketListings/' + imgFileName);
@@ -167,7 +169,7 @@ const Editlisting = () => {
         <div className="padding container"> {/* using grid system (className=container/row/col) for layout: https://react-bootstrap.github.io/layout/grid/*/}
             <div className="row">
                 <div className="col">
-                    {/* allows user to upload an image and will preview that image back to the user, this maps image saved to img element */}
+                    {/* shows original listing photo or new one if they uploaded one */}
                     { imageURL.length > 0 ? ( imageURL?.map(imageSrc => <img src={imageSrc} width="300" height="300" alt="something user uploaded"/>)) : (<img src={i} width="300" height="300" alt="something user uploaded"/>) } 
                     
                     <br></br>

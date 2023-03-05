@@ -14,7 +14,6 @@ const Home = () => {
     });
 
     // grabs all documents in marketListings collection in db
-    // need to filter/query db to only show listings from your school and by creation date? and those that arent yours? 
     const marketRef = collection(db, "marketListings");
     const Fetchdata = async () => {
         await getDocs(query(marketRef, orderBy('timeCreated', 'desc'))).then((querySnapshot)=>{

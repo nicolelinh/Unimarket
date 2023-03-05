@@ -28,7 +28,7 @@ const Createlisting = () => {
         setImage([...e.target.files]);
     }
 
-    //async function validateData(e) {
+    // making sure user only enters correct file types and not infinite long strings or insane prices...
     const validateData = async (e) => {
         e.preventDefault();
 
