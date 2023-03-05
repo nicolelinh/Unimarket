@@ -12,6 +12,7 @@ const Editlisting = () => {
     const [t, setTitle] = useState("");
     const [d, setDesc] = useState("");
     const [p, setPrice] = useState("");
+    const [i, setExistingURL] = useState("");
     const [details, setDetails] = useState([]);
     const [image, setImage] = useState([]);
     const [imageURL, setImageURL] = useState([]);
@@ -23,14 +24,14 @@ const Editlisting = () => {
             await getDoc(docRef).then((docData)=>{
                 const newData = docData.data();
                 setDetails(newData);
-                setTitle(details.title);
-                setDesc(details.description);
-                setPrice(details.price);
-                setImageURL(details.photo);
-                console.log(details, newData);
+                setTitle(newData.title);
+                setDesc(newData.description);
+                setPrice(newData.price.split("$")[1]);
+                setExistingURL(newData.photo);
             })
         }
         getDetails();
+        console.log("test:"+imageURL.length);
     }, []);
 
     useEffect(() => {
@@ -40,8 +41,6 @@ const Editlisting = () => {
         // adding image to array to save the URL
         image.forEach(img => newImageURL.push(URL.createObjectURL(img))); // creates temporary local source for img
         setImageURL(newImageURL);
-
-        //photo was originally added to storage bucket here
     }, [image]);
 
     function onImageChange(e){
@@ -116,7 +115,6 @@ const Editlisting = () => {
             (snapshot) => {
                 getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
                     console.log("file at: ", downloadURL);
-
                     console.log("title: "+t);
                     console.log("desc: "+d);
                     console.log("price: "+p);
@@ -170,7 +168,8 @@ const Editlisting = () => {
             <div className="row">
                 <div className="col">
                     {/* allows user to upload an image and will preview that image back to the user, this maps image saved to img element */}
-                    { imageURL ? ( imageURL.map(imageSrc => <img src={imageSrc} width="300" height="300" alt="something user uploaded"/>)) : (<img src={details.photo} width="300" height="300" alt="something user uploaded"/>) } 
+                    { imageURL.length > 0 ? ( imageURL?.map(imageSrc => <img src={imageSrc} width="300" height="300" alt="something user uploaded"/>)) : (<img src={i} width="300" height="300" alt="something user uploaded"/>) } 
+                    
                     <br></br>
                     <input id="userimg" type="file" onChange={onImageChange}/>
                     <p>only files types "jpg, jpeg, png" allowed</p>
@@ -180,15 +179,15 @@ const Editlisting = () => {
                         {/* sets all listing details on change event of each input area */}
                         <form style={{marginTop:"50px" }} onSubmit={(event) => {validateData(event)}}>
                             <h5>item title:</h5>
-                            <input type="text" id="usertitle" placeholder="title" defaultValue={details.title}
+                            <input type="text" id="usertitle" placeholder="title" defaultValue={t}
                             onChange={(e)=>{setTitle(e.target.value)}} required />
                             <br/><br/>
                             <h5>item description:</h5>
-                            <textarea type="text" id="userdesc" placeholder="description" defaultValue={details.description}
+                            <textarea type="text" id="userdesc" placeholder="description" defaultValue={d}
                             onChange={(e)=>{setDesc(e.target.value)}} required />
                             <br/><br/>
                             <h5>item price:</h5>
-                            <input type="number" id="userprice" placeholder={details.price} defaultValue={details.price}
+                            <input type="number" id="userprice" placeholder={details.price} defaultValue={p}
                             onChange={(e)=>{setPrice(e.target.value)}} required />
                             <br/><br/>
                             <button type="submit">re-list item</button>

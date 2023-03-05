@@ -34,7 +34,7 @@ const Searchresults = () => {
 
     return (
         <div>
-            <h3>Search Page??? </h3>
+            <h3>Search Page </h3>
             <div className="container">
                 <div className="listings-cont">
                             <h3 className="listings-title"><em>Search results for: {search}</em></h3>
