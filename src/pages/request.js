@@ -8,6 +8,8 @@ const RequestItem = () => {
     name: '',
     description: '',
     price: 0,
+    quality: '',
+    merchant_note: '',
     imageUrl: null,
     image: null,
   });
@@ -41,6 +43,8 @@ const RequestItem = () => {
             name: item.name,
             description: item.description,
             price: item.price,
+            quality: item.quality,
+            merchant_note: item.merchant_note,
             imageUrl: imageUrl,
           });
 
@@ -48,6 +52,8 @@ const RequestItem = () => {
             name: '',
             description: '',
             price: 0,
+            quality: '',
+            merchant_note: '',
             imageUrl: null,
             image: null,
           });
@@ -59,6 +65,8 @@ const RequestItem = () => {
         name: item.name,
         description: item.description,
         price: item.price,
+        quality: item.quality,
+        merchant_note: item.merchant_note,
         imageUrl: null,
       });
 
@@ -66,6 +74,8 @@ const RequestItem = () => {
         name: '',
         description: '',
         price: 0,
+        quality: '',
+        merchant_note: '',
         imageUrl: null,
         image: null,
       });
@@ -76,8 +86,9 @@ const RequestItem = () => {
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <form onSubmit={addRequest} style={{ display: 'flex', flexDirection: 'row' }}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <br />
           <label style={{ alignSelf: 'flex-start' }}>
-            Image:
+            image:
             <input type="file" name="image" onChange={handleChange} />
           </label>
           <br />
@@ -85,20 +96,31 @@ const RequestItem = () => {
             {item.imageUrl && <img src={item.imageUrl} alt="Uploaded item" style={{ maxWidth: '500px' }}/>}
           </div>
           <label style={{ alignSelf: 'flex-start' }}>
-            Price:
+            price:
             <input type="number" name="price" value={item.price} onChange={handleChange} />
           </label>
           <br />
           <label style={{ alignSelf: 'flex-start' }}>
-            Item Name:
+            item Name:
             <input type="text" name="name" value={item.name} onChange={handleChange} />
           </label>
           <br />
         </div>
-        <div style={{ alignSelf: 'flex-start', marginLeft: '50px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <br />
           <label style={{ alignSelf: 'flex-start' }}>
-            Description:
+            quality:
+            <textarea name="quality" value={item.quality} onChange={handleChange} />
+          </label>
+          <br />
+          <label style={{ alignSelf: 'flex-start' }}>
+            item description:
             <textarea name="description" value={item.description} onChange={handleChange} />
+          </label>
+          <br />
+          <label style={{ alignSelf: 'flex-start' }}>
+            merchant note:
+            <textarea name="quality" value={item.quality} onChange={handleChange} />
           </label>
           <br />
           <button type="submit">request item</button>
