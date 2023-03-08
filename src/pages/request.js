@@ -97,12 +97,12 @@ const RequestItem = () => {
           </div>
           <label style={{ alignSelf: 'flex-start' }}>
             price:
-            <input type="number" name="price" value={item.price} onChange={handleChange} />
+            <input type="number" name="price" value={item.price} onChange={handleChange} required/>
           </label>
           <br />
           <label style={{ alignSelf: 'flex-start' }}>
-            item Name:
-            <input type="text" name="name" value={item.name} onChange={handleChange} />
+            item name:
+            <input type="text" name="name" value={item.name} onChange={handleChange} required/>
           </label>
           <br />
         </div>
@@ -110,20 +110,21 @@ const RequestItem = () => {
           <br />
           <label style={{ alignSelf: 'flex-start' }}>
             quality:
-            <textarea name="quality" value={item.quality} onChange={handleChange} />
+            <textarea name="quality" value={item.quality} onChange={handleChange} required/>
           </label>
           <br />
           <label style={{ alignSelf: 'flex-start' }}>
             item description:
-            <textarea name="description" value={item.description} onChange={handleChange} />
+            <textarea name="description" value={item.description} onChange={handleChange} required/>
           </label>
           <br />
           <label style={{ alignSelf: 'flex-start' }}>
             merchant note:
-            <textarea name="quality" value={item.quality} onChange={handleChange} />
+            <textarea name="merchant_note" value={item.merchant_note} onChange={handleChange} required/>
           </label>
           <br />
-          <button type="submit">request item</button>
+          <button type="submit" style={{backgroundColor: '#84ad97', borderRadius: '5px', padding: '10px', border: 'none', color: '#fff', cursor: 'pointer'}}>request item</button>
+          <br />
         </div>
       </form>
     </div>
