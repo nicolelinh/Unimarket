@@ -83,51 +83,54 @@ const RequestItem = () => {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <form onSubmit={addRequest} style={{ display: 'flex', flexDirection: 'row' }}>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <br />
-          <label style={{ alignSelf: 'flex-start' }}>
-            image:
-            <input type="file" name="image" onChange={handleChange} />
-          </label>
-          <br />
-          <div style={{ marginLeft: '50px' }}>
-            {item.imageUrl && <img src={item.imageUrl} alt="Uploaded item" style={{ maxWidth: '500px' }}/>}
+    <form>
+      <h2>Request Item</h2>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <form onSubmit={addRequest} style={{ display: 'flex', flexDirection: 'row' }}>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <br />
+            <label style={{ alignSelf: 'flex-start' }}>
+              image:
+              <input type="file" name="image" onChange={handleChange} />
+            </label>
+            <br />
+            <div style={{ marginLeft: '50px' }}>
+              {item.imageUrl && <img src={item.imageUrl} alt="Uploaded item" style={{ maxWidth: '500px' }}/>}
+            </div>
+            <label style={{ alignSelf: 'flex-start' }}>
+              price:
+              <input type="number" name="price" value={item.price} onChange={handleChange} required/>
+            </label>
+            <br />
+            <label style={{ alignSelf: 'flex-start' }}>
+              item name:
+              <input type="text" name="name" value={item.name} onChange={handleChange} required/>
+            </label>
+            <br />
           </div>
-          <label style={{ alignSelf: 'flex-start' }}>
-            price:
-            <input type="number" name="price" value={item.price} onChange={handleChange} required/>
-          </label>
-          <br />
-          <label style={{ alignSelf: 'flex-start' }}>
-            item name:
-            <input type="text" name="name" value={item.name} onChange={handleChange} required/>
-          </label>
-          <br />
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <br />
-          <label style={{ alignSelf: 'flex-start' }}>
-            quality:
-            <textarea name="quality" value={item.quality} onChange={handleChange} required/>
-          </label>
-          <br />
-          <label style={{ alignSelf: 'flex-start' }}>
-            item description:
-            <textarea name="description" value={item.description} onChange={handleChange} required/>
-          </label>
-          <br />
-          <label style={{ alignSelf: 'flex-start' }}>
-            merchant note:
-            <textarea name="merchant_note" value={item.merchant_note} onChange={handleChange} required/>
-          </label>
-          <br />
-          <button type="submit" style={{backgroundColor: '#84ad97', borderRadius: '5px', padding: '10px', border: 'none', color: '#fff', cursor: 'pointer'}}>request item</button>
-          <br />
-        </div>
-      </form>
-    </div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <br />
+            <label style={{ alignSelf: 'flex-start' }}>
+              quality:
+              <textarea name="quality" value={item.quality} onChange={handleChange} required/>
+            </label>
+            <br />
+            <label style={{ alignSelf: 'flex-start' }}>
+              item description:
+              <textarea name="description" value={item.description} onChange={handleChange} required/>
+            </label>
+            <br />
+            <label style={{ alignSelf: 'flex-start' }}>
+              merchant note:
+              <textarea name="merchant_note" value={item.merchant_note} onChange={handleChange} required/>
+            </label>
+            <br />
+            <button type="submit" style={{backgroundColor: '#84ad97', borderRadius: '5px', padding: '10px', border: 'none', color: '#fff', cursor: 'pointer'}}>request item</button>
+            <br />
+          </div>
+        </form>
+      </div>
+    </form>
   );
     
 };
