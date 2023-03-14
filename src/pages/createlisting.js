@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {collection, addDoc} from "firebase/firestore";
+import {collection, addDoc, Timestamp } from "firebase/firestore";
 import { db } from '../firebaseConfig';
 import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import './tagsinput.css';
 
 const Createlisting = () => {
     // grabs user data from local storage
@@ -12,6 +13,10 @@ const Createlisting = () => {
     const [price, setPrice] = useState("");
     const [image, setImage] = useState([]);
     const [imageURL, setImageURL] = useState([]);
+    const [tags, setTags] = useState([]);
+    const [availableTags, setAvailableTags] = useState([
+        "electronics", "books", "home", "clothes"
+    ]);
 
     useEffect(() => {
         // if no image has been uploaded, nothing will be previewed
@@ -91,7 +96,8 @@ const Createlisting = () => {
                         seller: JSON.parse(currUser), // need to parse first or else string contains ""
                         photo: downloadURL,
                         photoFileName: imgFileName,
-                        timeCreated: Date().toLocaleString()
+                        //timeCreated: Date().toLocaleString()
+                        timeCreated: Timestamp.fromDate(new Date())
                     })
                     console.log("Document submitted successfully");
                     window.location.href='/listing-details/'+docRef.id; // on creation, redirect to the listing details user just created
@@ -100,6 +106,11 @@ const Createlisting = () => {
             return true;
         }
         return false;
+    }
+
+    function addTagToSearchBar(index) {
+        console.log("clicked a tag");
+        //document.getElementById('tagitem').style.backgroundColor="seagreen";
     }
 
     document.title="Create Listing";
@@ -128,6 +139,15 @@ const Createlisting = () => {
                             <h5>item price:</h5>
                             <input id="userprice" type="number" placeholder="your price"
                             onChange={(e)=>{setPrice(e.target.value)}} required/>
+                            <br/><br/>
+                            <h5>tags:</h5>
+                            <div className="tags-input-container">
+                                { availableTags.map((tag, index) => (
+                                    <div className="tag-item" id="tagitem" key={index}>
+                                        <span className="text" onClick={() => addTagToSearchBar(index)}>{tag}</span>
+                                    </div>
+                                )) }
+                            </div>
                             <br/><br/>
                             <button type="submit">list item</button>
                         </form>

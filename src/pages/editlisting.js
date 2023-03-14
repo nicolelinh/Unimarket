@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { updateDoc} from "firebase/firestore";
+import { updateDoc, Timestamp } from "firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from '../firebaseConfig';
 import { getStorage, ref, getDownloadURL, uploadBytesResumable, deleteObject } from "firebase/storage";
@@ -8,6 +8,7 @@ import { getStorage, ref, getDownloadURL, uploadBytesResumable, deleteObject } f
 const Editlisting = () => {
     // get document id by parsing url
     const did = window.location.pathname.split("/")[2];
+    const back = "/listing-details/"+did;
     // info needed to update listing
     const [t, setTitle] = useState("");
     const [d, setDesc] = useState("");
@@ -95,72 +96,79 @@ const Editlisting = () => {
         }
 
         if (isValidImg) {
-            console.log("new image has been chosen!");
-            // delete old photo from storage
-            const storage = getStorage();
-            const photoRef = ref(storage, 'marketListings/'+details.photoFileName);
-            console.log(details.photoFileName);
-            // Delete the file
-            //https://firebase.google.com/docs/storage/web/delete-files
-            deleteObject(photoRef).then(() => {
-                console.log("Photo deleted successfully!");
-            }).catch((error) => {
-                console.log("Error deleting photo: ", e);
-            });
-
-            // adding new image to firebase storage and creating img URL to add to firebase collection
-            var uploadFileName = image[0].name;
-            const imgFileName = Date.now() + uploadFileName;
-            const userImgRef = ref(storage, 'marketListings/' + imgFileName);
-            const uploadTask = uploadBytesResumable(userImgRef, image[0]);
-            uploadTask.on('state_changed',
-            (snapshot) => {
-                getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-                    console.log("file at: ", downloadURL);
-                    console.log("title: "+t);
-                    console.log("desc: "+d);
-                    console.log("price: "+p);
-                    // updating document in collection
-                    await updateDoc(doc(db, "marketListings", did), {
-                        title: t,
-                        description: d,
-                        price: "$" + p,
-                        photo: downloadURL,
-                        photoFileName: imgFileName,
-                        timeUpdated: Date().toLocaleString()
-                    })
-                    console.log("Document updated successfully");
-                    window.location.href='/listing-details/'+did; // on update, redirect to the listing details user just created
-                })
-            })
-            return true;
-
-        } else {
             if (isValidTitle && isValidDesc && isValidPrice) {
-                console.log("inside updatelisting");
-                try {
-                    console.log("title: "+t);
-                    console.log("desc: "+d);
-                    console.log("price: "+p);
-                    // updating document in collection
-                    await updateDoc(doc(db, "marketListings", did), {
-                        title: t,
-                        description: d,
-                        price: "$" + p,
-                        timeUpdated: Date().toLocaleString()
+                console.log("new image has been chosen!");
+                // delete old photo from storage
+                const storage = getStorage();
+                const photoRef = ref(storage, 'marketListings/'+details.photoFileName);
+                console.log(details.photoFileName);
+                // Delete the file
+                //https://firebase.google.com/docs/storage/web/delete-files
+                deleteObject(photoRef).then(() => {
+                    console.log("Photo deleted successfully!");
+                }).catch((error) => {
+                    console.log("Error deleting photo: ", e);
+                });
+
+                // adding new image to firebase storage and creating img URL to add to firebase collection
+                var uploadFileName = image[0].name;
+                const imgFileName = Date.now() + uploadFileName;
+                const userImgRef = ref(storage, 'marketListings/' + imgFileName);
+                const uploadTask = uploadBytesResumable(userImgRef, image[0]);
+                uploadTask.on('state_changed',
+                (snapshot) => {
+                    getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+                        console.log("file at: ", downloadURL);
+                        console.log("title: "+t);
+                        console.log("desc: "+d);
+                        console.log("price: "+p);
+                        // updating document in collection
+                        await updateDoc(doc(db, "marketListings", did), {
+                            title: t,
+                            description: d,
+                            price: "$" + p,
+                            photo: downloadURL,
+                            photoFileName: imgFileName,
+                            timeUpdated: Timestamp.fromDate(new Date())
+                        })
+                        console.log("Document updated successfully");
+                        window.location.href='/listing-details/'+did; // on update, redirect to the listing details user just created
                     })
-                    console.log("Document updated successfully");
-                    window.location.href='/listing-details/'+did; // on update, redirect to the listing details user just created
-                    
-                } catch (e) {
-                    console.error("Error updating document: ", e);
-                }
-                
+                })
                 return true;
             }
+
+        } else if(isValidTitle && isValidDesc && isValidPrice){
+            console.log("inside updatelisting");
+            try {
+                console.log("title: "+t);
+                console.log("desc: "+d);
+                console.log("price: "+p);
+                // updating document in collection
+                await updateDoc(doc(db, "marketListings", did), {
+                    title: t,
+                    description: d,
+                    price: "$" + p,
+                    timeUpdated: Timestamp.fromDate(new Date())
+                })
+                console.log("Document updated successfully");
+                window.location.href='/listing-details/'+did; // on update, redirect to the listing details user just created
+                
+            } catch (e) {
+                console.error("Error updating document: ", e);
+            }
+            
+            return true;   
+        } else {
+            console.log("invalid data!");
         }
         
-        return false;
+        //return false;
+    }
+
+    function goBack() {
+        //window.location.href='/listing-details/'+did;
+        console.log("want to go back");
     }
 
     document.title="Edit Listing"
@@ -181,11 +189,11 @@ const Editlisting = () => {
                         {/* sets all listing details on change event of each input area */}
                         <form style={{marginTop:"50px" }} onSubmit={(event) => {validateData(event)}}>
                             <h5>item title:</h5>
-                            <input type="text" id="usertitle" placeholder="title" defaultValue={t}
+                            <input type="text" id="usertitle" placeholder={details.title} defaultValue={t}
                             onChange={(e)=>{setTitle(e.target.value)}} required />
                             <br/><br/>
                             <h5>item description:</h5>
-                            <textarea type="text" id="userdesc" placeholder="description" defaultValue={d}
+                            <textarea type="text" id="userdesc" placeholder={details.description} defaultValue={d}
                             onChange={(e)=>{setDesc(e.target.value)}} required />
                             <br/><br/>
                             <h5>item price:</h5>
@@ -194,6 +202,7 @@ const Editlisting = () => {
                             <br/><br/>
                             <button type="submit">re-list item</button>
                         </form>
+                        <a href={back}>cancel</a>
                     </div>
                 </div>
             </div>

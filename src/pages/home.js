@@ -9,14 +9,15 @@ import './home.css';
 const Home = () => {
     const [info, setInfo] = useState([]);
 
-    window.addEventListener('load', () => {
-        Fetchdata();
-    });
+    // window.addEventListener('load', () => {
+    //     Fetchdata();
+    // });
 
     // grabs all documents in marketListings collection in db
     const marketRef = collection(db, "marketListings");
+    const q = query(marketRef, orderBy("timeCreated", "desc"));
     const Fetchdata = async () => {
-        await getDocs(query(marketRef, orderBy('timeCreated', 'desc'))).then((querySnapshot)=>{
+        await getDocs(q).then((querySnapshot)=>{
             const newData = querySnapshot.docs.map((doc)=> ({...doc.data(), id:doc.id}));
             setInfo(newData);
             console.log(info, newData);
@@ -51,13 +52,13 @@ const Home = () => {
 
         if (isValidSearch) {
             // takes user to /search-results/words_entered_in_search_bar
-            console.log("did it make it here?" + searchBarInputURL);
+            console.log("redirecting to: " + searchBarInputURL);
             window.location.href=("/search-results/"+searchBarInputURL);
             
         }
         return false;
     }
-    
+
     document.title="Home";
 
     // if email is not empty, someone is signed in so it shows actual home page, NOT landing page
@@ -68,7 +69,7 @@ const Home = () => {
                 <div className="padding container">
                     <h1 className="pill-form">Welcome {email}</h1>
                     <form className="d-flex search-form" onSubmit={(event) => {validateData(event)}}>
-                        <input className="form-control me-2 search-input" id="usersearch" type="search" placeholder="search here" aria-label="Search"></input>
+                        <input className="form-control me-2 search-input" id="usersearch" type="search" placeholder="search here" aria-label="Search" required></input>
                         <button className="search-btn btn-outline-success" type="submit" >search by filter</button>
                     </form>
                     <div className="row">
