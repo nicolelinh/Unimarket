@@ -7,15 +7,16 @@ import './tagsinput.css';
 const Createlisting = () => {
     // grabs user data from local storage
     const currUser = window.localStorage.getItem('USER_EMAIL');
+    const back = '/home';
     // info needed to create listing
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
     const [price, setPrice] = useState("");
     const [image, setImage] = useState([]);
     const [imageURL, setImageURL] = useState([]);
-    const [tags, setTags] = useState([]);
-    const [availableTags, setAvailableTags] = useState([
-        "electronics", "books", "home", "clothes"
+    const [userTags, setUserTags] = useState([]);
+    const [searchTags] = useState([
+        "electronics", "books", "home", "clothing", "furniture", "video games"
     ]);
 
     useEffect(() => {
@@ -33,9 +34,32 @@ const Createlisting = () => {
         setImage([...e.target.files]);
     }
 
+    function addSelectedTag(index) {
+        const tagName = searchTags.filter((el, i) => i === index).toString();
+        const clickedTag = document.getElementById(index);
+        const clickedTagBG = window.getComputedStyle(clickedTag).backgroundColor;
+        if (clickedTagBG === "rgb(46, 139, 87)") {
+            console.log("removing tag: " + tagName + " from " + userTags);
+            //remove selected tag from userTag list
+            //const indexAt = userTags.findIndex((element) => element === tagName);
+            const indexAt = userTags.indexOf(tagName);
+            console.log(indexAt);
+            setUserTags(userTags.filter((el, i) => i !== indexAt));
+            // change background color so user knows its de-selected
+            clickedTag.style.backgroundColor="lightgray";
+        } else if (clickedTagBG === "rgb(211, 211, 211)") {
+            console.log("adding tag: " + tagName);
+            //add selected tag to userTag list
+            setUserTags(userTags.concat(tagName));
+            // change background color so user knows its selected
+            clickedTag.style.backgroundColor="seagreen";
+        }
+    }
+
     // making sure user only enters correct file types and not infinite long strings or insane prices...
     const validateData = async (e) => {
         e.preventDefault();
+        console.log(userTags);
 
         var allowedExtensions = ['jpeg', 'jpg', 'png'];
         var imgExt = document.getElementById('userimg').value.split('.').pop().toLowerCase();
@@ -96,8 +120,8 @@ const Createlisting = () => {
                         seller: JSON.parse(currUser), // need to parse first or else string contains ""
                         photo: downloadURL,
                         photoFileName: imgFileName,
-                        //timeCreated: Date().toLocaleString()
-                        timeCreated: Timestamp.fromDate(new Date())
+                        timeCreated: Timestamp.fromDate(new Date()),
+                        tags: userTags // this will either be empty if they didnt select any tags, or contains the tags that are highlighted "green"
                     })
                     console.log("Document submitted successfully");
                     window.location.href='/listing-details/'+docRef.id; // on creation, redirect to the listing details user just created
@@ -108,18 +132,13 @@ const Createlisting = () => {
         return false;
     }
 
-    function addTagToSearchBar(index) {
-        console.log("clicked a tag");
-        //document.getElementById('tagitem').style.backgroundColor="seagreen";
-    }
-
     document.title="Create Listing";
     return (
         <div className="padding container"> {/* using grid system (className=container/row/col) for layout: https://react-bootstrap.github.io/layout/grid/*/}
             <div className="row">
                 <div className="col">
                     {/* allows user to upload an image and will preview that image back to the user, this maps image saved to img element */}
-                    { imageURL.map(imageSrc => <img src={imageSrc} width="300" height="300" alt="something user uploaded"/>) } 
+                    { imageURL.map((imageSrc, index) => ( <img key={index} src={imageSrc} width="300" height="300" alt="something user uploaded"/> )) } 
                     <br></br>
                     <input id="userimg" type="file" onChange={onImageChange} required/>
                     <p>only files types "jpg, jpeg, png" allowed</p>
@@ -142,15 +161,16 @@ const Createlisting = () => {
                             <br/><br/>
                             <h5>tags:</h5>
                             <div className="tags-input-container">
-                                { availableTags.map((tag, index) => (
-                                    <div className="tag-item" id="tagitem" key={index}>
-                                        <span className="text" onClick={() => addTagToSearchBar(index)}>{tag}</span>
+                                { searchTags.map((tag, index) => (
+                                    <div className="tag-item" id={index} key={index}>
+                                        <span className="text" onClick={() => addSelectedTag(index)}>{tag}</span>
                                     </div>
                                 )) }
                             </div>
                             <br/><br/>
                             <button type="submit">list item</button>
                         </form>
+                        <a href={back}>cancel</a>
                     </div>
                 </div>
             </div>

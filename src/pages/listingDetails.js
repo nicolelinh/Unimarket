@@ -3,6 +3,7 @@ import {doc, getDoc, deleteDoc} from "firebase/firestore";
 import { db } from '../firebaseConfig';
 import { Link } from 'react-router-dom';
 import { getStorage, ref, deleteObject } from "firebase/storage";
+import './tagsinput.css';
 
 // will display all listing details when a listing is clicked on from home page
 const Listingdetails = () => {
@@ -38,7 +39,7 @@ const Listingdetails = () => {
         submitEvent = (event)=>deleteListing(event); // DELETES LISTING FROM DATABASE
     }
 
-    // BE CAREFUL DEBUGGING!
+    // BE CAREFUL DEBUGGING! DELETES LISTING FROM DATABASE
     const deleteListing = async (e) => {
         e.preventDefault();
 
@@ -85,6 +86,14 @@ const Listingdetails = () => {
                         <p><a href="/">{details.seller}</a></p> {/* TO-DO: link to user profile*/}
                         <h5>Description:</h5>
                         <p>{details.description}</p>
+                        <h5>Tags:</h5>
+                        <div className="tags-input-container">
+                                { details.tags?.map((tag, index) => (
+                                    <div className="tag-item" id={index} key={index}>
+                                        <span className="text">{tag}</span>
+                                    </div>
+                                )) }
+                            </div>
                         {editButton}
                         {/* based on if listing belongs to current user, action of the button is different, as shown above */}
                         <form onSubmit={submitEvent}>{listingButton}</form>

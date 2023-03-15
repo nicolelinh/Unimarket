@@ -95,50 +95,50 @@ const Editlisting = () => {
             alert('Price limit is 9999.');
         }
 
-        if (isValidImg) {
-            if (isValidTitle && isValidDesc && isValidPrice) {
-                console.log("new image has been chosen!");
-                // delete old photo from storage
-                const storage = getStorage();
-                const photoRef = ref(storage, 'marketListings/'+details.photoFileName);
-                console.log(details.photoFileName);
-                // Delete the file
-                //https://firebase.google.com/docs/storage/web/delete-files
-                deleteObject(photoRef).then(() => {
-                    console.log("Photo deleted successfully!");
-                }).catch((error) => {
-                    console.log("Error deleting photo: ", e);
-                });
+        // if updating listing with new image
+        if (isValidImg && isValidTitle && isValidDesc && isValidPrice) {
+            console.log("new image has been chosen!");
+            // delete old photo from storage
+            const storage = getStorage();
+            const photoRef = ref(storage, 'marketListings/'+details.photoFileName);
+            console.log(details.photoFileName);
+            // Delete the file
+            //https://firebase.google.com/docs/storage/web/delete-files
+            deleteObject(photoRef).then(() => {
+                console.log("Photo deleted successfully!");
+            }).catch((error) => {
+                console.log("Error deleting photo: ", e);
+            });
 
-                // adding new image to firebase storage and creating img URL to add to firebase collection
-                var uploadFileName = image[0].name;
-                const imgFileName = Date.now() + uploadFileName;
-                const userImgRef = ref(storage, 'marketListings/' + imgFileName);
-                const uploadTask = uploadBytesResumable(userImgRef, image[0]);
-                uploadTask.on('state_changed',
-                (snapshot) => {
-                    getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-                        console.log("file at: ", downloadURL);
-                        console.log("title: "+t);
-                        console.log("desc: "+d);
-                        console.log("price: "+p);
-                        // updating document in collection
-                        await updateDoc(doc(db, "marketListings", did), {
-                            title: t,
-                            description: d,
-                            price: "$" + p,
-                            photo: downloadURL,
-                            photoFileName: imgFileName,
-                            timeUpdated: Timestamp.fromDate(new Date())
-                        })
-                        console.log("Document updated successfully");
-                        window.location.href='/listing-details/'+did; // on update, redirect to the listing details user just created
+            // adding new image to firebase storage and creating img URL to add to firebase collection
+            var uploadFileName = image[0].name;
+            const imgFileName = Date.now() + uploadFileName;
+            const userImgRef = ref(storage, 'marketListings/' + imgFileName);
+            const uploadTask = uploadBytesResumable(userImgRef, image[0]);
+            uploadTask.on('state_changed',
+            (snapshot) => {
+                getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+                    console.log("file at: ", downloadURL);
+                    console.log("title: "+t);
+                    console.log("desc: "+d);
+                    console.log("price: "+p);
+                    // updating document in collection
+                    await updateDoc(doc(db, "marketListings", did), {
+                        title: t,
+                        description: d,
+                        price: "$" + p,
+                        photo: downloadURL,
+                        photoFileName: imgFileName,
+                        timeUpdated: Timestamp.fromDate(new Date())
                     })
+                    console.log("Document updated successfully");
+                    window.location.href='/listing-details/'+did; // on update, redirect to the listing details user just created
                 })
-                return true;
-            }
+            })
+            return true;
 
-        } else if(isValidTitle && isValidDesc && isValidPrice){
+        } // if updating listing without new image
+        else if(image.length === 0 & isValidTitle && isValidDesc && isValidPrice){
             console.log("inside updatelisting");
             try {
                 console.log("title: "+t);
@@ -166,11 +166,6 @@ const Editlisting = () => {
         //return false;
     }
 
-    function goBack() {
-        //window.location.href='/listing-details/'+did;
-        console.log("want to go back");
-    }
-
     document.title="Edit Listing"
 
     return (
@@ -178,7 +173,7 @@ const Editlisting = () => {
             <div className="row">
                 <div className="col">
                     {/* shows original listing photo or new one if they uploaded one */}
-                    { imageURL.length > 0 ? ( imageURL?.map(imageSrc => <img src={imageSrc} width="300" height="300" alt="something user uploaded"/>)) : (<img src={i} width="300" height="300" alt="something user uploaded"/>) } 
+                    { imageURL.length > 0 ? ( imageURL?.map((imageSrc, index) => (<img key={index} src={imageSrc} width="300" height="300" alt="something user uploaded"/>))) : (<img src={i} width="300" height="300" alt="something user uploaded"/>) } 
                     
                     <br></br>
                     <input id="userimg" type="file" onChange={onImageChange}/>

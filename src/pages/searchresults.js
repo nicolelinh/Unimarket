@@ -88,9 +88,9 @@ const Searchresults = () => {
                             <div className="row">
                                 {/* this maps all the documents grabbed earlier and uses the data from each to create a Listing card */}
                                 {
-                                    allItems?.map((data, i)=>(
+                                    allItems?.map((data, index)=>(
                                         // only allow 4 listings per column by dividing col by 3
-                                        <div className="col-3">
+                                        <div className="col-3" key={index}>
                                             <Listing
                                             title={data.title}
                                             description={data.description}

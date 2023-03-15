@@ -15,9 +15,8 @@ const Home = () => {
 
     // grabs all documents in marketListings collection in db
     const marketRef = collection(db, "marketListings");
-    const q = query(marketRef, orderBy("timeCreated", "desc"));
     const Fetchdata = async () => {
-        await getDocs(q).then((querySnapshot)=>{
+        await getDocs(query(marketRef, orderBy("timeCreated", "desc"))).then((querySnapshot)=>{
             const newData = querySnapshot.docs.map((doc)=> ({...doc.data(), id:doc.id}));
             setInfo(newData);
             console.log(info, newData);
@@ -65,59 +64,56 @@ const Home = () => {
     if (email !== "") {
         return (
             <main>
-            <section>
-                <div className="padding container">
-                    <h1 className="pill-form">Welcome {email}</h1>
-                    <form className="d-flex search-form" onSubmit={(event) => {validateData(event)}}>
-                        <input className="form-control me-2 search-input" id="usersearch" type="search" placeholder="search here" aria-label="Search" required></input>
-                        <button className="search-btn btn-outline-success" type="submit" >search by filter</button>
-                    </form>
-                    <div className="row">
-                        <div className="col col-spacing">
-                            <h4 className="question-1"><em>need to sell or request a market item?</em></h4>
-                            <h4 className="question-1"><em><a className="question-brown" href="/create-listing">sell</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="/create-request">request</a></em></h4>
-                        </div>
-                        {/* <div className="col"></div> */}
-                    </div>
-                    <div className="row">
-                        {/* <div className="col"></div> */}
-                        <div className="col col-spacing">
-                            <h4 className="question-2"><em>looking for carpool or other services?</em></h4>
-                            <h4 className="question-2"><em><a className="question-brown" href="/create-carpool-request">carpool</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="/">other services</a></em></h4>
-                        </div>
-                    </div>
-                    <div className="listings-cont">
-                        <h3 className="listings-title"><em>most recent product listings</em></h3>
-
-                        {/* dynamically create rows and columns based on how many listings are in database */}
+                <section>
+                    <div className="padding container">
+                        <h1 className="pill-form">Welcome {email}</h1>
+                        <form className="d-flex search-form" onSubmit={(event) => {validateData(event)}}>
+                            <input className="form-control me-2 search-input" id="usersearch" type="search" placeholder="search here" aria-label="Search" required></input>
+                            <button className="search-btn btn-outline-success" type="submit" >search by filter</button>
+                        </form>
                         <div className="row">
-                            {/* this maps all the documents grabbed earlier and uses the data from each to create a Listing card */}
-                            {
-                                info?.map((data, i)=>(
-                                    // only allow 4 listings per column by dividing col by 3
-                                    <div className="col-3">
-                                        <Listing
-                                        title={data.title}
-                                        description={data.description}
-                                        price={data.price}
-                                        photo={data.photo}
-                                        docid={data.id}
-                                        />
-                                    </div>
-                                ))
-                            }
+                            <div className="col col-spacing">
+                                <h4 className="question-1"><em>need to sell or request a market item?</em></h4>
+                                <h4 className="question-1"><em><a className="question-brown" href="/create-listing">sell</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="/create-request">request</a></em></h4>
+                            </div>
+                            {/* <div className="col"></div> */}
                         </div>
-                        {/* allow max of 4 listings per page to test, if over, then go to next page OR continuous scrolling*/}
-                        
+                        <div className="row">
+                            {/* <div className="col"></div> */}
+                            <div className="col col-spacing">
+                                <h4 className="question-2"><em>looking for carpool or other services?</em></h4>
+                                <h4 className="question-2"><em><a className="question-brown" href="/create-carpool-request">carpool</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="/">other services</a></em></h4>
+                            </div>
+                        </div>
+                        <div className="listings-cont">
+                            <h3 className="listings-title"><em>most recent product listings</em></h3>
+
+                            {/* dynamically create rows and columns based on how many listings are in database */}
+                            <div className="row">
+                                {/* this maps all the documents grabbed earlier and uses the data from each to create a Listing card */}
+                                {
+                                    info?.map((data, index)=>(
+                                        // only allow 4 listings per column by dividing col by 3
+                                        <div className="col-3" key={index}>
+                                            <Listing
+                                            title={data.title}
+                                            description={data.description}
+                                            price={data.price}
+                                            photo={data.photo}
+                                            docid={data.id}
+                                            />
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </section>
-        </main>
+                </section>
+            </main>
         )
-    }
-    else {
+    } else {
         return(
-        <Landing/>
+            <Landing/>
         )
     }
 }
