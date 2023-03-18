@@ -42,7 +42,8 @@ const RequestCarpool = () => {
   // updates on general visual appeal. 
   return (
     <div>
-      <form onSubmit={addCarpool} style={{flexDirection: 'column', alignItems: 'center' }}>
+      <br />
+      <form onSubmit={addCarpool} style={{ background: 'linear-gradient(rgb(132, 173, 151), white)', borderRadius: '20px', padding: '20px', display: 'inline-block', flexDirection: 'column', alignItems: 'center' }}>
         <h2>Carpool Request</h2>
         <Link to="/carpooldisplay">Redirect to Available Carpools</Link>
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
