@@ -53,7 +53,6 @@ const CarpoolDisplay = () => {
                 <td style={{ border: '1px solid black', padding: '8px' }}>{request.est_drive_time}</td>
                 <td style={{ border: '1px solid black', padding: '8px' }}>{request.how_many_passengers}</td>
                 <td style={{ border: '1px solid black', padding: '8px' }}>{request.passenger_note}</td>
-                <td style={{ border: '1px solid black', padding: '8px' }}><button onClick={() => handleContactRequester(request.phone_number)}>Contact Requester</button></td>
               </tr>
             );
           })}
