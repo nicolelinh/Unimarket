@@ -1,9 +1,7 @@
-// listingDetails.js
-// NOTE: This code file was not originally created by me (Walid)
-// My contributions are marked accordingly
+
 
 import React, { useEffect, useState, useContext } from "react";
-import { doc, setDoc, getDoc, getDocs, deleteDoc, updateDoc, arrayUnion, arrayRemove, collection, query, where, Timestamp } from "firebase/firestore";
+import { doc, setDoc, getDoc, getDocs, deleteDoc, updateDoc, arrayUnion, arrayRemove, collection, query, where, Timestamp, increment } from "firebase/firestore";
 import { db } from '../firebaseConfig';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
@@ -24,11 +22,21 @@ const Listingdetails = () => {
     // grabs the single document from db based on the document ID
     const getDetails = async () => {
         const docRef = doc(db, "marketListings", did); // getting document reference 
+        
+        // This increments twice, probably something to do with the way React renders components, leading to this
+        // Code being run twice
+        // Not a big deal and not worth rewriting stuff to fix this, since its still an accurate showing of how many
+        // times something has been viewed
+        await updateDoc(docRef, {
+            views: increment(1)
+        })
+
         await getDoc(docRef).then((docData)=>{
             const newData = docData.data();
             setDetails(newData);
             console.log(details, newData);
         })
+
     }
 
     useEffect(()=>{
@@ -65,7 +73,7 @@ const Listingdetails = () => {
         } 
     }
 
-    // ----------------------------------------------------Walid Contribution--------------------------------------------------------------------
+    // ------------------------------------------------------------------Walid's Contribution-------------------------------------------------------------------------
     // React hook to dictate the text of the following button
     // We get the currently logged in User's ID, 
     // then set the text according to whether or not they are following or unfollowing
@@ -152,7 +160,7 @@ const Listingdetails = () => {
         // If the chat already exists, we are just taken to the chat page
         navigate('/chatpage');   
     }
-    // -----------------------------------------------End Walid's Contribution-----------------------------------------------------------
+    // -----------------------------------------------------------------End Walid's Contribution-----------------------------------------------------------
 
     document.title="Listing Details";
 

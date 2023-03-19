@@ -8,6 +8,8 @@ import './home.css';
 
 const Home = () => {
     const [info, setInfo] = useState([]);
+    const [filter, setFilter] = useState('timeCreated');
+    const [filterDetails, setFilterDetails] = useState('desc')
 
     window.addEventListener('load', () => {
         Fetchdata();
@@ -17,15 +19,17 @@ const Home = () => {
     // need to filter/query db to only show listings from your school and by creation date? and those that arent yours? 
     const marketRef = collection(db, "marketListings");
     const Fetchdata = async () => {
-        await getDocs(query(marketRef, orderBy('timeCreated', 'desc'))).then((querySnapshot)=>{
+        await getDocs(query(marketRef, orderBy(filter, filterDetails))).then((querySnapshot)=>{
             const newData = querySnapshot.docs.map((doc)=> ({...doc.data(), id:doc.id}));
             setInfo(newData);
-            console.log(info, newData);
+            // console.log(info, newData);
         })
     }
 
     useEffect(()=>{
         Fetchdata();
+        console.log('INFO: ')
+        console.log(info)
     }, [])
 
     const [email, setEmail] = useState(() => {
@@ -34,6 +38,33 @@ const Home = () => {
         const initialValue = JSON.parse(saved);
         return initialValue || "";
       }, []);
+
+
+    // Massive if/else chain is probbaly not the best way to approach this, but each sorting requirement is different
+    // Might come upwith something better 
+    const sortListings = (filter) => {
+        const x = [...info]
+        if (filter === "oldest") {
+            x.sort((first, second) => first.timeCreated - second.timeCreated)
+        }
+        else if (filter === "newest") {
+            x.sort((first, second) => second.timeCreated - first.timeCreated)
+        }
+        else if (filter === "lowest-price") {
+            x.sort((first, second) => Number(first.price.slice(1)) - Number(second.price.slice(1)))
+        }
+        else if (filter === "highest-price") {
+            x.sort((first, second) => Number(second.price.slice(1)) - Number(first.price.slice(1)))
+        }
+        else if (filter === "most-viewed") {
+            x.sort((first, second) => second.views - first.views)
+        } 
+        else if (filter === "least-viewed") {
+            x.sort((first, second) => first.views - second.views)
+        }
+        setInfo(x)
+    }
+
 
     document.title="Home";
 
@@ -63,7 +94,18 @@ const Home = () => {
                         </div>
                     </div>
                     <div className="listings-cont">
-                        <h3 className="listings-title"><em>most recent product listings</em></h3>
+                        <h3 className="listings-title"><em>most recent product listings</em> 
+                        <select onChange = {(e) => sortListings(e.target.value)}>
+                            <option value="">order by</option>
+                            <option value="newest">newest (default)</option>
+                            <option value="oldest">oldest</option>
+                            <option value="most-viewed">most viewed</option>
+                            <option value="least-viewed">least viewed</option>
+                            <option value="lowest-price">lowest price</option>
+                            <option value="highest-price">highest price</option>
+                            {/* <option value="favorite-asc">most favorited</option> */}
+                        </select>
+                        </h3>
 
                         {/* dynamically create rows and columns based on how many listings are in database */}
                         <div className="row">
