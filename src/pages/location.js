@@ -40,7 +40,7 @@ function Location() {
         axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
             params: {
                 address: location,
-                key: 'AIzaSyBbF0R8IM3IL2qUyJymar9inMNvs3wNExk'
+                key: null
             }
         })
         .then((res) => {
