@@ -16,6 +16,7 @@ import Listingdetails from './pages/listingDetails';
 import Editlisting from './pages/editlisting';
 import Request from './pages/request'
 import CarpoolRequest from './pages/carpoolrequest'
+import CarpoolDisplay from './pages/carpooldisplay'
 import Chat from './pages/chat';
 import Following from './pages/following'
 import ChatPage from './pages/chatpage'
@@ -44,6 +45,9 @@ function App() {
           <Route path="/create-listing" element={<Createlisting/>}/>
           <Route exact path="/listing-details/:docid" element={<Listingdetails/>}/>
           <Route exact path="/edit-listing/:docid" element={<Editlisting/>}/>
+          <Route path="/request" element={<Request/>}/>
+          <Route path="/carpoolrequest" element={<CarpoolRequest/>}/>
+          <Route path="/carpooldisplay" element={<CarpoolDisplay/>}/>  
           <Route path="/chat" element={<Chat />} />
           <Route path="/chatpage" element={<ChatPage />} />
           <Route path="/following" element={<Following />} />
