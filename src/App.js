@@ -19,6 +19,7 @@ import CarpoolRequest from './pages/carpoolrequest'
 import Chat from './pages/chat';
 import Following from './pages/following'
 import ChatPage from './pages/chatpage'
+import Location from './pages/location'
 import { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
 
@@ -46,6 +47,7 @@ function App() {
           <Route path="/chat" element={<Chat />} />
           <Route path="/chatpage" element={<ChatPage />} />
           <Route path="/following" element={<Following />} />
+          <Route path="/location" element={<Location />} />
   
         </Routes>
       </BrowserRouter>

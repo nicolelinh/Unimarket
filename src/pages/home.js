@@ -8,8 +8,6 @@ import './home.css';
 
 const Home = () => {
     const [info, setInfo] = useState([]);
-    const [filter, setFilter] = useState('timeCreated');
-    const [filterDetails, setFilterDetails] = useState('desc')
 
     window.addEventListener('load', () => {
         Fetchdata();
@@ -19,10 +17,10 @@ const Home = () => {
     // need to filter/query db to only show listings from your school and by creation date? and those that arent yours? 
     const marketRef = collection(db, "marketListings");
     const Fetchdata = async () => {
-        await getDocs(query(marketRef, orderBy(filter, filterDetails))).then((querySnapshot)=>{
+        await getDocs(query(marketRef, orderBy("timeCreated", "desc"))).then((querySnapshot)=>{
             const newData = querySnapshot.docs.map((doc)=> ({...doc.data(), id:doc.id}));
             setInfo(newData);
-            // console.log(info, newData);
+            console.log(info, newData);
         })
     }
 
@@ -95,7 +93,7 @@ const Home = () => {
                     </div>
                     <div className="listings-cont">
                         <h3 className="listings-title"><em>most recent product listings</em> 
-                        <select onChange = {(e) => sortListings(e.target.value)}>
+                        <select className="sort-metrics" onChange = {(e) => sortListings(e.target.value)}>
                             <option value="">order by</option>
                             <option value="newest">newest (default)</option>
                             <option value="oldest">oldest</option>
