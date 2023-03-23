@@ -83,7 +83,7 @@ const Navbar = () => {
                                 <a className="nav-link" href="/signout">Sign Out</a>
                             </li>
                             <li>
-                                <a className="nav-link" href="/landing">Landing</a>
+                                <a className="nav-link" href="/requestschool">Join Us</a>
                             </li>
                         </ul>
                         {/* removed search bar */}

@@ -21,6 +21,7 @@ import Chat from './pages/chat';
 import ChatPage from './pages/chatpage'
 import { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
+import RequestSchool from './pages/requestschool';
 
 
 
@@ -48,6 +49,7 @@ function App() {
           <Route path="/carpooldisplay" element={<CarpoolDisplay/>}/>  
           <Route path="/chat" element={<Chat />} />
           <Route path="/chatpage" element={<ChatPage />} />
+          <Route path="/requestschool" element={<RequestSchool/>} />
           
         </Routes>
       </BrowserRouter>

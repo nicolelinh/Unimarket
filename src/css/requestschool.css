@@ -14,8 +14,7 @@
 div.mainrequest{
     font-family: "Montserrat-Italic";
     margin: auto;
-    background: linear-gradient(180deg, rgba(45, 86, 78, 0.48) 0%, #F2ECDB 100%);
-    padding: 50px;
+    background: linear-gradient(180deg, rgba(45, 86, 78, 0.48) 0%, #F2ECDB 100%);    padding: 50px;
     position: relative;
     width: 1000px;
     border-radius: 150px;
@@ -23,4 +22,12 @@ div.mainrequest{
 }
 a.customerservice{
     font-family: "Montserrat-Italic";
+}
+
+/*button decor*/
+button{
+    padding: 10px;
+    font-family: "Montserrat-Italic";
+    color: #2D564E;
+    border: transparent;
 }
