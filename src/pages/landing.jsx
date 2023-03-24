@@ -1,3 +1,4 @@
+/*questions? ask dev nicole nguyen*/
 import React, { Component } from "react";
 import '../css/landing.css';
 import logo from '../assets/logo2.png';
@@ -17,6 +18,7 @@ class Landing extends Component {
                         <div class="main_container">
                             <img className="welcometo" src={welcometo} alt="welcometo" id="welcometo"/>
                             <br></br>
+                            {/*this is body segmenting between the logo and the bubble/button assets*/}
                             <div className="body">
                                 <div className="col">
                                     <img className="logo" src={logo} alt="logo" id="main_img"/>

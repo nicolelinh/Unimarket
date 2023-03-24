@@ -1,0 +1,38 @@
+/*questions? ask dev nicole nguyen*/
+
+/*import font family and standardize the name from font folder*/
+@font-face {
+    font-family: "Montserrat-Italic";
+    src: local("Montserrat-Italic"), url("../fonts/Montserrat-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat";
+    src: local("Montserrat-Black"), url("../fonts/Montserrat-Black.ttf") format("truetype");
+}
+
+/*container for the login information*/
+div.Login{
+    background: linear-gradient(180deg, #96B8B1 0%, rgba(217, 217, 217, 0) 100%);
+    border-radius: 125px;
+    height: 800px;
+    width: 1000px;
+    padding: 100px;
+    position: relative;
+    top: 40px; 
+    margin: auto;
+    font-family: "Montserrat-Italic";
+}
+
+/*changes the input boxes of the email and password for user to input*/
+input[type=password], input[type=email] {
+    border-radius: 30px;
+    width: 700px;
+    border-color: transparent;
+}
+::placeholder{
+    color: lightgrey;
+    position: relative;
+    padding-left: 20px;
+    font-size: 20px;
+    bottom: 3px;
+}
