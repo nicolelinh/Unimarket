@@ -12,7 +12,7 @@ class Footer extends Component {
                     <div className="row">
                         <div className="col-lg-6 col-md-12 mb-4 mb-md-0">
                             <h5 className="text-uppercase">Sign Up for Free!</h5>
-                            <p>
+                            <p className="footer">
                             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
                             molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
                             voluptatem veniam, est atque cumque eum delectus sint!

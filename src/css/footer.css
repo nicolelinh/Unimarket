@@ -13,7 +13,7 @@
 .bg-darkgray{
     background-color: rgb(78, 78, 78);
 }
-p{
+p.footer{
     color: white;
     font-size: 15px;
 }

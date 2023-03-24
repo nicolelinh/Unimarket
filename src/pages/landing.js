@@ -31,7 +31,7 @@ class Landing extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <p>our goal is to ultimately provide every college campus a local community where students can safely market items and exchange services amongst themselves</p>
+                            <p className="description">our goal is to ultimately provide every college campus a local community where students can safely market items and exchange services amongst themselves</p>
                         </div>
                     </div>
                 </section>
