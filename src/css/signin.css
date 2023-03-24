@@ -6,28 +6,51 @@
     src: local("Montserrat-Italic"), url("../fonts/Montserrat-Italic.ttf") format("truetype");
 }
 @font-face {
-    font-family: "Montserrat";
-    src: local("Montserrat-Black"), url("../fonts/Montserrat-Black.ttf") format("truetype");
+    font-family: "Montserrat-BoldItalic";
+    src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
+}
+
+/*container set-up and padding*/
+.main-container{
+    padding-bottom: 10px;
+}
+
+/*font editing*/
+h2{
+    font-family: "Montserrat-BoldItalic";
+    color: #2D564E !important; 
+}
+h3{
+    font-family: "Montserrat-Italic";
+    font-size: 15px !important;
+    color: #484848 !important;
+    padding-right: 550px;
 }
 
 /*container for the login information*/
-div.Login{
-    background: linear-gradient(180deg, #96B8B1 0%, rgba(217, 217, 217, 0) 100%);
-    border-radius: 125px;
-    height: 800px;
+div.SignIn{
+    background: linear-gradient(180deg, rgba(45, 86, 78, 0.48) 0%, #F2ECDB 100%);    border-radius: 125px;
+    height: 475px;
     width: 1000px;
-    padding: 100px;
+    padding: 50px;
     position: relative;
     top: 40px; 
     margin: auto;
     font-family: "Montserrat-Italic";
 }
 
+/*container padding for user input*/
+.inputbox{
+    padding-bottom: 20px;
+}
+
 /*changes the input boxes of the email and password for user to input*/
 input[type=password], input[type=email] {
+    margin: auto;
     border-radius: 30px;
     width: 700px;
     border-color: transparent;
+    height: 50px;
 }
 ::placeholder{
     color: lightgrey;
@@ -35,4 +58,16 @@ input[type=password], input[type=email] {
     padding-left: 20px;
     font-size: 20px;
     bottom: 3px;
+}
+
+/*forgotpassword and signin visual edits*/
+.forgotpassword{
+    background-color: transparent;
+    transition-duration: .3s;
+}
+
+.signinbutton{
+    background-color: transparent;
+    font-family: "Montserrat-BoldItalic";
+    font-size: 20px;
 }
