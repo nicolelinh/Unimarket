@@ -13,3 +13,7 @@
 .bg-darkgray{
     background-color: rgb(78, 78, 78);
 }
+p{
+    color: white;
+    font-size: 15px;
+}
