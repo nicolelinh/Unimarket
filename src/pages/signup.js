@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from "react";
-import '../App.css';
+import '../css/signup.css';
 //import { useState, useEffect } from 'react';
 import { auth, db } from '../firebaseConfig'
 import { doc, setDoc } from "firebase/firestore"

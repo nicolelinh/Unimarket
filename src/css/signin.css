@@ -12,6 +12,7 @@
 
 /*container set-up and padding*/
 .main-container{
+    padding-top: 30px;
     padding-bottom: 10px;
 }
 
@@ -33,7 +34,6 @@ div.SignIn{
     height: 475px;
     width: 1000px;
     padding: 50px;
-    position: relative;
     top: 40px; 
     margin: auto;
     font-family: "Montserrat-Italic";
