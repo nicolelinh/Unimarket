@@ -13,10 +13,47 @@
 /*main container*/
 .SignUp{
     background: linear-gradient(180deg, rgba(45, 86, 78, 0.48) 0%, #F2ECDB 100%);    border-radius: 125px;
-    height: 475px;
+    height: 650px;
     width: 1000px;
     padding: 50px;
-    top: 40px; 
     margin: auto;
     font-family: "Montserrat-Italic";
+}
+
+/*form container padding*/
+.signup-userinput{
+    padding-left: 100px;
+}
+
+/*text description edits*/
+p.desc{
+    padding-top: 10px;
+}
+p.warning{
+    font-size: 15px;
+    padding-bottom: 20px;
+}
+
+/*userinput box edits*/
+input[type=password], input[type=email], input[type=text] {
+    margin: auto;
+    border-radius: 30px;
+    width: 700px;
+    border-color: transparent;
+    height: 50px;
+}
+::placeholder{
+    color: lightgrey;
+    position: relative;
+    padding-left: 20px;
+    font-size: 20px;
+    bottom: 3px;
+}
+
+/*button edit*/
+.signupbutton{
+    background-color: transparent;
+    font-family: "Montserrat-BoldItalic";
+    font-size: 20px;
+    padding-right: 120px;
 }
