@@ -1,0 +1,65 @@
+/*questions? ask dev nicole nguyen*/
+
+/*import font family and standardize the name from font folder*/
+@font-face {
+    font-family: "Montserrat-Italic";
+    src: local("Montserrat-Italic"), url("../fonts/Montserrat-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat";
+    src: local("Montserrat-Black"), url("../fonts/Montserrat-Black.ttf") format("truetype");
+}
+
+/*container padding*/
+.main_container{
+    padding-bottom: 30px;
+    padding-top: 20px;
+}
+
+/*header font*/
+img.welcometo{
+    padding-top: 40px;
+    padding-right: 1200px;
+}
+
+/*asset positioning*/
+.body{
+    display: flex;
+    margin: auto;
+}
+.col{
+    float: left;
+    width: 50%;
+    padding: 10px;
+}
+
+/*left asset*/
+/*bubble*/
+.logo{
+    position:relative;
+    padding-left: 150px;
+}
+.bubble{
+    position:relative;
+    padding-left: 20px;
+    padding-top: 77px;
+}
+.bubbleslogan{
+    position:absolute;
+    padding-top: 200px;
+}
+/*buttons*/
+.sign{
+    padding-top: 30px;
+    background-color: transparent;
+    scale: 85%;
+    transition-duration: .3s;
+}
+.sign:hover{
+    opacity: 2;
+}
+p{
+    font-family: "Montserrat-Italic";
+    font-size: 20px;
+    color: #2D564E;
+}

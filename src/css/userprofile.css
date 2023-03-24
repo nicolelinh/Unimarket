@@ -1,0 +1,69 @@
+/*questions? ask dev nicole nguyen*/
+
+/*import font family and standardize the name from font folder*/
+@font-face {
+    font-family: "Montserrat-Italic";
+    src: local("Montserrat-Italic"), url("../fonts/Montserrat-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat";
+    src: local("Montserrat-Black"), url("../fonts/Montserrat-Black.ttf") format("truetype");
+}
+
+/*user history button to link user to thier history from the profile page*/
+button.userhistory{
+    border: transparent;
+    background-color: transparent;
+    position: relative;
+    top: 10px;
+    scale: 80%;
+}
+
+button.userhistory:hover{
+    filter: brightness(90%);
+}
+
+/*this container encloses all of the text and information provided for user profile
+  it also standardizes the text and formatting of all content inside*/
+div.profilecontainer{
+    width: 600px;
+    border-radius: 138px;
+    padding: 50px;
+    margin: auto;
+    background: linear-gradient(180deg, rgba(184, 206, 167, 0.48) 0%, #7EB0BB 100%);    filter:blur(px);
+    position: relative;
+    top: 100px;
+    scale: 120%;
+    z-index: 1;
+}
+img.profilepic{
+    scale: 90%;
+    padding: 10px;
+}
+p.userprofile{
+    font-family: "Montserrat-Italic";
+}
+h1.userprofile{
+    font-family: "Montserrat-Italic";
+    color: #484848;
+}
+
+/*inside this is the white text containing user information and standardizes its format*/
+div.userinformation{
+    border-radius: 14px;
+    background: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/*edits the background layout of the page*/
+img.profilebackground{
+    position: relative;
+    bottom: 200px;
+    -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));    left: 0;
+    z-index: 0;
+}
+p.userprofile{
+    position: relative;
+    top: 8px;
+}
