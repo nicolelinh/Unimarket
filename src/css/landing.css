@@ -54,6 +54,8 @@ img.welcometo{
     background-color: transparent;
     scale: 85%;
     transition-duration: .3s;
+    border-color: transparent;
+
 }
 .sign:hover{
     opacity: 2;

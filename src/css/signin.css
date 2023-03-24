@@ -31,7 +31,7 @@ h3{
 /*container for the login information*/
 div.SignIn{
     background: linear-gradient(180deg, rgba(45, 86, 78, 0.48) 0%, #F2ECDB 100%);    border-radius: 125px;
-    height: 475px;
+    height: 420px;
     width: 1000px;
     padding: 50px;
     top: 40px; 
@@ -64,10 +64,15 @@ input[type=password], input[type=email] {
 .forgotpassword{
     background-color: transparent;
     transition-duration: .3s;
+    border-color: transparent;
+
 }
 
 .signinbutton{
     background-color: transparent;
     font-family: "Montserrat-BoldItalic";
     font-size: 20px;
+    border-color: transparent;
+    color: #2D564E;
+
 }

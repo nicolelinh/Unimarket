@@ -56,4 +56,6 @@ input[type=password], input[type=email], input[type=text] {
     font-family: "Montserrat-BoldItalic";
     font-size: 20px;
     padding-right: 120px;
+    border-color: transparent;
+    color: #2D564E;
 }
