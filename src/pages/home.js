@@ -52,8 +52,11 @@ const Home = () => {
         if (isValidSearch) {
             // takes user to /search-results/words_entered_in_search_bar
             console.log("redirecting to: " + searchBarInputURL);
+            // useEffect(()=>{
+            //     window.localStorage.setItem('USER_SEARCHBARINPUT', JSON.stringify(searchBarInput));
+            // }, [])
+            window.localStorage.setItem('USER_SEARCHBARINPUT', JSON.stringify(searchBarInput));
             window.location.href=("/search-results/"+searchBarInputURL);
-            
         }
         return false;
     }

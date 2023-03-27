@@ -8,7 +8,6 @@ import { getStorage, ref, getDownloadURL, uploadBytesResumable, deleteObject } f
 const Editlisting = () => {
     // get document id by parsing url
     const did = window.location.pathname.split("/")[2];
-    const back = "/listing-details/"+did;
     // info needed to update listing
     const [t, setTitle] = useState("");
     const [d, setDesc] = useState("");
@@ -166,6 +165,9 @@ const Editlisting = () => {
         //return false;
     }
 
+    function cancel() {
+        window.history.back();
+    }
     document.title="Edit Listing"
 
     return (
@@ -197,7 +199,7 @@ const Editlisting = () => {
                             <br/><br/>
                             <button type="submit">re-list item</button>
                         </form>
-                        <a href={back}>cancel</a>
+                        <button onClick={() => cancel()}>cancel</button>
                     </div>
                 </div>
             </div>

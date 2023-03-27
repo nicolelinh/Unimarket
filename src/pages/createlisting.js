@@ -7,7 +7,6 @@ import './tagsinput.css';
 const Createlisting = () => {
     // grabs user data from local storage
     const currUser = window.localStorage.getItem('USER_EMAIL');
-    const back = '/home';
     // info needed to create listing
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
@@ -16,7 +15,7 @@ const Createlisting = () => {
     const [imageURL, setImageURL] = useState([]);
     const [userTags, setUserTags] = useState([]);
     const [searchTags] = useState([
-        "electronics", "books", "home", "clothing", "furniture", "video games"
+        "electronics", "books", "home", "furniture", "clothing, shoes & accessories", "pets", "music, movies & games", "school supplies"
     ]);
 
     useEffect(() => {
@@ -131,6 +130,9 @@ const Createlisting = () => {
         }
         return false;
     }
+    function cancel() {
+        window.history.back();
+    }
 
     document.title="Create Listing";
     return (
@@ -170,7 +172,7 @@ const Createlisting = () => {
                             <br/><br/>
                             <button type="submit">list item</button>
                         </form>
-                        <a href={back}>cancel</a>
+                        <button onClick={() => cancel()}>cancel</button>
                     </div>
                 </div>
             </div>
