@@ -13,7 +13,7 @@ function SignUp() {
     const [newPassword, setNewPassword] = useState("");
     const [newPhoneNumber, setNewPhoneNumber] = useState("");
 
-    // reset function
+    // reset input function
     const reset = () => {
         setNewSchool("");
         setNewUserName("");

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebaseConfig';
 import { getDocs, collection } from "firebase/firestore";
+import profilepic from '../assets/profilepic.png';
 import '../App.css';
 
 const ServiceList = () => {
@@ -48,9 +49,14 @@ const ServiceList = () => {
         {/*This part is essentially just the services (it currrently only contains the name and description)*/}
         {services.slice(startIndex, endIndex).map((service) => {
             return(
-                <div key={service.id} style={{ display: 'flex', flexDirection: 'row', marginBottom: '5%', border: '3px solid black', borderRadius: '20px', padding: '3%', margin: '3%', marginLeft: '5%'}}>
-                    <h2 style={{ width: '10%', marginLeft: '5%', marginRight: '50%' }}>{service.name}</h2>
-                    <p>{service.description}</p>
+                <div key={service.id} style={{ border: '3px solid black', borderRadius: '20px', margin: '3%', marginLeft: '20%', marginRight: '20%' }}>
+                    <a href={`/services/${service.id}`} style={{ textDecoration: 'none' }}>
+                        <div style={{ display: 'flex', flexDirection: 'row', padding: '1%' }}>
+                            <img className="profilepic" src={profilepic} alt="profilepic" id="profilepic"/>
+                            <h2 style={{ width: '10%', marginLeft: '5%', marginRight: '25%', marginTop: '6%' }}>{service.name}</h2>
+                            <p>{service.description}</p>
+                        </div>
+                    </a>
                 </div>
             );
         })}
