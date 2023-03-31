@@ -23,8 +23,14 @@ const ServiceDetail = () => {
           console.log(service);
       })
     };
+
     getService();
   }, [id]);
+
+  // If service couldn't be found, it'll just keep loading
+  if (!service) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="servicedetail">
