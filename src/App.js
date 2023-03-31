@@ -19,8 +19,10 @@ import CarpoolRequest from './pages/carpoolrequest'
 import CarpoolDisplay from './pages/carpooldisplay'
 import Chat from './pages/chat';
 import ChatPage from './pages/chatpage'
+import ServiceRequest from './pages/servicerequest';
 import { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
+import ServiceList from './pages/servicelist';
 
 
 
@@ -48,7 +50,9 @@ function App() {
           <Route path="/carpooldisplay" element={<CarpoolDisplay/>}/>  
           <Route path="/chat" element={<Chat />} />
           <Route path="/chatpage" element={<ChatPage />} />
-          
+          <Route path="/servicerequest" element={<ServiceRequest />} />
+          <Route path="/servicelist" element={<ServiceList />} />
+
         </Routes>
       </BrowserRouter>
       <Footer/>

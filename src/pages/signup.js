@@ -1,6 +1,5 @@
 import React, { Component, useState, useEffect } from "react";
 import '../App.css';
-//import { useState, useEffect } from 'react';
 import { auth, db } from '../firebaseConfig'
 import { doc, setDoc } from "firebase/firestore"
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
@@ -13,6 +12,14 @@ function SignUp() {
     const [newPassword, setNewPassword] = useState("");
     const [newPhoneNumber, setNewPhoneNumber] = useState("");
 
+    // reset function
+    const reset = () => {
+        setNewSchool("");
+        setNewUserName("");
+        setNewEmail("");
+        setNewPassword("");
+        setNewPhoneNumber("");
+    };
 
     //sign up function
     const signUp = (event) => {
@@ -38,7 +45,7 @@ function SignUp() {
                 
                 console.log(userCredential.user);
                 console.log(auth.currentUser.email);
-                // ...
+                reset();
             })
             .catch((error) => {
                 console.log(error);
