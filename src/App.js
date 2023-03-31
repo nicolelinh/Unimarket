@@ -23,6 +23,7 @@ import ServiceRequest from './pages/servicerequest';
 import { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
 import ServiceList from './pages/servicelist';
+import ServiceDetail from './pages/serviceDetail';
 import RequestSchool from './pages/requestschool';
 import UserProfile from './pages/userprofile';
 import UserHistory from './pages/userhistory';
@@ -54,7 +55,8 @@ function App() {
           <Route path="/chat" element={<Chat />} />
           <Route path="/chatpage" element={<ChatPage />} />
           <Route path="/servicerequest" element={<ServiceRequest />} />
-          <Route path="/servicelist" element={<ServiceList />} />
+          <Route path="/services" element={<ServiceList />} />
+          <Route path="/services/:id" element={<ServiceDetail />} />
           <Route path="/requestschool" element={<RequestSchool/>} />
           <Route path="/userprofile" element={<UserProfile/>}/>
           <Route path="/userhistory" element={<UserHistory/>}/>

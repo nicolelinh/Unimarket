@@ -3,6 +3,7 @@ import { db } from '../firebaseConfig';
 import { getDocs, collection } from "firebase/firestore";
 import profilepic from '../assets/profilepic.png';
 import '../App.css';
+import { Link } from 'react-router-dom';
 
 const ServiceList = () => {
     const [services, setServices] = useState([]);
@@ -50,13 +51,13 @@ const ServiceList = () => {
         {services.slice(startIndex, endIndex).map((service) => {
             return(
                 <div key={service.id} style={{ border: '3px solid black', borderRadius: '20px', margin: '3%', marginLeft: '20%', marginRight: '20%' }}>
-                    <a href={`/services/${service.id}`} style={{ textDecoration: 'none' }}>
+                    <Link to={`/services/${service.id}`} style={{ textDecoration: 'none' }}>
                         <div style={{ display: 'flex', flexDirection: 'row', padding: '1%' }}>
                             <img className="profilepic" src={profilepic} alt="profilepic" id="profilepic"/>
                             <h2 style={{ width: '10%', marginLeft: '5%', marginRight: '25%', marginTop: '6%' }}>{service.name}</h2>
                             <p>{service.description}</p>
                         </div>
-                    </a>
+                    </Link>
                 </div>
             );
         })}
