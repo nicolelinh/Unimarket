@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import '../App.css';
+import '../css/signin.css';
 import { auth } from '../firebaseConfig'
 import { signInWithEmailAndPassword } from "firebase/auth";
 
@@ -28,36 +28,41 @@ function SignIn() {
 
     // visible portion of the page(buttons and input fields)
     return (
-        <div className="SignIn">
-            <h2>Sign In</h2>
-                <form onSubmit={signIn}>
-                    <div>
-                    <h3>Enter email:
-                    <input
-                        type="email"
-                        placeholder="Email..."
-                        value={newEmail}
-                        onChange={(event) => {
-                            setNewEmail(event.target.value);
-                        }}
-                    />          
-                    </h3>
-                </div>
-                <div>
-                    <h3> Enter password:
-                    <input
-                        type="password"
-                        placeholder="Password..."
-                        value={newPassword}
-                        onChange={(event) => {
-                            setNewPassword(event.target.value);
-                        }}
-                    />
-                    </h3>
-                </div>
-                <button class="forgotpassword"><a href="/forgotpassword">forgotpassword</a></button>
-                <button type="submit"> Sign In </button>
-                </form>
+        <div className="main-container">
+            <div className="SignIn">
+                <h2>Sign In</h2>
+                    <form onSubmit={signIn}>
+                        <p>welcome back to unimarket</p>
+                        <div className="userinput-container">
+                            <div className="inputbox">
+                            <h3 className="userinput">Enter email:</h3>
+                            <input
+                                type="email"
+                                placeholder="Email..."
+                                value={newEmail}
+                                onChange={(event) => {
+                                    setNewEmail(event.target.value);
+                                }}
+                            />          
+                            </div>
+                            <div className="inputbox">
+                                <h3 className="userinput">Enter password:</h3>
+                                <input
+                                    type="password"
+                                    placeholder="Password..."
+                                    value={newPassword}
+                                    onChange={(event) => {
+                                        setNewPassword(event.target.value);
+                                    }}
+                                />
+
+                            </div>
+                        </div>
+                    <button class="forgotpassword"><a href="/forgotpassword">forgotpassword</a></button>
+                    <br></br>
+                    <button className="signinbutton" type="submit"> Sign In </button>
+                    </form>
+            </div>
         </div>
     );
 }

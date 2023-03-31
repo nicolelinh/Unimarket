@@ -3,6 +3,7 @@ import '../App.css';
 // importing database link to carpool request listing, as well as the designated folder for inputs. 
 import { db } from '../firebaseConfig';
 import {collection, onSnapshot} from "firebase/firestore";
+import { Link } from 'react-router-dom';
 
 // setting up of inputs for a base level carpool request. 
 const CarpoolDisplay = () => {
@@ -53,12 +54,12 @@ const CarpoolDisplay = () => {
                 <td style={{ border: '1px solid black', padding: '8px' }}>{request.est_drive_time}</td>
                 <td style={{ border: '1px solid black', padding: '8px' }}>{request.how_many_passengers}</td>
                 <td style={{ border: '1px solid black', padding: '8px' }}>{request.passenger_note}</td>
-                <td style={{ border: '1px solid black', padding: '8px' }}><button onClick={() => handleContactRequester(request.phone_number)}>Contact Requester</button></td>
               </tr>
             );
           })}
         </tbody>
       </table>
+      <Link to="/carpoolrequest">Redirect to request a carpool for yourself!</Link>
     </form>
   );
 };

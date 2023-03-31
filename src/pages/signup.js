@@ -1,5 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 import '../App.css';
+import '../css/signup.css';
 import { auth, db } from '../firebaseConfig'
 import { doc, setDoc } from "firebase/firestore"
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
@@ -55,9 +56,12 @@ function SignUp() {
     
     // visible portion of the page(buttons and input fields)
     return (
+        <div className="padding">
         <div className="SignUp">
             <h2>Sign Up</h2>
-                <form onSubmit={signUp}>
+                <p className="desc">create an account</p>
+                <p className="warning">you must have a valid school email to use unimarket</p>
+                <form className="signup-userinput" onSubmit={signUp}>
                     <div>
                     <h3>Enter school:
                         <input
@@ -118,8 +122,9 @@ function SignUp() {
                             />
                         </h3>
                     </div>
-                    <button type="submit"> Sign Up </button>
+                    <button className="signupbutton" type="submit"> Sign Up </button>
                 </form>
+        </div>
         </div>
     );
 }
