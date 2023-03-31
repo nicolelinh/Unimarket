@@ -7,10 +7,12 @@ const ServiceDetail = () => {
   const { id } = useParams();
   const [service, setService] = useState(null);
 
+  // Back function do redirect to previous page
   const goBack = () => {
     window.history.back();
   };
 
+  // Process to get document from "services" collection and the ID from route
   useEffect(() => {
     const getService = async () => {
       const docRef = doc(db, "services", id); // getting document reference 
@@ -21,13 +23,8 @@ const ServiceDetail = () => {
           console.log(service);
       })
     };
-
     getService();
   }, [id]);
-
-  if (!service) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div className="servicedetail">

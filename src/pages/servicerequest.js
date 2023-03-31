@@ -10,6 +10,7 @@ const ServiceRequest = () => {
         setService({ ...service, [event.target.name]: event.target.value });
     };
 
+    // Submits the request and all details are saved into the database in "services" collection
     const submitRequest = async (e) => {
         e.preventDefault();
         console.log(service);
