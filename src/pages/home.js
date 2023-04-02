@@ -16,6 +16,7 @@ const Home = () => {
     // grabs all documents in marketListings collection in db
     const marketRef = collection(db, "marketListings");
     const Fetchdata = async () => {
+        // order by timeCreated which is a TimeStamp data type in firestore db
         await getDocs(query(marketRef, orderBy("timeCreated", "desc"))).then((querySnapshot)=>{
             const newData = querySnapshot.docs.map((doc)=> ({...doc.data(), id:doc.id}));
             setInfo(newData);
@@ -35,11 +36,11 @@ const Home = () => {
     }, []);
 
     // makes sure search bar input is valid
-    async function validateData(e) {
+    async function validateSearch(e) {
         e.preventDefault();
 
-        var searchBarInput = document.getElementById('usersearch').value;
-        var searchBarInputURL = searchBarInput.replace(/\s/g, '_');
+        var searchBarInput = document.getElementById('usersearch').value; // grabbing input from form below
+        var searchBarInputURL = searchBarInput.replace(/\s/g, '_'); // replacing whitespace with an _ to create URL
         var searchBarLimit = document.getElementById('usersearch').value.length;
         var isValidSearch = false;
 
@@ -50,12 +51,14 @@ const Home = () => {
         }
 
         if (isValidSearch) {
-            // takes user to /search-results/words_entered_in_search_bar
             console.log("redirecting to: " + searchBarInputURL);
             // useEffect(()=>{
             //     window.localStorage.setItem('USER_SEARCHBARINPUT', JSON.stringify(searchBarInput));
             // }, [])
+
+            //saving search bar input to local storage so it can be accessed and used in searchresults.js page
             window.localStorage.setItem('USER_SEARCHBARINPUT', JSON.stringify(searchBarInput));
+            // takes user to /search-results/words_entered_in_search_bar
             window.location.href=("/search-results/"+searchBarInputURL);
         }
         return false;
@@ -70,7 +73,7 @@ const Home = () => {
                 <section>
                     <div className="padding container">
                         <h1 className="pill-form">Welcome {email}</h1>
-                        <form className="d-flex search-form" onSubmit={(event) => {validateData(event)}}>
+                        <form className="d-flex search-form" onSubmit={(event) => {validateSearch(event)}}>
                             <input className="form-control me-2 search-input" id="usersearch" type="search" placeholder="search here" aria-label="Search" required></input>
                             <button className="search-btn btn-outline-success" type="submit" >search by filter</button>
                         </form>

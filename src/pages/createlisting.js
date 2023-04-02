@@ -14,6 +14,7 @@ const Createlisting = () => {
     const [image, setImage] = useState([]);
     const [imageURL, setImageURL] = useState([]);
     const [userTags, setUserTags] = useState([]);
+    // static list of available tags user can choose from
     const [searchTags] = useState([
         "electronics", "books", "home", "furniture", "clothing, shoes & accessories", "pets", "music, movies & games", "school supplies"
     ]);
@@ -33,10 +34,12 @@ const Createlisting = () => {
         setImage([...e.target.files]);
     }
 
-    function addSelectedTag(index) {
+    // sets tag user selected as "chosen" or "unchosen"
+    function setSelectedTag(index) {
         const tagName = searchTags.filter((el, i) => i === index).toString();
         const clickedTag = document.getElementById(index);
         const clickedTagBG = window.getComputedStyle(clickedTag).backgroundColor;
+        // if the tag is green, its currently selected, so clicking it will "unselect" it
         if (clickedTagBG === "rgb(46, 139, 87)") {
             console.log("removing tag: " + tagName + " from " + userTags);
             //remove selected tag from userTag list
@@ -44,9 +47,11 @@ const Createlisting = () => {
             const indexAt = userTags.indexOf(tagName);
             console.log(indexAt);
             setUserTags(userTags.filter((el, i) => i !== indexAt));
-            // change background color so user knows its de-selected
+            // change background color so user knows its unselected
             clickedTag.style.backgroundColor="lightgray";
-        } else if (clickedTagBG === "rgb(211, 211, 211)") {
+        } 
+        // if the tag is gray, its currently not selected, so clicking it will "select" it
+        else if (clickedTagBG === "rgb(211, 211, 211)") {
             console.log("adding tag: " + tagName);
             //add selected tag to userTag list
             setUserTags(userTags.concat(tagName));
@@ -165,7 +170,7 @@ const Createlisting = () => {
                             <div className="tags-input-container">
                                 { searchTags.map((tag, index) => (
                                     <div className="tag-item" id={index} key={index}>
-                                        <span className="text" onClick={() => addSelectedTag(index)}>{tag}</span>
+                                        <span className="text" onClick={() => setSelectedTag(index)}>{tag}</span>
                                     </div>
                                 )) }
                             </div>

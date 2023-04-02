@@ -93,7 +93,7 @@ const Listingdetails = () => {
                                         <span className="text">{tag}</span>
                                     </div>
                                 )) }
-                            </div>
+                        </div>
                         {editButton}
                         {/* based on if listing belongs to current user, action of the button is different, as shown above */}
                         <form onSubmit={submitEvent}>{listingButton}</form>
