@@ -1,3 +1,15 @@
+/*questions? ask dev nicole nguyen*/
+
+/*import font family and standardize the name from font folder*/
+@font-face {
+    font-family: "Montserrat-Italic";
+    src: local("Montserrat-Italic"), url("../fonts/Montserrat-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat-BoldItalic";
+    src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
+}
+
 .bg-green {
     background-color: rgb(132, 173, 151);
 }
@@ -8,4 +20,16 @@
 
 .btn {
     background-color: rgb(45, 109, 71) !important;
+}
+
+.text-uppercase{
+    font-family: "Montserrat-BoldItalic";
+}
+
+nav{
+    font-family: "Montserrat-Italic";
+}
+
+.list-unstyled{
+    font-family: "Montserrat-Italic";
 }

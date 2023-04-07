@@ -7,6 +7,8 @@ import { collection, getDocs, getDoc, setDoc, doc, updateDoc, Timestamp } from "
 import '../App.css';
 import { AuthContext } from "../context/AuthContext";
 import { ConvoContext } from "../context/ConvoContext"
+import "../css/chathome.css";
+
 
 // TODO:
 // Fix bug where you need to click twice on a chat to render their messages (wtf)
@@ -118,24 +120,24 @@ function Chat() {
         return(
             <main>
                 <section>
-                    <div>
-                        <h1>TEST!</h1>
+                    <div className="container-mainchat">
+                        <h1 className="mainchat-title">TEST!</h1>
                         {users.map((user) => {
                             // Don't show the currently logged in user
                             if (user.uid !== currentUser.uid) {
                                 return (
                                     // Key is needed for React looping, just set it to ID since its unique
-                                    <div key={user.uid}>
+                                    <div className="usersegment-mainchat" key={user.uid}>
         
                                         <h4>Id: {user.uid}</h4>
                                         {/*Loop over all users, button with users info*/}
-                                        <button onClick={() => {handleSelect(user)}}>Chat with this user</button>
+                                        <button className="mainchat-userbutton" onClick={() => {handleSelect(user)}}>Chat with this user</button>
                                     </div>
                                     );
                             }
                         })}
                     </div>
-                    
+                    <div className="container-mainchat-background"></div>
                 </section>
             </main>
         )

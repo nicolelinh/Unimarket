@@ -4,8 +4,7 @@ import { AuthContext } from '../../context/AuthContext'
 import { updateDoc, doc, arrayUnion, Timestamp } from "firebase/firestore";
 import { db, storage } from '../../firebaseConfig';
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
-
-
+import "../chat/chatinput.css";
 
 const ChatInput = () => {
     const [ text, setText ] = useState("")
@@ -118,7 +117,7 @@ const ChatInput = () => {
                 <label htmlFor="chat-img" style={{ cursor: "pointer" }}> {/*This is not a button but behaves like one, 'pointer' indicates its clickable*/}
                     Image
                 </label>
-                <button className="" onClick={handleSubmit}>Send</button>
+                <button className="chat-send" onClick={handleSubmit}>Send</button>
             </div>
             
         </div>

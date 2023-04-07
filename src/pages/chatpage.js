@@ -8,7 +8,7 @@ import { ConvoContext } from "../context/ConvoContext";
 import ChatInput from "../components/chat/ChatInput"
 import Message from "../components/chat/Message"
 
-import "../components/chat/chat.css"
+import "../css/chat.css"
 
 function ChatPage() {
     //https://stackoverflow.com/questions/70076937/how-to-change-value-of-react-context-from-another-component-react
@@ -79,8 +79,9 @@ function ChatPage() {
 
     return (
             
+        
+
             <div className="chat-home">
-            
             <div className="chat-container">
                     <div className="chat-sidebar">
                         
@@ -122,6 +123,7 @@ function ChatPage() {
                     </div>
 
                 </div>
+                <div className="background-chatpage"></div>
                 </div>
 
     )

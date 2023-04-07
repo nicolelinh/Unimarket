@@ -1,21 +1,38 @@
-/* god i hate css */
+/*questions? ask dev nicole nguyen*/
 
+/*import font family and standardize the name from font folder*/
+@font-face {
+    font-family: "Montserrat-Italic";
+    src: local("Montserrat-Italic"), url("../fonts/Montserrat-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat-BoldItalic";
+    src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
+}
+
+
+
+/*chat main portions*/
 .chat-home {
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    
+    font-family: "Montserrat-Italic";
 }
 
 .chat-container {
-    border: 2px solid black;
+    border: 35px ;
+    border-radius: 30px;
     width: 70%;
     height: 80%; 
     display: flex;
     overflow: hidden;
+    background-color: white;
 }
 
+
+/*chat segment detailings*/
 .chat-sidebar {
     flex: .75;
 }
@@ -44,13 +61,21 @@
 .chat-recent {
     height: 80px;
     padding: 25px;
-    background-color: #d3d3d3;
+    background-color: #65987F;
+    opacity: 85%;
+    color: white;
+    font-size:25px;
+    padding-top: 25px;
 }
 
 .chat-info {
     height: 80px;
     padding: 25px;
-    background-color: #d3d3d3;
+    background-color: #65987F;
+    opacity: 85%;
+    color: white;
+    font-size:25px;
+    padding-top: 22px;
 }
 
 .chat-messages {
@@ -74,9 +99,8 @@
 
 .chat-input-form {
     width: 100%;
-    border: none;
-    outline: none;
     font-size: 15px;
+    border-color: grey !important;
 }
 
 .chat-submit {
@@ -131,4 +155,13 @@
 }
 
 
-
+/*chat broder background*/
+div.background-chatpage{
+    width: 1420px;
+    height: 835px;
+    position: absolute;
+    top: 110px;
+    border-radius: 50px;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(101, 152, 127, 0.83) 0%, #FAE8C6 100%);
+}

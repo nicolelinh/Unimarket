@@ -60,7 +60,6 @@ div.userinformation{
 img.profilebackground{
     position: relative;
     bottom: 200px;
-    -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));    left: 0;
     z-index: 0;
 }
 p.userprofile{
