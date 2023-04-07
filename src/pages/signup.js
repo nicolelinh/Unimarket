@@ -4,6 +4,7 @@ import '../css/signup.css';
 import { auth, db } from '../firebaseConfig'
 import { doc, setDoc } from "firebase/firestore"
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import schoolsData from "../assets/schools.json"
 
 function SignUp() {
     // variables to set new email, password, username, and school
@@ -25,6 +26,7 @@ function SignUp() {
     //sign up function
     const signUp = (event) => {
         event.preventDefault();
+        console.log(newSchool, newUserName, newEmail, newPassword, newPhoneNumber)
         createUserWithEmailAndPassword(auth, newEmail, newPassword)
             .then(async (userCredential) => {
                 // Signed in
@@ -64,15 +66,17 @@ function SignUp() {
                 <form className="signup-userinput" onSubmit={signUp}>
                     <div>
                     <h3>Enter school:
-                        <input
-                            type="text"
-                            placeholder="School..."
-                            value={newSchool}
-                            onChange={(event) => {
-                                setNewSchool(event.target.value);
-                            }}
-                        />          
-                    </h3>
+                        <select type="school"
+                                value={newSchool}
+                                onChange={(event) => setNewSchool(event.target.value)}>
+                                <option value="">-- Select a school --</option>
+                                {schoolsData.map((school) => (
+                                    <option key={school.id} value={school.name}>
+                                        {school.name}
+                                    </option>
+                                ))}
+                        </select>
+                    </h3>    
                     </div>
                     <div>
                     <h3>Enter username:
