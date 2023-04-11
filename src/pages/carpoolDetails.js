@@ -5,34 +5,40 @@ import { doc, setDoc, getDoc, getDocs, deleteDoc, updateDoc, arrayUnion, arrayRe
 import { db } from '../firebaseConfig';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import { Helmet } from "react-helmet";
+import { Loader } from "@googlemaps/js-api-loader"
+// import { Map, GoogleApiWrapper } from 'google-maps-react';
 
-// will display all listing details when a listing is clicked on from home page
-const Listingdetails = () => {
-    // get document id by parsing url
+const CarpoolDetails = () => {
+    const [details, setDetails] = useState([]);
+    const [API_KEY, setAPI_KEY] = useState("")
 
+    const FetchKey = async () => {
+        await getDocs(query(collection(db, "API_KEY"))).then((querySnapshot) => {
+            const data = querySnapshot.docs.map(
+                (doc) => ({...doc.data()})
+            );
+            console.log(data[0].key)
+            setAPI_KEY(data[0].key)
+        })
+    }
+
+    useEffect(() => {
+        FetchKey();
+    }, [])
+
+    document.title = 'Carpool Details';
     const {currentUser} = useContext(AuthContext);
     let navigate = useNavigate(); 
     const did = window.location.pathname.split("/")[2];
-    const [details, setDetails] = useState([]);
-    const [followingText, setFollowingText] = useState();
-
-
-    // grabs the single document from db based on the document ID
+    
     const getDetails = async () => {
-        const docRef = doc(db, "marketListings", did); // getting document reference 
-        
-        // This increments twice, probably something to do with the way React renders components, leading to this
-        // Code being run twice
-        // Not a big deal and not worth rewriting stuff to fix this, since its still an accurate showing of how many
-        // times something has been viewed
-        await updateDoc(docRef, {
-            views: increment(1)
-        })
+        const docRef = doc(db, "carpoolRequests", did); 
 
-        await getDoc(docRef).then((docData)=>{
+        await getDoc(docRef).then((docData) => {
             const newData = docData.data();
             setDetails(newData);
-            console.log(details, newData);
+            // console.log(details, newData);
         })
 
     }
@@ -40,29 +46,23 @@ const Listingdetails = () => {
     useEffect(()=>{
         getDetails();
     }, []);
-    
-    // checking if seller of listing is current user or not to display correct HTML
-    let editButton;
+
     let listingButton; // this will either read "dm user" or "delete listing" based on who the seller is
     let submitEvent; // this will determine if user will delete the listing or be sent to "dm user" page...
     // checking is the seller of THIS listing is same as current user by checking emails since they're unique
     if (details.seller !== JSON.parse(window.localStorage.getItem('USER_EMAIL'))){
         listingButton = <button type="submit">dm user button</button>
         submitEvent = (event) => handleMessageSelect(event, details.seller); 
-        
     } else {
-        editButton = <Link to={{pathname:`/edit-listing/${did}`}}>edit</Link>
         listingButton = <button type="submit">delete listing</button>
         submitEvent = (event)=>deleteListing(event); // DELETES LISTING FROM DATABASE
     }
 
-    // BE CAREFUL DEBUGGING!
     const deleteListing = async (e) => {
         e.preventDefault();
-
         try{
             // grabs the document in database by the document ID
-            const docRef = doc(db, "marketListings", did);
+            const docRef = doc(db, "carpoolRequests", did);
             await deleteDoc(docRef); // deletes document
             console.log("Document successfully deleted! ");
             window.location.href='/home'; // takes user to home page once record has been deleted
@@ -71,44 +71,6 @@ const Listingdetails = () => {
         } 
     }
 
-    // ------------------------------------------------------------------Walid's Contribution-------------------------------------------------------------------------
-    // React hook to dictate the text of the following button
-    // We get the currently logged in User's ID, 
-    // then set the text according to whether or not they are following or unfollowing
-    useEffect(() => {
-        async function setInitialFollowLogic() {
-            console.log(currentUser.uid)
-            const userDoc = await getDoc(doc(db, "userInfo", currentUser.uid))
-            if (userDoc.data().following.includes(details.seller)) {
-                setFollowingText("Unfollow")
-            } else {
-                setFollowingText("Follow")
-            }
-        }
-        setInitialFollowLogic();
-    }, [details.seller]);
-
-    // This is the button to handle the follow logic
-    // We get the currently logged in user, then use a Firestore Query to check
-    // whether or not the current listing's user is being followed
-    // Then change button text accordingly
-    const handleFollow = async (userEmail) => {
-        const userDoc = await getDoc(doc(db, "userInfo", currentUser.uid))
-        if (!userDoc.data().following.includes(userEmail)) {
-            await updateDoc(doc(db, "userInfo", currentUser.uid), { // Follow user if they are not in the following list
-                following: arrayUnion(userEmail) // arrayUnion is an append
-            });
-            setFollowingText("Unfollow")
-        } else {
-            await updateDoc(doc(db, "userInfo", currentUser.uid), { // Remove if they are in the following list
-                following: arrayRemove(userEmail)
-            });
-            setFollowingText("Follow")
-        }
-    }
-
-
-    // Handles logic for message button
     const handleMessageSelect = async (event, userEmail) => {
         // https://stackoverflow.com/questions/58408111/firebase-firestore-query-get-one-result
         event.preventDefault();
@@ -158,36 +120,92 @@ const Listingdetails = () => {
         // If the chat already exists, we are just taken to the chat page
         navigate('/chatpage');   
     }
-    // -----------------------------------------------------------------End Walid's Contribution-----------------------------------------------------------
 
-    document.title="Listing Details";
+
+    let map;
+    if (API_KEY !== "") {
+        const loader = new Loader({
+            apiKey: API_KEY,
+            version: "weekly",
+          });
+          
+          if (API_KEY !== "") {
+            
+          }
+          loader.load().then(async () => {
+            const { Map, InfoWindow } = await window.google.maps.importLibrary("maps");
+            const { Marker } = await window.google.maps.importLibrary("marker")
+    
+            const position = {
+                lat: details.coords.fromCoords.lat,
+                lng: details.coords.fromCoords.lng
+            }
+    
+            const toPosition = {
+                lat: details.coords.toCoords.lat,
+                lng: details.coords.toCoords.lng
+            }
+    
+            const infoWindow = new InfoWindow({
+                content: "",
+                disableAutoPan: true,
+            });
+    
+            
+            map = new Map(document.getElementById("map"), {
+              center: position,
+              zoom: 10,
+            });
+    
+            const fromMarker = new Marker({
+                map: map,
+                position: position,
+            })
+            
+            
+            const toMarker = new Marker({
+                map: map,
+                position: toPosition,
+            })
+            
+            fromMarker.addListener("click", () => {
+                infoWindow.setContent("Starting Location");
+                infoWindow.open(map, fromMarker);
+            });
+    
+            toMarker.addListener("click", () => {
+                infoWindow.setContent("Destination");
+                infoWindow.open(map, toMarker);
+            });
+          });
+    }
+    
 
     return (
         <div className="padding container"> {/* using grid system (className=container/row/col) for layout: https://react-bootstrap.github.io/layout/grid/*/}
-
-            {/* using bootstrap for search bar form */}
-            <form className="d-flex search-form">
-                <input className="form-control me-2 search-input" type="search" placeholder="search here" aria-label="Search"></input>
-                <button className="search-btn btn-outline-success" type="submit">search by filter</button>
-            </form>
             <div className="row">
-                <div className="col">
-                    <img src={details.photo} alt="..." width="300" height="300"/>
-                    <p>compare item link goes here</p>
+                <div style={{ height: '400px', width: '100%' }}id="map">
+
                 </div>
                 <div className="col">
                     <div>
                         {/* uses details from document grabbed earlier to fill out elements below */}
-                        <h4>Price: {details.price}</h4> 
-                        <h4>Title: {details.title}</h4>
-                        <h5>Seller:</h5>
-                        <p><a href="#">{details.seller}</a></p> {/* TO-DO: link to user profile*/}
-                        <p><button id="following" onClick={() => {handleFollow(details.seller)}}>{followingText}</button></p>
+                        <h4>Name: {details.name}</h4>
+                        <p><a href="#">Link to profile {details.seller}</a></p> {/* TO-DO: link to user profile*/}
+                        <h4>From: {details.location_from}</h4>
+                        <h4>To: {details.location_to}</h4>
+                        <h5>Contact:</h5>
+                        <h6>{details.phone_number}</h6>
+                        <div>
+                            <h6>OR</h6>
+                            <form onSubmit={submitEvent}>{listingButton}</form>
+                        </div>
+                        {/* <p><button id="following" onClick={() => {handleFollow(details.seller)}}>{followingText}</button></p> */}
                         <h5>Description:</h5>
-                        <p>{details.description}</p>
-                        {editButton}
+                        {/* <p>{details.description}</p> */}
+                        {/* {editButton} */}
                         {/* based on if listing belongs to current user, action of the button is different, as shown above */}
-                        <form onSubmit={submitEvent}>{listingButton}</form>
+                        {/* <form onSubmit={submitEvent}>{listingButton}</form> */}
                     </div>
                 </div>
             </div>
@@ -195,4 +213,4 @@ const Listingdetails = () => {
     )
 }
 
-export default Listingdetails;
+export default CarpoolDetails;

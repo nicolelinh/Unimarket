@@ -3,12 +3,34 @@ import '../App.css';
 import { Link } from 'react-router-dom';
 // importing database link to carpool request listing, as well as the designated folder for inputs. 
 import { db } from '../firebaseConfig';
-import {collection, addDoc, onSnapshot} from "firebase/firestore";
+import {collection, addDoc, onSnapshot, getDocs, query } from "firebase/firestore";
+// import geocode from "../funcs/geocode"
+import axios from 'axios';
 
 // setting up of inputs for a base level carpool request. 
 const RequestCarpool = () => {
+  const currUser = window.localStorage.getItem('USER_EMAIL');
   const [item, setItem] = useState({ name: '', phone_number: '', location_from: '', location_to: '', pick_up_time_date: 'mm/dd/yy', est_drive_time: 0, how_many_passengers: 0, passenger_note: '' });
   const [carpoolRequests, setCarpoolRequests] = useState([]);
+
+  const [toGeocode, setToGeocode] = useState([]);
+  const [fromGeocode, setFromGeocode] = useState([]);
+  const [API_KEY, setAPI_KEY] = useState()
+
+    const FetchKey = async () => {
+        await getDocs(query(collection(db, "API_KEY"))).then((querySnapshot) => {
+            const data = querySnapshot.docs.map(
+                (doc) => ({...doc.data()})
+            );
+            console.log('test')
+            console.log(data[0])
+            setAPI_KEY(data[0].key)
+        })
+    }
+
+    useEffect(() => {
+        FetchKey();
+    }, [])
 
   
   const handleChange = (event) => {
@@ -20,11 +42,124 @@ const RequestCarpool = () => {
     setItem({ name: '', phone_number: '', location_from: '', location_to: '', pick_up_time_date:   'mm/dd/yy', est_drive_time: 0, how_many_passengers: 0, passenger_note: '' });
   };
 
+  // ------------------------------------------------Walid's Contribution---------------------------------------------------------------------------------
+  async function geocode(location) {
+    // Invoking the google API
+    return await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+      params: {
+          address: location,
+          key: API_KEY
+      }
+    })
+  }
   // addition of the user inputs into a single carpool listing request into the database folder. item (user inputs) is logged and transfered to the firebase. 
   const addCarpool = async (e) => {
         e.preventDefault();
-        await addDoc(collection(db, 'carpoolRequests'), { ...item, timestamp: new Date() });
-        setItem({ name: '', location_from: '', location_to: '', pick_up_time_date: 'mm/dd/yy', est_drive_time: 0, how_many_passengers: 0, passenger_note: ''});
+
+        geocode(item.location_to).then(res => setToGeocode(res)).then(() => {
+          if (toGeocode.data.status === 'ZERO_RESULTS') {
+            alert('Invalid "to" location! Please try again')
+          }
+        });
+        
+        geocode(item.location_from).then(res => setFromGeocode(res)).then(() => {
+          if (fromGeocode.data.status === 'ZERO_RESULTS') {
+            alert('Invalid "from" location! Please try again')
+          }
+        })
+        await addDoc(collection(db, 'carpoolRequests'), { ...item, timestamp: new Date(), seller: JSON.parse(currUser), 
+              // The lat and long are specifically stored in these locations
+              coords: {
+                toCoords: {
+                  lat: toGeocode.data.results[0].geometry.location.lat,
+                  lng: toGeocode.data.results[0].geometry.location.lng
+                },
+                fromCoords: {
+                  lat: fromGeocode.data.results[0].geometry.location.lat,
+                  lng: fromGeocode.data.results[0].geometry.location.lng
+                } 
+              }
+            }).catch((err) => {
+              alert("An unknown error occurred. Please refresh the page and try again.")
+            });
+
+
+        // await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+        //   params: {
+        //     address: item.location_to,
+        //     key: API_KEY
+        //   }
+        // }).then((res) => {
+        //   if (res.data.status === 'ZERO_RESULTS') {
+        //       console.log('Error: to location does not exist');
+        //       setItem({location_to: 'Invalid Location! Please try again'})
+        //       return;
+        //   } else {
+        //     setToGeocode(res)
+        //   }
+
+        // })
+        // .catch((error) => {
+        //   console.log(error)
+        // })
+
+        // await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+        //   params: {
+        //     address: item.location_from,
+        //     key: API_KEY
+        //   }
+        // }).then((res) => {
+        //   if (res.data.status === 'ZERO_RESULTS') {
+        //       console.log('Error: from location does not exist');
+        //       setItem({location_from: 'Invalid Location! Please try again'})
+        //       return;
+        //   } else {
+        //     setFromGeocode(res)
+        //   }
+        // }).then(async() => {
+        //   await addDoc(collection(db, 'carpoolRequests'), { ...item, timestamp: new Date(), seller: JSON.parse(currUser), 
+        //     // The lat and long are specifically stored in these locations
+        //     coords: {
+        //       toCoords: {
+        //         lat: toGeocode.data.results[0].geometry.location.lat,
+        //         lng: toGeocode.data.results[0].geometry.location.lng
+        //       },
+        //       fromCoords: {
+        //         lat: fromGeocode.data.results[0].geometry.location.lat,
+        //         lng: fromGeocode.data.results[0].geometry.location.lng
+        //       } 
+        //     }
+        //   });
+        //   setItem({pick_up_time_date: 'mm/dd/yy', est_drive_time: 0, how_many_passengers: 0, passenger_note: ''});
+        // }
+        // )
+        // .catch((error) => {
+        //   console.log(error)
+        // })
+        
+
+          
+
+
+
+
+
+        // Geocoding both the to and from locations
+        // geocode(item.location_to).then(res => setToGeocode(res)).then(() => {
+        //   if (toGeocode.data.status === 'ZERO_RESULTS') {
+        //     console.log('Invalid to Location');
+        //   }
+        // });
+        // geocode(item.location_from).then(res => setFromGeocode(res)).then(() => {
+        //   if (fromGeocode.data.status === 'ZERO_RESULTS') {
+        //     console.log('Invalid from Location');
+        //   }
+        // })
+        // console.log(toGeocode)
+        // console.log(fromGeocode)
+
+
+        // ------------------------------------------------End Walid's Contribution------------------------------------------------------------------------------------------
   }
 
   // Fetch data from Firebase

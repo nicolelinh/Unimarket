@@ -17,6 +17,7 @@ import Editlisting from './pages/editlisting';
 import Request from './pages/request'
 import CarpoolRequest from './pages/carpoolrequest'
 import CarpoolDisplay from './pages/carpooldisplay'
+import CarpoolDetails from './pages/carpoolDetails'
 import Chat from './pages/chat';
 import Following from './pages/following'
 import ChatPage from './pages/chatpage'
@@ -47,6 +48,7 @@ function App() {
           <Route exact path="/edit-listing/:docid" element={<Editlisting/>}/>
           <Route path="/request" element={<Request/>}/>
           <Route path="/carpoolrequest" element={<CarpoolRequest/>}/>
+          <Route exact path="/carpool/:docid" element={<CarpoolDetails/>}/>
           <Route path="/carpooldisplay" element={<CarpoolDisplay/>}/>  
           <Route path="/chat" element={<Chat />} />
           <Route path="/chatpage" element={<ChatPage />} />

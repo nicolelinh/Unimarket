@@ -4,11 +4,31 @@ import { collection, getDocs, getDoc, setDoc, doc, updateDoc, Timestamp, query }
 import '../App.css';
 import { AuthContext } from "../context/AuthContext";
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+// require('dotenv').config()
 
 
 function Location() {
-    const [search, setSearch] = useState("test");
+    const [search, setSearch] = useState("Enter your location below");
     const [locations, setLocations] = useState([])
+    const [API_KEY, setAPI_KEY] = useState()
+
+    const FetchKey = async () => {
+        await getDocs(query(collection(db, "API_KEY"))).then((querySnapshot) => {
+            const data = querySnapshot.docs.map(
+                (doc) => ({...doc.data()})
+            );
+            console.log('test')
+            console.log(data[0])
+            setAPI_KEY(data[0].key)
+        })
+    }
+
+    useEffect(() => {
+        FetchKey();
+    }, [])
+
+
 
 
     // Locations should be an object.
@@ -28,7 +48,6 @@ function Location() {
             );
             setLocations(newData);
         })
-        console.log('hello')
     }
 
     useEffect(() => {
@@ -36,20 +55,24 @@ function Location() {
     }, [])
 
 
-    const geocode = (location) => {
-        axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+    // Function that invokes the google geocoding api
+    const geocode = async (location) => {
+        // axios for asynchronous api requests
+        await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
             params: {
                 address: location,
-                key: null
+                key: API_KEY
             }
         })
+        // error checking
         .then((res) => {
             if (res.data.status === 'ZERO_RESULTS') {
-                console.log('Error: this location does not exist.')
-            } else {
-                console.log(res)
-                console.log(res.data.results[0].geometry.location)
+                console.log('Error: this location does not exist.');
+                return null
             }
+            console.log('geocoding!')
+            console.log(res)
+            return res
         })
         .catch((error) => {
             console.log(error)
@@ -60,7 +83,6 @@ function Location() {
 
     const handleClick = (e, location) => {
         e.preventDefault();
-        console.log('test')
         geocode(location);
     }
 
@@ -68,8 +90,12 @@ function Location() {
     return (
         <main>
             <div>
-                {search}
+                {locations.map((loc) => {
+                    return (<p>{loc.location_from} to {loc.location_to} on {loc.pick_up_time_date} driven by <Link to={{pathname:`/carpool/${loc.id}`}} >{loc.name}</Link></p>)
+                })}
             </div>
+            {console.log(locations)}
+            {search}
             <form>
                 <input onChange={(event) => {
                             setSearch(event.target.value);

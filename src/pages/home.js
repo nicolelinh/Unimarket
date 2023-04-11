@@ -39,7 +39,7 @@ const Home = () => {
 
 
     // Massive if/else chain is probbaly not the best way to approach this, but each sorting requirement is different
-    // Might come upwith something better 
+    //------------------------------------------------------------Walid's Contribution-----------------------------------------------------------------------
     const sortListings = (filter) => {
         const x = [...info]
         if (filter === "oldest") {
@@ -62,6 +62,7 @@ const Home = () => {
         }
         setInfo(x)
     }
+    //--------------------------------------------------------------End Walid's Contribution------------------------------------------------------------------------
 
 
     document.title="Home";
