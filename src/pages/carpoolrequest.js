@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../App.css';
+import '../css/carpoolrequest.css';
 import { Link } from 'react-router-dom';
 // importing database link to carpool request listing, as well as the designated folder for inputs. 
 import { db } from '../firebaseConfig';
@@ -176,11 +176,11 @@ const RequestCarpool = () => {
   
   // updates on general visual appeal. 
   return (
-    <div>
+    <div className='container-carpool'>
       <br />
-      <form onSubmit={addCarpool} style={{ background: 'linear-gradient(rgb(132, 173, 151), white)', borderRadius: '20px', padding: '20px', display: 'inline-block', flexDirection: 'column', alignItems: 'center' }}>
+      <form onSubmit={addCarpool} style={{ background: 'linear-gradient(180deg, rgba(149, 185, 178, 0.9) 0%, rgba(233, 221, 192, 0.9) 100%)', borderRadius: '50px', padding: '20px', display: 'inline-block', flexDirection: 'column', alignItems: 'center' }}>
         <h2>Carpool Request</h2>
-        <Link to="/carpooldisplay">Redirect to Available Carpools</Link>
+        <Link className='carpool-link' to="/carpooldisplay">Redirect to Available Carpools</Link>
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <label style={{ flex: '0 0 100px' }}>
             Name:

@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import { collection, getDocs, getDoc, setDoc, doc, updateDoc, Timestamp } from "firebase/firestore"
 import '../App.css';
 import { AuthContext } from "../context/AuthContext";
+import "../css/chathome.css";
+
 
 
 
@@ -102,25 +104,24 @@ function Chat() {
         return(
             <main>
                 <section>
-                    <div>
-                        <h1>TEST!</h1>
+                    <div className="container-mainchat">
+                        <h1 className="mainchat-title">TEST!</h1>
                         {users.map((user) => {
                             // Don't show the currently logged in user
                             if (user.uid !== currentUser.uid) {
                                 return (
                                     // Key is needed for React looping, just set it to ID since its unique
-                                    <div key={user.uid}>
+                                    <div className="usersegment-mainchat" key={user.uid}>
         
                                         <h4>Id: {user.uid}</h4>
                                         {/*Loop over all users, button with users info*/}
-                                        <Link onClick={() => {handleSelect(user)}} to={{pathname: "/chatpage" }}>Chat with this user</Link>
-                                        {/* <button onClick={() => {handleSelect(user)}}>Chat with this user</button> */}
+                                        <button onClick={() => {handleSelect(user)}}>Chat with this user</button>
                                     </div>
                                     );
                             }
                         })}
                     </div>
-                    
+                    <div className="container-mainchat-background"></div>
                 </section>
             </main>
         )

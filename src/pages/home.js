@@ -4,7 +4,7 @@ import { db } from '../firebaseConfig';
 import Listing from '../components/listing';
 import Landing from "./landing";
 import '../App.css';
-import './home.css';
+import '../css/home.css';
 
 const Home = () => {
     const [info, setInfo] = useState([]);
