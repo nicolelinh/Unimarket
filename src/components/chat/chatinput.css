@@ -1,0 +1,12 @@
+/*questions? ask dev nicole nguyen*/
+
+button.chat-send{
+    position: relative;
+    border-color: transparent;
+    border-radius: 20px !important;
+    width: 100px;
+}
+
+button.chat-send:hover{
+    filter:brightness(90%);
+}

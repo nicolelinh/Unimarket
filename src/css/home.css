@@ -1,0 +1,112 @@
+/*questions? ask dev nicole nguyen*/
+
+/*import font family and standardize the name from font folder*/
+@font-face {
+    font-family: "Montserrat-Italic";
+    src: local("Montserrat-Italic"), url("../fonts/Montserrat-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat-BoldItalic";
+    src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
+}
+
+
+.padding{
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+}
+
+/*this is for the welcome banner and search bar forms*/
+.pill-form{
+    /* margin-top: 1.5em;
+    margin-bottom: 5em; */
+    position: relative;
+    top: 30px;
+    padding: .70em;
+    width: 80%;
+    height: 100px;
+    margin: auto;
+    border-radius: 50px !important;
+    background-image: linear-gradient(180deg, rgba(45, 101, 94, 0.83) 0%, #F2ECDB 100%);
+    color: white;
+    font-family: "Montserrat-BoldItalic";
+    letter-spacing: 2px;
+}
+
+.search-form{
+    position: relative;
+    top: 35px;
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+    width: 60%;
+    height: 80px;
+    margin: auto;
+    margin-top: -20px;
+    left: 70px;
+    font-family: "Montserrat-Italic";
+}
+
+.search-input{
+    padding-top: 2px;
+    border-radius: 50px !important;
+    background-image: linear-gradient(to right, white, gray);
+
+}
+
+.search-btn{
+    background-color: rgb(85, 85, 85);
+    color: white;
+    border: 2px solid rgb(85, 85, 85);
+    width: 20%;
+    margin:auto;
+    margin-left: -185px;
+    
+}
+
+.search-btn:hover{
+    background:rgb(199, 199, 199);
+}
+
+
+
+.question-1{
+    position: relative;
+    text-align: left;
+    background-color: white;
+    padding-top: 40px;
+    padding-right: 200px;
+    width:75%;
+    margin:auto;
+}
+
+.question-brown{
+    color: burlywood;
+    padding-bottom: 20px;
+}
+
+.question-2{
+    text-align: right;
+    background-color: white;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right: 1em;
+    width:75%;
+    margin:auto;
+}
+
+.listings-cont{
+    background-image:linear-gradient(rgb(132, 173, 151), white);
+    padding-top: 1.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-radius: 6px;
+}
+
+.listings-title{
+    text-align: left;
+    background-image: linear-gradient(to right, white, rgb(132, 173, 151));
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 1em;
+    
+}

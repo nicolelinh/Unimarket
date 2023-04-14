@@ -1,0 +1,167 @@
+/*questions? ask dev nicole nguyen*/
+
+/*import font family and standardize the name from font folder*/
+@font-face {
+    font-family: "Montserrat-Italic";
+    src: local("Montserrat-Italic"), url("../fonts/Montserrat-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat-BoldItalic";
+    src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
+}
+
+
+
+/*chat main portions*/
+.chat-home {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Montserrat-Italic";
+}
+
+.chat-container {
+    border: 35px ;
+    border-radius: 30px;
+    width: 70%;
+    height: 80%; 
+    display: flex;
+    overflow: hidden;
+    background-color: white;
+}
+
+
+/*chat segment detailings*/
+.chat-sidebar {
+    flex: .75;
+}
+
+.chat-main {
+    flex: 2;
+}
+
+.chat-userChat {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.chat-userChat:hover {
+    background-color: #d3d3d3 ;
+}
+
+.chat-span {
+    font-size: 20px;
+}
+
+.chat-p {
+    font-size: 12px
+}
+
+.chat-recent {
+    height: 80px;
+    padding: 25px;
+    background-color: #65987F;
+    opacity: 85%;
+    color: white;
+    font-size:25px;
+    padding-top: 25px;
+}
+
+.chat-info {
+    height: 80px;
+    padding: 25px;
+    background-color: #65987F;
+    opacity: 85%;
+    color: white;
+    font-size:25px;
+    padding-top: 22px;
+}
+
+.chat-messages {
+    height: 560px;
+    overflow: scroll;
+    padding: 10px;
+}
+
+
+.chat-input {
+    height: 50px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#chat-img {
+    display: none;
+}
+
+.chat-input-form {
+    width: 100%;
+    font-size: 15px;
+    border-color: grey !important;
+}
+
+.chat-submit {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.chat-message-container { 
+    display: flex;
+
+}
+
+.chat-message-owner {
+    flex-direction: row-reverse;
+}
+
+.chat-message-div-owner {
+    display: flex;
+    align-items: flex-end;
+}
+
+.chat-message-text {
+    flex-direction: column;
+    background-color:#d3d3d3;
+    border-radius: 0px 20px 20px 20px;
+    padding: 10px 20px;
+    max-width: max-content;
+}
+
+.chat-message-text-owner {
+    flex-direction: row-reverse;
+    background-color:#E7FFE7;
+    border-radius: 20px 0px 20px 20px;
+    padding: 10px 20px;
+    max-width: max-content;
+
+}
+
+.chat-img-message-owner {
+    display: flex;
+    align-items: flex-end;
+}
+
+.chat-img-message {
+    display: flex;
+    align-items: flex-start;
+}
+
+.chat-img {
+    padding-bottom: 10px;
+}
+
+
+/*chat broder background*/
+div.background-chatpage{
+    width: 1420px;
+    height: 835px;
+    position: absolute;
+    top: 110px;
+    border-radius: 50px;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(101, 152, 127, 0.83) 0%, #FAE8C6 100%);
+}

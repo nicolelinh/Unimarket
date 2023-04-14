@@ -1,0 +1,41 @@
+/*questions? ask dev nicole nguyen*/
+
+/*import font family and standardize the name from font folder*/
+@font-face {
+    font-family: "Montserrat-Italic";
+    src: local("Montserrat-Italic"), url("../fonts/Montserrat-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat-BoldItalic";
+    src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
+}
+
+/*cotainer regulates the page*/
+.container-carpool{
+    margin: auto;
+    position: relative;
+    top: 20px;
+    padding-bottom: 40px;
+    font-family: "Montserrat-Italic";
+    background-image: url(../assets/carpoolbackground1.png);
+    background-size: auto;
+}
+
+.carpool-link{
+    color: #287485;
+}
+
+label{
+    color: #7A6736;
+}
+
+input{
+    border-color: transparent;
+    border-radius: 20px;
+}
+
+textarea{
+    border-radius: 20px;
+    border-color: transparent;
+}
+

@@ -1,0 +1,32 @@
+/*questions? ask dev nicole nguyen*/
+
+/*import font family and standardize the name from font folder*/
+@font-face {
+    font-family: "Montserrat-Italic";
+    src: local("Montserrat-Italic"), url("../fonts/Montserrat-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat-BoldItalic";
+    src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
+}
+
+.bg-green {
+    background-color: rgb(132, 173, 151);
+}
+
+.bg-darkgreen {
+    background-color: rgb(100, 143, 120);
+}
+
+.bg-gray{
+    background-color: gray;
+}
+
+.bg-darkgray{
+    background-color: rgb(78, 78, 78);
+}
+p.footer{
+    color: white;
+    font-size: 15px;
+    font-family: "Montserrat-Italic";
+}
