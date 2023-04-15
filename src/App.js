@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route }   from 'react-router-dom'; 
 import Home from './pages/home';
 
+
 import SignIn from './pages/signin';
 import SignUp from './pages/signup';
 import SignOut from './pages/signout';
@@ -12,6 +13,7 @@ import Navbar from './components/navbar';
 import Footer from './components/footer';
 import Landing from './pages/landing';
 import Createlisting from './pages/createlisting';
+import Listingdetails from './pages/listingDetails';
 import Listingdetails from './pages/listingDetails';
 import Editlisting from './pages/editlisting';
 import Request from './pages/request'
@@ -24,10 +26,15 @@ import { AuthContext } from './context/AuthContext';
 import RequestSchool from './pages/requestschool';
 import UserProfile from './pages/userprofile';
 import UserHistory from './pages/userhistory';
+import Reviews from './pages/reviews';
+import ReviewsDisplay from './pages/reviewsdisplay';
+import CustomerReport from './pages/customerRoport';
 
 
 
 function App() {
+
+  const {currentUser} = useContext(AuthContext)
 
   const {currentUser} = useContext(AuthContext)
   return (
@@ -36,6 +43,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home/>} />
+
 
           <Route path="/home" element={<Home/>} />
           <Route path="/signin" element={<><SignIn /><AuthDetails /></>} />
@@ -54,6 +62,9 @@ function App() {
           <Route path="/requestschool" element={<RequestSchool/>} />
           <Route path="/userprofile" element={<UserProfile/>}/>
           <Route path="/userhistory" element={<UserHistory/>}/>
+          <Route path="/reviews" element={<Reviews/>}/>
+          <Route path="/reviewsdisplay" element={<ReviewsDisplay/>}/>
+          <Route path="/customerReport" element={<CustomerReport/>}/>
           
         </Routes>
       </BrowserRouter>
@@ -64,3 +75,4 @@ function App() {
 }
 
 export default App;
+
