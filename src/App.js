@@ -33,9 +33,7 @@ import CustomerReport from './pages/customerRoport';
 
 
 function App() {
-
-  const {currentUser} = useContext(AuthContext)
-
+  
   const {currentUser} = useContext(AuthContext)
   return (
     <div className="App">
