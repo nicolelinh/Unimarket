@@ -14,7 +14,6 @@ import Footer from './components/footer';
 import Landing from './pages/landing';
 import Createlisting from './pages/createlisting';
 import Listingdetails from './pages/listingDetails';
-import Listingdetails from './pages/listingDetails';
 import Editlisting from './pages/editlisting';
 import Request from './pages/request'
 import CarpoolRequest from './pages/carpoolrequest'
@@ -33,7 +32,7 @@ import CustomerReport from './pages/customerRoport';
 
 
 function App() {
-  
+
   const {currentUser} = useContext(AuthContext)
   return (
     <div className="App">
@@ -41,8 +40,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home/>} />
-
-
           <Route path="/home" element={<Home/>} />
           <Route path="/signin" element={<><SignIn /><AuthDetails /></>} />
           <Route path="/signup" element={<SignUp />} />
