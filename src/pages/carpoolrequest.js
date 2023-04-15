@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import '../css/carpoolrequest.css';
 import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import '../css/carpoolrequest.css';
+import { Link } from 'react-router-dom';
 // importing database link to carpool request listing, as well as the designated folder for inputs. 
 import { db } from '../firebaseConfig';
+import {collection, addDoc, onSnapshot} from "firebase/firestore";
 import {collection, addDoc, onSnapshot} from "firebase/firestore";
 
 // setting up of inputs for a base level carpool request. 
 const RequestCarpool = () => {
+  const [item, setItem] = useState({ name: '', phone_number: '', location_from: '', location_to: '', pick_up_time_date: 'mm/dd/yy', est_drive_time: 0, how_many_passengers: 0, passenger_note: '' });
+  const [carpoolRequests, setCarpoolRequests] = useState([]);
+
+  
   const [item, setItem] = useState({ name: '', phone_number: '', location_from: '', location_to: '', pick_up_time_date: 'mm/dd/yy', est_drive_time: 0, how_many_passengers: 0, passenger_note: '' });
   const [carpoolRequests, setCarpoolRequests] = useState([]);
 
@@ -18,6 +26,7 @@ const RequestCarpool = () => {
   // cancel button function (still needs fixing to completely work)
   const handleCancel = (event) => {
     setItem({ name: '', phone_number: '', location_from: '', location_to: '', pick_up_time_date:   'mm/dd/yy', est_drive_time: 0, how_many_passengers: 0, passenger_note: '' });
+    setItem({ name: '', phone_number: '', location_from: '', location_to: '', pick_up_time_date:   'mm/dd/yy', est_drive_time: 0, how_many_passengers: 0, passenger_note: '' });
   };
 
   // addition of the user inputs into a single carpool listing request into the database folder. item (user inputs) is logged and transfered to the firebase. 
@@ -25,8 +34,23 @@ const RequestCarpool = () => {
         e.preventDefault();
         await addDoc(collection(db, 'carpoolRequests'), { ...item, timestamp: new Date() });
         setItem({ name: '', location_from: '', location_to: '', pick_up_time_date: 'mm/dd/yy', est_drive_time: 0, how_many_passengers: 0, passenger_note: ''});
+        await addDoc(collection(db, 'carpoolRequests'), { ...item, timestamp: new Date() });
+        setItem({ name: '', location_from: '', location_to: '', pick_up_time_date: 'mm/dd/yy', est_drive_time: 0, how_many_passengers: 0, passenger_note: ''});
   }
 
+  // Fetch data from Firebase
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, 'carpoolRequests'), (querySnapshot) => {
+      const requests = [];
+      querySnapshot.forEach((doc) => {
+        requests.push(doc.data());
+      });
+      setCarpoolRequests(requests); //lists items in array to be fetched and displayed later
+    });
+    return unsubscribe;
+  }, []);
+  
+  // updates on general visual appeal. 
   // Fetch data from Firebase
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, 'carpoolRequests'), (querySnapshot) => {
@@ -167,3 +191,4 @@ const RequestCarpool = () => {
 };
 
 export default RequestCarpool;
+

@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route }   from 'react-router-dom'; 
 import Home from './pages/home';
 
+
 import SignIn from './pages/signin';
 import SignUp from './pages/signup';
 import SignOut from './pages/signout';
@@ -12,6 +13,7 @@ import Navbar from './components/navbar';
 import Footer from './components/footer';
 import Landing from './pages/landing';
 import Createlisting from './pages/createlisting';
+import Listingdetails from './pages/listingDetails';
 import Listingdetails from './pages/listingDetails';
 import Editlisting from './pages/editlisting';
 import Request from './pages/request'
@@ -33,12 +35,15 @@ import CustomerReport from './pages/customerRoport';
 function App() {
 
   const {currentUser} = useContext(AuthContext)
+
+  const {currentUser} = useContext(AuthContext)
   return (
     <div className="App">
       <Navbar/>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home/>} />
+
 
           <Route path="/home" element={<Home/>} />
           <Route path="/signin" element={<><SignIn /><AuthDetails /></>} />
@@ -70,3 +75,4 @@ function App() {
 }
 
 export default App;
+
