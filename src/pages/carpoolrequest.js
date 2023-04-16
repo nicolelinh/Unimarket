@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../css/carpoolrequest.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // importing database link to carpool request listing, as well as the designated folder for inputs. 
 import { db } from '../firebaseConfig';
 import {collection, addDoc, onSnapshot, getDocs, query } from "firebase/firestore";
@@ -16,6 +16,8 @@ const RequestCarpool = () => {
   const [toGeocode, setToGeocode] = useState([]);
   const [fromGeocode, setFromGeocode] = useState([]);
   const [API_KEY, setAPI_KEY] = useState()
+
+  let navigate = useNavigate();
 
     const FetchKey = async () => {
         await getDocs(query(collection(db, "API_KEY"))).then((querySnapshot) => {
@@ -59,12 +61,15 @@ const RequestCarpool = () => {
         geocode(item.location_to).then(res => setToGeocode(res)).then(() => {
           if (toGeocode.data.status === 'ZERO_RESULTS') {
             alert('Invalid "to" location! Please try again')
+            setToGeocode("")
+
           }
         });
         
         geocode(item.location_from).then(res => setFromGeocode(res)).then(() => {
           if (fromGeocode.data.status === 'ZERO_RESULTS') {
             alert('Invalid "from" location! Please try again')
+            setFromGeocode("")
           }
         })
         await addDoc(collection(db, 'carpoolRequests'), { ...item, timestamp: new Date(), seller: JSON.parse(currUser), 
@@ -82,6 +87,8 @@ const RequestCarpool = () => {
             }).catch((err) => {
               alert("An unknown error occurred. Please refresh the page and try again.")
             });
+          navigate("/carpooldisplay") 
+        
 
 
         // await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {

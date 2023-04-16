@@ -5,6 +5,7 @@ import '../App.css';
 import { AuthContext } from "../context/AuthContext";
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import haversine from 'haversine-distance';
 // require('dotenv').config()
 
 
@@ -46,7 +47,15 @@ function Location() {
             const newData = querySnapshot.docs.map(
                 (doc) => ({...doc.data(), id:doc.id, })
             );
-            setLocations(newData);
+            let temp = []
+            for (const l of newData) {
+                temp.push({
+                    location: l,
+                    distance: 0
+                })
+            }
+            console.log(temp)
+            setLocations(temp);
         })
     }
 
@@ -70,7 +79,6 @@ function Location() {
                 console.log('Error: this location does not exist.');
                 return null
             }
-            console.log('geocoding!')
             console.log(res)
             return res
         })
@@ -81,9 +89,22 @@ function Location() {
 
     
 
-    const handleClick = (e, location) => {
+    const handleClick = async (e, location) => {
         e.preventDefault();
-        geocode(location);
+        geocode(location).then((res) => {
+            for (const l of locations) {
+                const a = { latitude: l.location.coords.fromCoords.lat, longitude: l.location.coords.fromCoords.lng }
+                const b = { latitude: res.data.results.geometry.location.lat, longitude: res.data.results.geometry.location.lng }
+                console.log(haversine(a, b))
+            }
+        })
+
+    
+        
+
+        // x.sort((first, second) => first.timeCreated - second.timeCreated)
+        // locations.sort((first, second) => first.)
+
     }
 
 
@@ -91,10 +112,10 @@ function Location() {
         <main>
             <div>
                 {locations.map((loc) => {
-                    return (<p>{loc.location_from} to {loc.location_to} on {loc.pick_up_time_date} driven by <Link to={{pathname:`/carpool/${loc.id}`}} >{loc.name}</Link></p>)
+                    return (<p>{loc.location.location_from} to {loc.location.location_to} on {loc.location.pick_up_time_date} driven by <Link to={{pathname:`/carpool/${loc.id}`}} >{loc.location.name}</Link></p>)
                 })}
             </div>
-            {console.log(locations)}
+            {/* {console.log(locations)} */}
             {search}
             <form>
                 <input onChange={(event) => {
