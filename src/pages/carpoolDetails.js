@@ -129,9 +129,6 @@ const CarpoolDetails = () => {
             version: "weekly",
           });
           
-          if (API_KEY !== "") {
-            
-          }
           loader.load().then(async () => {
             const { Map, InfoWindow } = await window.google.maps.importLibrary("maps");
             const { Marker } = await window.google.maps.importLibrary("marker")

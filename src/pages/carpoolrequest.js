@@ -64,6 +64,8 @@ const RequestCarpool = () => {
             setToGeocode("")
 
           }
+        }).catch((e) => {
+          alert("Loading... Please submit again")
         });
         
         geocode(item.location_from).then(res => setFromGeocode(res)).then(() => {
