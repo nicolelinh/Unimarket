@@ -79,6 +79,7 @@ const ComparisonSearch = () => {
                         </div>
                     </div>
                     <div className="listings-cont">
+                            {/* Displays the first listing selected for comparison */}
                             <div style={{ justifyContent: 'normal' }}>
                                 <div className="comparison-result">
                                     <img src={details.photo} alt="..." width="300" height="300"/>

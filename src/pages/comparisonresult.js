@@ -13,7 +13,7 @@ const ComparisonResult = () => {
         window.history.back();
     };
 
-    // grabs the single document from db based on the document ID
+    // grabs the single document from db based on the document ID for first listing
     const getDetails = async () => {
         const docRef = doc(db, "marketListings", did); // getting document reference 
         await getDoc(docRef).then((docData)=>{
@@ -23,6 +23,7 @@ const ComparisonResult = () => {
         })
     }
 
+    // grabs the single document from db based on the document ID for second listing
     const getDetails2 = async () => {
         const docRef2 = doc(db, "marketListings", did2); // getting document reference 
         await getDoc(docRef2).then((docData)=>{
@@ -34,8 +35,8 @@ const ComparisonResult = () => {
     
 
     useEffect(()=>{
-        getDetails();
-        getDetails2();
+        getDetails();       //first listing
+        getDetails2();      //second listing
     }, []);
 
     const listings = [
@@ -57,6 +58,7 @@ const ComparisonResult = () => {
 
     return (
         <div>
+            {/*Display everything inside of listing variables with spacing in between to clearly compare details between the selected listings*/}
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             {listings.map((listing, index) => (
                 <div className="comparison-result">
