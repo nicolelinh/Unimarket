@@ -27,6 +27,8 @@ import ServiceDetail from './pages/serviceDetail';
 import RequestSchool from './pages/requestschool';
 import UserProfile from './pages/userprofile';
 import UserHistory from './pages/userhistory';
+import ComparisonResult from './pages/comparisonresult';
+import ComparisonSearch from './pages/comparisonsearch';
 
 
 
@@ -60,6 +62,9 @@ function App() {
           <Route path="/requestschool" element={<RequestSchool/>} />
           <Route path="/userprofile" element={<UserProfile/>}/>
           <Route path="/userhistory" element={<UserHistory/>}/>
+
+          <Route path="/comparisonsearch/:id" element={<ComparisonSearch/>}/>
+          <Route path="/comparisonresult/:id/:id" element={<ComparisonResult/>}/>
         </Routes>
       </BrowserRouter>
       <Footer/>
