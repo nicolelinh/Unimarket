@@ -4,6 +4,7 @@ import { db } from '../firebaseConfig';
 import { Link } from 'react-router-dom';
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import './tagsinput.css';
+import Error from "../components/error";
 
 // will display all listing details when a listing is clicked on from home page
 const Listingdetails = () => {
@@ -67,41 +68,55 @@ const Listingdetails = () => {
         } 
     }
 
+    const [email, setEmail] = useState(() => {
+        // getting user details from local storage
+        const saved = window.localStorage.getItem('USER_EMAIL');
+        const initialValue = JSON.parse(saved);
+        return initialValue || "";
+    }, []);
+
     document.title="Listing Details";
 
-    return (
-        <div className="padding container"> {/* using grid system (className=container/row/col) for layout: https://react-bootstrap.github.io/layout/grid/*/}
-            {/* using bootstrap for search bar form */}
-            <div className="row">
-                <div className="col">
-                    <img src={details.photo} alt="..." width="300" height="300"/>
-                    <p>compare item link goes here</p>
-                </div>
-                <div className="col">
-                    <div>
-                        {/* uses details from document grabbed earlier to fill out elements below */}
-                        <h4>Price: {details.price}</h4> 
-                        <h4>Title: {details.title}</h4>
-                        <h5>Seller:</h5>
-                        <p><a href="/">{details.seller}</a></p> {/* TO-DO: link to user profile*/}
-                        <h5>Description:</h5>
-                        <p>{details.description}</p>
-                        <h5>Tags:</h5>
-                        <div className="tags-input-container">
-                                { details.tags?.map((tag, index) => (
-                                    <div className="tag-item" id={index} key={index}>
-                                        <span className="text">{tag}</span>
-                                    </div>
-                                )) }
+    // if email is not empty, someone is signed in so it shows actual home page, NOT landing page
+    if (email !== "") {
+        return (
+            <div className="padding container"> {/* using grid system (className=container/row/col) for layout: https://react-bootstrap.github.io/layout/grid/*/}
+                {/* using bootstrap for search bar form */}
+                <div className="row">
+                    <div className="col">
+                        <img src={details.photo} alt="..." width="300" height="300"/>
+                        <p>compare item link goes here</p>
+                    </div>
+                    <div className="col">
+                        <div>
+                            {/* uses details from document grabbed earlier to fill out elements below */}
+                            <h4>Price: {details.price}</h4> 
+                            <h4>Title: {details.title}</h4>
+                            <h5>Seller:</h5>
+                            <p><a href="/">{details.seller}</a></p> {/* TO-DO: link to user profile*/}
+                            <h5>Description:</h5>
+                            <p>{details.description}</p>
+                            <h5>Tags:</h5>
+                            <div className="tags-input-container">
+                                    { details.tags?.map((tag, index) => (
+                                        <div className="tag-item" id={index} key={index}>
+                                            <span className="text">{tag}</span>
+                                        </div>
+                                    )) }
+                            </div>
+                            {editButton}
+                            {/* based on if listing belongs to current user, action of the button is different, as shown above */}
+                            <form onSubmit={submitEvent}>{listingButton}</form>
                         </div>
-                        {editButton}
-                        {/* based on if listing belongs to current user, action of the button is different, as shown above */}
-                        <form onSubmit={submitEvent}>{listingButton}</form>
                     </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    } else {
+        return(
+            <Error/>
+        )
+    }
 }
 
 export default Listingdetails;

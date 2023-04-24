@@ -3,6 +3,7 @@ import {collection, addDoc, Timestamp } from "firebase/firestore";
 import { db } from '../firebaseConfig';
 import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import './tagsinput.css';
+import Error from "../components/error";
 
 const Createlisting = () => {
     // grabs user data from local storage
@@ -139,51 +140,66 @@ const Createlisting = () => {
         window.history.back();
     }
 
+    const [email, setEmail] = useState(() => {
+        // getting user details from local storage
+        const saved = window.localStorage.getItem('USER_EMAIL');
+        const initialValue = JSON.parse(saved);
+        return initialValue || "";
+    }, []);
+
     document.title="Create Listing";
-    return (
-        <div className="padding container"> {/* using grid system (className=container/row/col) for layout: https://react-bootstrap.github.io/layout/grid/*/}
-            <div className="row">
-                <div className="col">
-                    {/* allows user to upload an image and will preview that image back to the user, this maps image saved to img element */}
-                    { imageURL.map((imageSrc, index) => ( <img key={index} src={imageSrc} width="300" height="300" alt="something user uploaded"/> )) } 
-                    <br></br>
-                    <input id="userimg" type="file" onChange={onImageChange} required/>
-                    <p>only files types "jpg, jpeg, png" allowed</p>
-                </div>
-                <div className="col">
-                    <div>
-                        {/* sets all listing details on change event of each input area */}
-                        <form style={{marginTop:"50px" }} onSubmit={(event) => {validateData(event)}}>
-                            <h5>item title:</h5>
-                            <input id="usertitle" type="text" placeholder="title"
-                            onChange={(e)=>{setTitle(e.target.value)}} required/>
-                            <br/><br/>
-                            <h5>item description:</h5>
-                            <textarea id="userdesc" type="text" placeholder="description"
-                            onChange={(e)=>{setDesc(e.target.value)}} required/>
-                            <br/><br/>
-                            <h5>item price:</h5>
-                            <input id="userprice" type="number" placeholder="your price"
-                            onChange={(e)=>{setPrice(e.target.value)}} required/>
-                            <br/><br/>
-                            <h5>tags:</h5>
-                            <div className="tags-input-container">
-                                { searchTags.map((tag, index) => (
-                                    <div className="tag-item" id={index} key={index}>
-                                        <span className="text" onClick={() => setSelectedTag(index)}>{tag}</span>
-                                    </div>
-                                )) }
-                            </div>
-                            <br/><br/>
-                            <button type="submit">list item</button>
-                        </form>
-                        <button onClick={() => cancel()}>cancel</button>
+
+    // if email is not empty, someone is signed in so it shows actual home page, NOT landing page
+    if (email !== "") {
+        return (
+            <div className="padding container"> {/* using grid system (className=container/row/col) for layout: https://react-bootstrap.github.io/layout/grid/*/}
+                <div className="row">
+                    <div className="col">
+                        {/* allows user to upload an image and will preview that image back to the user, this maps image saved to img element */}
+                        { imageURL.map((imageSrc, index) => ( <img key={index} src={imageSrc} width="300" height="300" alt="something user uploaded"/> )) } 
+                        <br></br>
+                        <input id="userimg" type="file" onChange={onImageChange} required/>
+                        <p>only files types "jpg, jpeg, png" allowed</p>
+                    </div>
+                    <div className="col">
+                        <div>
+                            {/* sets all listing details on change event of each input area */}
+                            <form style={{marginTop:"50px" }} onSubmit={(event) => {validateData(event)}}>
+                                <h5>item title:</h5>
+                                <input id="usertitle" type="text" placeholder="title"
+                                onChange={(e)=>{setTitle(e.target.value)}} required/>
+                                <br/><br/>
+                                <h5>item description:</h5>
+                                <textarea id="userdesc" type="text" placeholder="description"
+                                onChange={(e)=>{setDesc(e.target.value)}} required/>
+                                <br/><br/>
+                                <h5>item price:</h5>
+                                <input id="userprice" type="number" placeholder="your price"
+                                onChange={(e)=>{setPrice(e.target.value)}} required/>
+                                <br/><br/>
+                                <h5>tags:</h5>
+                                <div className="tags-input-container">
+                                    { searchTags.map((tag, index) => (
+                                        <div className="tag-item" id={index} key={index}>
+                                            <span className="text" onClick={() => setSelectedTag(index)}>{tag}</span>
+                                        </div>
+                                    )) }
+                                </div>
+                                <br/><br/>
+                                <button type="submit">list item</button>
+                            </form>
+                            <button onClick={() => cancel()}>cancel</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-    );
+        )
+    } else {
+        return(
+            <Error/>
+        )
+    }
 }
 
 export default Createlisting;

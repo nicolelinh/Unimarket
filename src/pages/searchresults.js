@@ -4,6 +4,7 @@ import { db } from '../firebaseConfig';
 import Listing from "../components/listing";
 import Fuse from "fuse.js";
 import './tagsinput.css';
+import Error from "../components/error";
 
 const Searchresults = () => {
     // get user inputted search by parsing url
@@ -45,7 +46,7 @@ const Searchresults = () => {
             }
             fetchKeywordData();
             // removes key from local storage since input/data is no longer needed after searching has been done 
-            window.localStorage.removeItem('USER_SEARCHBARINPUT');
+            //window.localStorage.removeItem('USER_SEARCHBARINPUT');
         }
         // if searching by tags, checks if localstorage has any tags user chose
         if (tagSearch) {
@@ -60,7 +61,7 @@ const Searchresults = () => {
             }
             fetchTagsData();
             // removes key from local storage since tags/data is no longer needed after searching has been done 
-            window.localStorage.removeItem('USER_TAGGABLESEARCH');
+            //window.localStorage.removeItem('USER_TAGGABLESEARCH');
         }
     }, [])
 
@@ -109,6 +110,8 @@ const Searchresults = () => {
             //     window.localStorage.setItem('USER_SEARCHBARINPUT', JSON.stringify(searchBarInput));
             // }, [])
 
+            // removing tagsearch so previous results dont show up
+            window.localStorage.removeItem('USER_TAGGABLESEARCH');
             //saving search bar input to local storage so it can be accessed and used on a new search
             window.localStorage.setItem('USER_SEARCHBARINPUT', JSON.stringify(searchBarInput));
             // takes user to /search-results/words_entered_in_search_bar
@@ -125,6 +128,8 @@ const Searchresults = () => {
             // useEffect(()=>{
             //     window.localStorage.setItem('USER_SEARCHBARINPUT', JSON.stringify(userTags));
             // }, [])
+            // delete tagsearch so previous results dont show up
+            window.localStorage.removeItem('USER_SEARCHBARINPUT');
             //saving search tags to local storage so it can be accessed and used on a new search
             window.localStorage.setItem('USER_TAGGABLESEARCH', JSON.stringify(userTags));
             //console.log(JSON.parse(window.localStorage.getItem('USER_TAGGABLESEARCH')));
@@ -139,51 +144,65 @@ const Searchresults = () => {
         }
     }
 
+    const [email, setEmail] = useState(() => {
+        // getting user details from local storage
+        const saved = window.localStorage.getItem('USER_EMAIL');
+        const initialValue = JSON.parse(saved);
+        return initialValue || "";
+    }, []);
+
     document.title="Search Results";
 
-    return (
-        <div>
-            <h3>Re-do Search? </h3>
-            <div className="container">
-                <form className="d-flex search-form" onSubmit={(event) => {validateSearch(event)}}>
-                        <input className="form-control me-2 search-input" id="usersearch" type="search" placeholder="search here" aria-label="Search" required></input>
-                        <button className="search-btn btn-outline-success" type="submit" >search by filter</button>
-                </form>
-                <h4>Or search by tags?</h4>
-                <div className="tags-input-container">
-                    { searchTags.map((tag, index) => (
-                        <div className="tag-item" id={index} key={index}>
-                            <span className="text" onClick={() => setSelectedTag(index)}>{tag}</span>
-                        </div>
-                    )) }
-                </div>
-                <button type="button" onClick={() => searchByTags()}>search by tags</button>
-                <div className="listings-cont">
-                    <h3 className="listings-title"><em>Search results for: {search}</em></h3>
+    // if email is not empty, someone is signed in so it shows actual home page, NOT landing page
+    if (email !== "") {
+        return (
+            <div>
+                <h3>Re-do Search? </h3>
+                <div className="container">
+                    <form className="d-flex search-form" onSubmit={(event) => {validateSearch(event)}}>
+                            <input className="form-control me-2 search-input" id="usersearch" type="search" placeholder="search here" aria-label="Search" required></input>
+                            <button className="search-btn btn-outline-success" type="submit" >search by filter</button>
+                    </form>
+                    <h4>Or search by tags?</h4>
+                    <div className="tags-input-container">
+                        { searchTags.map((tag, index) => (
+                            <div className="tag-item" id={index} key={index}>
+                                <span className="text" onClick={() => setSelectedTag(index)}>{tag}</span>
+                            </div>
+                        )) }
+                    </div>
+                    <button type="button" onClick={() => searchByTags()}>search by tags</button>
+                    <div className="listings-cont">
+                        <h3 className="listings-title"><em>Search results for: {search}</em></h3>
 
-                    {/* dynamically create rows and columns based on how many listings are in database */}
-                    <div className="row">
-                        {/* this maps all the documents grabbed earlier and uses the data from each to create a Listing card */}
-                        {
-                            allListings.length > 0 ?
-                            (allListings?.map((data, index)=>(
-                                // only allow 4 listings per column by dividing col by 3
-                                <div className="col-3" key={index}>
-                                    <Listing
-                                    title={data.title}
-                                    description={data.description}
-                                    price={data.price}
-                                    photo={data.photo}
-                                    docid={data.id}
-                                    />
-                                </div>
-                            ))) : (<h3>no results.</h3>)
-                        }
+                        {/* dynamically create rows and columns based on how many listings are in database */}
+                        <div className="row">
+                            {/* this maps all the documents grabbed earlier and uses the data from each to create a Listing card */}
+                            {
+                                allListings.length > 0 ?
+                                (allListings?.map((data, index)=>(
+                                    // only allow 4 listings per column by dividing col by 3
+                                    <div className="col-3" key={index}>
+                                        <Listing
+                                        title={data.title}
+                                        description={data.description}
+                                        price={data.price}
+                                        photo={data.photo}
+                                        docid={data.id}
+                                        />
+                                    </div>
+                                ))) : (<h3>no results.</h3>)
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    } else {
+        return(
+            <Error/>
+        )
+    }
 }
 
 export default Searchresults;
