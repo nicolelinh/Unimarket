@@ -1,12 +1,12 @@
 import React, { Component } from "react";
+import FourOhFourImg from "../assets/404-error.jpg";
 
 class Error extends Component {
 
     render() {
         return (
             <div>
-                <h1>404</h1>
-                <h2>Page Not Found</h2>
+                <img src={FourOhFourImg} alt="broken robot"/>
             </div>
         )
     }

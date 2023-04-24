@@ -10,6 +10,7 @@ const Editlisting = () => {
     // get document id by parsing url
     const did = window.location.pathname.split("/")[2];
     // info needed to update listing
+    const [s, setSeller] = useState("");
     const [t, setTitle] = useState("");
     const [d, setDesc] = useState("");
     const [p, setPrice] = useState("");
@@ -31,6 +32,7 @@ const Editlisting = () => {
             await getDoc(docRef).then((docData)=>{
                 const newData = docData.data();
                 setDetails(newData);
+                setSeller(newData.seller);
                 setTitle(newData.title);
                 setDesc(newData.description);
                 setPrice(newData.price.split("$")[1]);
@@ -225,7 +227,8 @@ const Editlisting = () => {
     document.title="Edit Listing"
 
     // if email is not empty, someone is signed in so it shows actual home page, NOT landing page
-    if (email !== "") {
+    // also checks if user signed in is same as the seller, so other person doesn't have access to this page to edit
+    if (email !== "" && email === details.seller) {
         return (
             <div className="padding container"> {/* using grid system (className=container/row/col) for layout: https://react-bootstrap.github.io/layout/grid/*/}
                 <div className="row">
@@ -264,6 +267,7 @@ const Editlisting = () => {
                                 <br/><br/>
                                 <button type="submit">re-list item</button>
                             </form>
+                            <br></br>
                             <button onClick={() => cancel()}>cancel</button>
                         </div>
                     </div>

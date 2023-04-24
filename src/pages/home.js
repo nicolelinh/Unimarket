@@ -56,6 +56,8 @@ const Home = () => {
             //     window.localStorage.setItem('USER_SEARCHBARINPUT', JSON.stringify(searchBarInput));
             // }, [])
 
+            // removing tagsearch so previous results dont show up
+            window.localStorage.removeItem('USER_TAGGABLESEARCH');
             //saving search bar input to local storage so it can be accessed and used in searchresults.js page
             window.localStorage.setItem('USER_SEARCHBARINPUT', JSON.stringify(searchBarInput));
             // takes user to /search-results/words_entered_in_search_bar
