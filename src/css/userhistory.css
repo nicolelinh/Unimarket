@@ -9,74 +9,42 @@
     font-family: "Montserrat";
     src: local("Montserrat-Black"), url("../fonts/Montserrat-Black.ttf") format("truetype");
 }
-
-/*the main container that holds all of the information of the page
-  standardizes */
-div.mainsquare{
-    background: linear-gradient(180deg, #96B8B1 0%, rgba(217, 217, 217, 0) 100%);
-    border-radius: 125px;
-    height: 800px;
-    width: 1000px;
-    padding: 10px;
-    position: relative;
-    top: 40px; 
-    margin: auto;
+.background-border{
+    background-color: white;
+    margin-top:40px;
+    margin-bottom: 40px;
+    width: 75%;
 }
-
-/*the back container that provides decorative support on the main container
-  yellow square behind*/
-div.backsquare{
-    background: linear-gradient(180deg, #F5EACC 0%, rgba(217, 217, 217, 0) 100%);    
-    border-radius: 125px;
-    height: 800px;
-    width: 1000px;
-    padding: 10px;
-    position: relative;
-    top:-700px;
-    left:-50px;
-    z-index: -1;
-    margin: auto;
-}
-
-/*white out the content of which user focuses on 
-  (the history of their interactions and orders)*/
-div.content{
-    background: white;
-    border-radius: 61px;
-    margin: auto;
-    height: 650px;
-    width: 850px;
-    position: relative;
-    top: 10px;
-}
-h1.title{
-    color: white;
+.padding1{
+    box-sizing: border-box;
+    top: 40px;
     font-family: "Montserrat-Italic";
-    font-size: 40px;
-    position: relative;
-    top: 10px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    width: 40%;
+    background-color: white;
+    border-radius: 50px;
+    margin: auto;
+    color: #2D564E;   
 }
 
-/*individual links to unique history based on user content*/
-button.support{
-    padding: 20px;
-    border: transparent;
-    background-color: transparent;
-    font-family: "Montserrat-Italic";
-    position: relative;
-    top: 10px;
+button{
+    border: grey;
+    width: 25%;
+    
 }
-a.support{
-    color: #287485;
+button:hover{
+    filter: brightness(90%);
 }
-li.order{
-    margin: auto;
-    margin-bottom: 10px;
-    position: relative;
-    top: 20px;
-    list-style-type: none;
-    border: 2px solid #9D9D9D;
-    border-radius: 10px;
-    padding: 20px;
-    width: 500px;
+.delete-button{
+    margin-left: 10px;
 }
+
+li{
+    padding-top: 10px;
+}
+
+.display-list{
+    padding-top: 20px;
+}
+

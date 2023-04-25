@@ -1,7 +1,9 @@
-import React, { Component, useEffect, useState } from "react";
-import {doc, getDoc, deleteDoc} from "firebase/firestore";
-import { db } from '../firebaseConfig';
+import React, { Component, useEffect, useState, useContext } from "react";
+import {collection, addDoc, doc, getDoc, deleteDoc, query, where, getDocs} from "firebase/firestore";
+import { auth, db } from '../firebaseConfig';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
+import { updateCurrentUser } from "firebase/auth";
 
 // will display all listing details when a listing is clicked on from home page
 const Listingdetails = () => {
@@ -53,6 +55,31 @@ const Listingdetails = () => {
         } 
     }
 
+
+
+    //this is a button function for the user to save the item as a favorite to follow
+    //it will add in the document id to a new collection, saving the user id and document id
+    //the saved id's will help display all the items the user saved in the following page
+    // Fetch the user's list items from Firestore
+    
+    //info needed to create favorite item
+    const userid = auth.currentUser.uid;
+    const itemid = did;
+
+    const addFavorite = async (event) =>{
+        event.preventDefault();
+        try{
+            const docRef = await addDoc(collection(db, "favorites"), {
+                userid: userid,
+                itemid: did
+            })
+            console.log("Document submitted successfully");
+        } catch (event){
+            console.error("Error adding document:", event);
+        }
+    }
+
+
     document.title="Listing Details";
 
     return (
@@ -79,6 +106,7 @@ const Listingdetails = () => {
                         {editButton}
                         {/* based on if listing belongs to current user, action of the button is different, as shown above */}
                         <form onSubmit={submitEvent}>{listingButton}</form>
+                        <button onClick={addFavorite}>Add to Favorites</button>
                     </div>
                 </div>
             </div>

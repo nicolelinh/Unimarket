@@ -2,10 +2,11 @@ import { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { collection, addDoc, getDocs, query, where,deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
+import '../css/userhistory.css';
 
 function UserHistory(){
-    document.title="UserHistory";
-    const [newItemText, setNewItemText] = useState('');
+  document.title="UserHistory";
+  const [newItemText, setNewItemText] = useState('');
   const [newItemLink, setNewItemLink] = useState(''); // Add new state variable for link input
   const [todoList, setTodoList] = useState([]);
   const { currentUser } = useContext(AuthContext);
@@ -13,7 +14,9 @@ function UserHistory(){
   // Fetch the user's list items from Firestore
   useEffect(() => {
     async function fetchTodoList() {
-      const q = query(collection(db, 'todoList'), where('userId', '==', currentUser.uid));
+      const q = query(
+        collection(db, 'todoList'), 
+        where('userId', '==', currentUser.uid));
       const querySnapshot = await getDocs(q);
       const items = querySnapshot.docs.map((doc) => ({
         id: doc.id,
@@ -53,29 +56,38 @@ function UserHistory(){
   }
 
   return (
-    <>
+    <body>
+      <center>
+      <div className='background-border'>
+      <div className='padding1'>
       <h1>User History</h1>
+      <p>Put notes for your item progress and the item link to keep track of your activity!</p>
       <form onSubmit={handleFormSubmit}>
         <label>
-          New Item:
+          Notes:
           <input type="text" value={newItemText} onChange={(e) => setNewItemText(e.target.value)} />
         </label>
+        <br></br>
         <label>
           Link:
           <input type="text" value={newItemLink} onChange={(e) => setNewItemLink(e.target.value)} /> {/* Add link input field */}
         </label>
-        <button type="submit">Add Item</button>
+        <br></br><button type="submit">Add Item</button>
       </form>
-      <ul>
+      <ul className='display-list'>
         {todoList.map((item) => (
           <li key={item.id}>
             {item.text} {item.link && <a href={item.link}> ({item.link})</a>} {/* Display link as clickable anchor tag */}
             (created at {item.createdAt.toLocaleString()})
-            <button onClick={() => handleDeleteButtonClick(item.id)}>Delete</button>
+            <button className='delete-button' onClick={() => handleDeleteButtonClick(item.id)}>Delete</button>
           </li>
         ))}
       </ul>
-    </>
+      </div>
+      </div>
+      </center>
+
+    </body>
   );
 }
 export default UserHistory;
