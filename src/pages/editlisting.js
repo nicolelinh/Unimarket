@@ -19,6 +19,10 @@ const Editlisting = () => {
     const [image, setImage] = useState([]);
     const [imageURL, setImageURL] = useState([]);
     const [userTags, setUserTags] = useState([]);
+    // getting user details from local storage
+    let saved = window.localStorage.getItem('USER_EMAIL');
+    let email = (JSON.parse(saved));
+
     // static list of available tags user can choose from
     const [searchTags] = useState([
         "electronics", "books", "home", "furniture", "clothing, shoes & accessories", "pets", "music, movies & games", "school supplies"
@@ -217,18 +221,11 @@ const Editlisting = () => {
         window.history.back();
     }
 
-    const [email, setEmail] = useState(() => {
-        // getting user details from local storage
-        const saved = window.localStorage.getItem('USER_EMAIL');
-        const initialValue = JSON.parse(saved);
-        return initialValue || "";
-    }, []);
-
     document.title="Edit Listing"
 
     // if email is not empty, someone is signed in so it shows actual home page, NOT landing page
     // also checks if user signed in is same as the seller, so other person doesn't have access to this page to edit
-    if (email !== "" && email === details.seller) {
+    // if (email !== "" && email === details.seller) {
         return (
             <div className="padding container"> {/* using grid system (className=container/row/col) for layout: https://react-bootstrap.github.io/layout/grid/*/}
                 <div className="row">
@@ -274,11 +271,11 @@ const Editlisting = () => {
                 </div>
             </div>
         )
-    } else {
-        return(
-            <Error/>
-        )
-    }
+    // } else {
+    //     return(
+    //         <Error/>
+    //     )
+    // }
 }
 
 export default Editlisting;
