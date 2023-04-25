@@ -14,22 +14,19 @@
     background-color: rgb(132, 173, 151);
 }
 
+.bg-darkgreen {
+    background-color: rgb(100, 143, 120);
+}
+
 .bg-gray{
     background-color: gray;
 }
 
-.btn {
-    background-color: rgb(45, 109, 71) !important;
+.bg-darkgray{
+    background-color: rgb(78, 78, 78);
 }
-
-.text-uppercase{
-    font-family: "Montserrat-BoldItalic";
-}
-
-nav{
-    font-family: "Montserrat-Italic";
-}
-
-.list-unstyled{
+p.footer{
+    color: white;
+    font-size: 15px;
     font-family: "Montserrat-Italic";
 }

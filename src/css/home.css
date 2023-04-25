@@ -1,31 +1,56 @@
+/*questions? ask dev nicole nguyen*/
+
+/*import font family and standardize the name from font folder*/
+@font-face {
+    font-family: "Montserrat-Italic";
+    src: local("Montserrat-Italic"), url("../fonts/Montserrat-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat-BoldItalic";
+    src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
+}
+
+
 .padding{
     margin-top: 1.5em;
     margin-bottom: 1.5em;
 }
 
+/*this is for the welcome banner and search bar forms*/
 .pill-form{
     /* margin-top: 1.5em;
     margin-bottom: 5em; */
-    padding: 0.5em;
-    width: 75%;
+    position: relative;
+    top: 30px;
+    padding: .70em;
+    width: 80%;
+    height: 100px;
     margin: auto;
     border-radius: 50px !important;
-    background-image: linear-gradient(to right, rgb(132, 173, 151), rgb(170, 154, 103));
+    background-image: linear-gradient(180deg, rgba(45, 101, 94, 0.83) 0%, #F2ECDB 100%);
     color: white;
+    font-family: "Montserrat-BoldItalic";
+    letter-spacing: 2px;
 }
 
 .search-form{
+    position: relative;
+    top: 35px;
     padding-top: 0.5rem;
     padding-bottom: 1rem;
     width: 60%;
+    height: 80px;
     margin: auto;
     margin-top: -20px;
+    left: 70px;
+    font-family: "Montserrat-Italic";
 }
 
 .search-input{
-    outline: rgb(85, 85, 85) solid 2px;
+    padding-top: 2px;
     border-radius: 50px !important;
     background-image: linear-gradient(to right, white, gray);
+
 }
 
 .search-btn{
@@ -42,22 +67,21 @@
     background:rgb(199, 199, 199);
 }
 
-.col-spacing{
-    padding-bottom: 1em;
-}
+
 
 .question-1{
+    position: relative;
     text-align: left;
     background-color: white;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    padding-left: 1em;
+    padding-top: 40px;
+    padding-right: 200px;
     width:75%;
     margin:auto;
 }
 
 .question-brown{
     color: burlywood;
+    padding-bottom: 20px;
 }
 
 .question-2{

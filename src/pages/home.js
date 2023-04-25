@@ -4,7 +4,7 @@ import { db } from '../firebaseConfig';
 import Listing from '../components/listing';
 import Landing from "./landing";
 import '../App.css';
-import './home.css';
+import '../css/home.css';
 
 const Home = () => {
     const [info, setInfo] = useState([]);
@@ -82,7 +82,7 @@ const Home = () => {
                         <div className="row">
                             <div className="col col-spacing">
                                 <h4 className="question-1"><em>need to sell or request a market item?</em></h4>
-                                <h4 className="question-1"><em><a className="question-brown" href="/create-listing">sell</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="/create-request">request</a></em></h4>
+                                <h4 className="question-1"><em><a className="question-brown" href="/create-listing">sell</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="/request">request</a></em></h4>
                             </div>
                             {/* <div className="col"></div> */}
                         </div>
@@ -90,7 +90,7 @@ const Home = () => {
                             {/* <div className="col"></div> */}
                             <div className="col col-spacing">
                                 <h4 className="question-2"><em>looking for carpool or other services?</em></h4>
-                                <h4 className="question-2"><em><a className="question-brown" href="/create-carpool-request">carpool</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="/">other services</a></em></h4>
+                                <h4 className="question-2"><em><a className="question-brown" href="/carpoolrequest">carpool</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="/">other services</a></em></h4>
                             </div>
                         </div>
                         <div className="listings-cont">
@@ -115,6 +115,13 @@ const Home = () => {
                                 }
                             </div>
                         </div>
+                    </div>
+                    <div className="row">
+                        <div className="col col-spacing">
+                            <h4 className="question-3"><em>have something to say?</em></h4>
+                            <h4 className="question-3"><em><a className="question-brown" href="/reviews">review</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="/customerreport">report</a></em></h4>
+                        </div>
+                        {/* <div className="col"></div> */}
                     </div>
                 </section>
             </main>

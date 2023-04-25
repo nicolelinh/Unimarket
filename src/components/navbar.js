@@ -29,10 +29,10 @@ const Navbar = () => {
                                 <a className="nav-link" href="/chat">messages</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/">profile</a>
+                                <a className="nav-link" href="/userprofile">profile</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/">history</a>
+                                <a className="nav-link" href="/userhistory">history</a>
                             </li>
                         </ul>
                         <a href="/">#</a>
@@ -41,7 +41,7 @@ const Navbar = () => {
                                 <a className="nav-link" href="/">market</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/">carpool</a>
+                                <a className="nav-link" href="/carpoolrequest">carpool</a>
                             </li>
                             <li>
                                 <a className="nav-link" href="/request">request item</a>
@@ -83,7 +83,7 @@ const Navbar = () => {
                                 <a className="nav-link" href="/signout">Sign Out</a>
                             </li>
                             <li>
-                                <a className="nav-link" href="/landing">Landing</a>
+                                <a className="nav-link" href="/requestschool">Join Us</a>
                             </li>
                         </ul>
                         {/* removed search bar */}

@@ -1,0 +1,44 @@
+/*questions? ask dev nicole nguyen*/
+
+/*import font family and standardize the name from font folder*/
+@font-face {
+    font-family: "Montserrat-Italic";
+    src: local("Montserrat-Italic"), url("../fonts/Montserrat-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat";
+    src: local("Montserrat-Black"), url("../fonts/Montserrat-Black.ttf") format("truetype");
+}
+/*container editing*/
+div.spacer{
+    padding-top: 50px;
+}
+/*this container holds all communication and text for user to request school*/
+div.mainrequest{
+    font-family: "Montserrat-Italic";
+    margin: auto;
+    background: linear-gradient(180deg, rgba(45, 86, 78, 0.48) 0%, #F2ECDB 100%);    padding: 50px;
+    position: relative;
+    width: 1000px;
+    border-radius: 150px;
+    color: white;
+}
+a.customerservice{
+    font-family: "Montserrat-Italic";
+}
+
+/*button decor*/
+button.copybutton{
+    padding: 10px;
+    font-family: "Montserrat-Italic";
+    color: #2D564E;
+    border: transparent;
+}
+
+/*text editing*/
+h2.request{
+    font-family: "Montserrat-Italic";
+    font-size: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
