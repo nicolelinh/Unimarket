@@ -36,8 +36,8 @@ const Listingdetails = () => {
         
     } else {
         editButton = <Link to={{pathname:`/edit-listing/${did}`}}>edit</Link>
-        listingButton = <button type="submit">delete listing</button>
-        submitEvent = (event)=>deleteListing(event); // DELETES LISTING FROM DATABASE
+        // listingButton = <button type="submit">delete listing</button>
+        // submitEvent = (event)=>deleteListing(event); // DELETES LISTING FROM DATABASE
     }
 
     // BE CAREFUL DEBUGGING! DELETES LISTING FROM DATABASE

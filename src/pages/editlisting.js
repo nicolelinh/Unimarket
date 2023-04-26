@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { updateDoc, Timestamp } from "firebase/firestore";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, deleteDoc } from "firebase/firestore";
 import { db } from '../firebaseConfig';
 import { getStorage, ref, getDownloadURL, uploadBytesResumable, deleteObject } from "firebase/storage";
 import Error from "../components/error";
@@ -217,6 +217,34 @@ const Editlisting = () => {
         //return false;
     }
 
+    // BE CAREFUL DEBUGGING! DELETES LISTING FROM DATABASE
+    const deleteListing = async (e) => {
+        e.preventDefault();
+
+        try{
+            // delete photo from storage first
+            const storage = getStorage();
+            const photoRef = ref(storage, 'marketListings/'+details.photoFileName);
+            console.log(details.photoFileName);
+            // Delete the file
+            //https://firebase.google.com/docs/storage/web/delete-files
+            deleteObject(photoRef).then(() => {
+                console.log("Photo deleted successfully!");
+            }).catch((error) => {
+                console.log("Error deleting photo: ", e);
+            });
+
+            // grabs the document in database by the document ID
+            const docRef = doc(db, "marketListings", did);
+            await deleteDoc(docRef); // deletes document
+            console.log("Document successfully deleted! ");
+
+            window.location.href='/home'; // takes user to home page once record has been deleted
+        } catch(e){
+            console.log("Error deleting document: ", e);
+        } 
+    }
+
     function cancel() {
         window.history.back();
     }
@@ -264,7 +292,31 @@ const Editlisting = () => {
                                 <br/><br/>
                                 <button type="submit">re-list item</button>
                             </form>
+                            {/* Adding modal here: https://getbootstrap.com/docs/5.3/components/modal/ */}
                             <br></br>
+                            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Delete Listing
+                            </button>
+
+                            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div className="modal-dialog">
+                                    <div className="modal-content">
+                                        <div className="modal-header">
+                                            <h1 className="modal-title fs-5" id="exampleModalLabel">Delete Listing</h1>
+                                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div className="modal-body">
+                                            Are you sure you want to delete this listing?
+                                        </div>
+                                        <div className="modal-footer">
+                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="button" className="btn btn-primary" onClick={(e) => deleteListing(e)} >Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <br></br><br></br>
                             <button onClick={() => cancel()}>cancel</button>
                         </div>
                     </div>
