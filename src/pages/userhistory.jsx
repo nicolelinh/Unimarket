@@ -1,38 +1,93 @@
-import React, { Component } from "react";
-import '../App.css';
+import { useState, useContext, useEffect } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import { collection, addDoc, getDocs, query, where,deleteDoc, doc } from 'firebase/firestore';
+import { db } from '../firebaseConfig';
 import '../css/userhistory.css';
 
-class UserHistory extends Component {
-    render() {
-        document.title="UserHistory"
+function UserHistory(){
+  document.title="UserHistory";
+  const [newItemText, setNewItemText] = useState('');
+  const [newItemLink, setNewItemLink] = useState(''); // Add new state variable for link input
+  const [todoList, setTodoList] = useState([]);
+  const { currentUser } = useContext(AuthContext);
 
-        return(
-            <main>
-                <section>
-                    <div class="mainsquare">
-                        <h1 className="title">User History</h1>
-                        <div className="content">
-                            <button className="support"><a className="support" href="/landing">need help with your records?</a></button> 
-                            {/*below this is the order links to users history and such*/}
-                            <li className="order">
-                                <a className="orderlink"href="/landing">order #1</a>
-                            </li>
-                            <li className="order">
-                                <a className="orderlink"href="/landing">order #2</a>
-                            </li>
-                            <li className="order">
-                                <a className="orderlink"href="/landing">order #3</a>
-                            </li>
-                            <li className="order">
-                                <a className="orderlink"href="/landing">order #4</a>
-                            </li>
-                        </div>
-                    </div> 
-                <div className="backsquare"></div> 
-                </section>
-            </main>
-        )
+  // Fetch the user's list items from Firestore
+  useEffect(() => {
+    async function fetchTodoList() {
+      const q = query(
+        collection(db, 'todoList'), 
+        where('userId', '==', currentUser.uid));
+      const querySnapshot = await getDocs(q);
+      const items = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        text: doc.data().text,
+        link: doc.data().link,
+        createdAt: doc.data().createdAt.toDate(),
+      }));
+      setTodoList(items);
     }
-}
 
+    if (currentUser) {
+      fetchTodoList();
+    }
+  }, [currentUser]);
+
+  // Handle form submit to add a new list item
+  async function handleFormSubmit(event) {
+    event.preventDefault();
+
+    await addDoc(collection(db, 'todoList'), {
+      userId: currentUser.uid,
+      text: newItemText,
+      link: newItemLink, // Save link in Firestore
+      createdAt: new Date(),
+    });
+
+    setNewItemText('');
+    setNewItemLink(''); // Reset link input value
+    setTodoList([...todoList, { id: Date.now(), text: newItemText, link: newItemLink, createdAt: new Date() }]);
+  }
+
+  async function handleDeleteButtonClick(itemId) {
+    await deleteDoc(doc(db, 'todoList', itemId));
+
+    const updatedTodoList = todoList.filter((item) => item.id !== itemId);
+    setTodoList(updatedTodoList);
+  }
+
+  return (
+    <body>
+      <center>
+      <div className='background-border'>
+      <div className='padding1'>
+      <h1>User History</h1>
+      <p>Put notes for your item progress and the item link to keep track of your activity!</p>
+      <form onSubmit={handleFormSubmit}>
+        <label>
+          Notes:
+          <input type="text" value={newItemText} onChange={(e) => setNewItemText(e.target.value)} />
+        </label>
+        <br></br>
+        <label>
+          Link:
+          <input type="text" value={newItemLink} onChange={(e) => setNewItemLink(e.target.value)} /> {/* Add link input field */}
+        </label>
+        <br></br><button type="submit">Add Item</button>
+      </form>
+      <ul className='display-list'>
+        {todoList.map((item) => (
+          <li key={item.id}>
+            {item.text} {item.link && <a href={item.link}> ({item.link})</a>} {/* Display link as clickable anchor tag */}
+            (created at {item.createdAt.toLocaleString()})
+            <button className='delete-button' onClick={() => handleDeleteButtonClick(item.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+      </div>
+      </div>
+      </center>
+
+    </body>
+  );
+}
 export default UserHistory;

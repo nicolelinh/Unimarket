@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route }   from 'react-router-dom'; 
 import Home from './pages/home';
 
+
 import SignIn from './pages/signin';
 import SignUp from './pages/signup';
 import SignOut from './pages/signout';
@@ -29,6 +30,10 @@ import UserProfile from './pages/userprofile';
 import UserHistory from './pages/userhistory';
 import ComparisonResult from './pages/comparisonresult';
 import ComparisonSearch from './pages/comparisonsearch';
+import Reviews from './pages/reviews';
+import ReviewsDisplay from './pages/reviewsdisplay';
+import CustomerReport from './pages/customerRoport';
+import Following from './pages/following';
 
 
 
@@ -41,7 +46,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home/>} />
-
           <Route path="/home" element={<Home/>} />
           <Route path="/signin" element={<><SignIn /><AuthDetails /></>} />
           <Route path="/signup" element={<SignUp />} />
@@ -62,9 +66,12 @@ function App() {
           <Route path="/requestschool" element={<RequestSchool/>} />
           <Route path="/userprofile" element={<UserProfile/>}/>
           <Route path="/userhistory" element={<UserHistory/>}/>
-
           <Route path="/comparisonsearch/:id" element={<ComparisonSearch/>}/>
           <Route path="/comparisonresult/:id/:id" element={<ComparisonResult/>}/>
+          <Route path="/reviews" element={<Reviews/>}/>
+          <Route path="/reviewsdisplay" element={<ReviewsDisplay/>}/>
+          <Route path="/customerReport" element={<CustomerReport/>}/>
+          <Route path='/following' element={<Following/>}/>
         </Routes>
       </BrowserRouter>
       <Footer/>
@@ -74,3 +81,4 @@ function App() {
 }
 
 export default App;
+
