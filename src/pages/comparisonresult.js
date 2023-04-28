@@ -1,5 +1,5 @@
-import React, { Component, useEffect, useState } from "react";
-import {doc, getDoc, deleteDoc} from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from '../firebaseConfig';
 
 const ComparisonResult = () => {
@@ -67,6 +67,7 @@ const ComparisonResult = () => {
                     <p>Price: {listing.price}</p>
                     <p>Seller: {listing.seller}</p>
                     <p>{listing.description}</p>
+                    <button>dm user button</button>
                 </div>
                 ))}
             </div>

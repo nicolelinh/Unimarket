@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from "react";
-import { doc, collection, getDocs, orderBy, query, getDoc } from "firebase/firestore";
+import { doc, collection, getDocs, orderBy, query, getDoc, where } from "firebase/firestore";
 import { db } from '../firebaseConfig';
 import ComparisonListing from '../components/comparisonlisting';
 import Landing from "./landing";
@@ -33,16 +33,17 @@ const ComparisonSearch = () => {
     // need to filter/query db to only show listings from your school and by creation date? and those that arent yours? 
     const marketRef = collection(db, "marketListings");
     const Fetchdata = async () => {
-        await getDocs(query(marketRef, orderBy('timeCreated', 'desc'))).then((querySnapshot)=>{
+        await getDocs(query(marketRef, where('__name__', '!=', did))).then((querySnapshot)=>{
             const newData = querySnapshot.docs.map((doc)=> ({...doc.data(), id:doc.id}));
             setInfo(newData);
             console.log(info, newData);
+            console.log(did)
         })
     }
 
     useEffect(()=>{
         Fetchdata();
-    }, [])
+    }, []);
 
     const [email, setEmail] = useState(() => {
         // getting user details from local storage
@@ -77,7 +78,7 @@ const ComparisonSearch = () => {
                             <h4 className="question-2"><em>looking for carpool or other services?</em></h4>
                             <h4 className="question-2"><em><a className="question-brown" href="#">carpool</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="#">other services</a></em></h4>
                         </div>
-                    </div>
+                    </div>                                                                                                                                                                                       
                     <div className="listings-cont">
                             {/* Displays the first listing selected for comparison */}
                             <div style={{ justifyContent: 'normal' }}>
