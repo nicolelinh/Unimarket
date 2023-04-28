@@ -14,15 +14,6 @@ function SignUp() {
     const [newPassword, setNewPassword] = useState("");
     const [newPhoneNumber, setNewPhoneNumber] = useState("");
 
-    // reset input function
-    const reset = () => {
-        setNewSchool("");
-        setNewUserName("");
-        setNewEmail("");
-        setNewPassword("");
-        setNewPhoneNumber("");
-    };
-
     //sign up function
     const signUp = (event) => {
         event.preventDefault();
@@ -48,10 +39,12 @@ function SignUp() {
                 
                 console.log(userCredential.user);
                 console.log(auth.currentUser.email);
-                reset();
+                
+                //redirect to the home page once the sign up form is submitted
+                window.location.href='/signin';
             })
             .catch((error) => {
-                console.log(error);
+                alert(error);
                 // ..
             });
     };
@@ -60,15 +53,15 @@ function SignUp() {
     return (
         <div className="padding">
         <div className="SignUp">
-            <h2>Sign Up</h2>
-                <p className="desc">create an account</p>
-                <p className="warning">you must have a valid school email to use unimarket</p>
+            <h2>Create an account</h2>
+                <p className="desc">You must have a valid school email to use UniMarket</p>
+                <p className="important">Important: * are required fields</p>
                 <form className="signup-userinput" onSubmit={signUp}>
                     <div>
-                    <h3>Enter school:
+                    <h3>Enter school *:
                         <select type="school"
                                 value={newSchool}
-                                onChange={(event) => setNewSchool(event.target.value)}>
+                                onChange={(event) => setNewSchool(event.target.value)} required>
                                 <option value="">-- Select a school --</option>
                                 {schoolsData.map((school) => (
                                     <option key={school.id} value={school.name}>
@@ -79,7 +72,7 @@ function SignUp() {
                     </h3>    
                     </div>
                     <div>
-                    <h3>Enter username:
+                    <h3>Enter username *:
                         <input
                             type="text"
                             placeholder="Username..."
@@ -87,11 +80,12 @@ function SignUp() {
                             onChange={(event) => {
                                 setNewUserName(event.target.value);
                             }}
+                            required
                         />          
                     </h3>
                     </div>
                     <div>
-                    <h3>Enter email:
+                    <h3>Enter email *:
                         <input
                             type="email"
                             placeholder="Email..."
@@ -99,11 +93,12 @@ function SignUp() {
                             onChange={(event) => {
                                 setNewEmail(event.target.value);
                             }}
+                            required
                         />          
                     </h3>
                     </div>
                     <div>
-                        <h3> Enter password:
+                        <h3> Enter password *:
                             <input
                                 type="password"
                                 placeholder="Password..."
@@ -111,6 +106,7 @@ function SignUp() {
                                 onChange={(event) => {
                                     setNewPassword(event.target.value);
                                 }}
+                                required
                             />
                         </h3>
                     </div>

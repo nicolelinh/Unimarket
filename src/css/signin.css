@@ -61,10 +61,12 @@ input[type=password], input[type=email] {
 }
 
 /*forgotpassword and signin visual edits*/
-.forgotpassword{
+button a{
+    text-decoration: none;
     background-color: transparent;
     transition-duration: .3s;
     border-color: transparent;
+    color: #2D564E;
 
 }
 

@@ -15,13 +15,13 @@ function SignIn() {
         .then((userCredential) => {
             // Signed in 
             console.log(userCredential.user);
-            setNewEmail("");
-            setNewPassword("");
             // refreshes page after signed in to update navbar
             window.location.reload(true);
+            // redirect to the home page after signing in
+            window.location.href='/home';
         })
         .catch((error) => {
-            console.log(error);
+            alert(error);
             // ..
         });
     };
@@ -32,7 +32,7 @@ function SignIn() {
             <div className="SignIn">
                 <h2>Sign In</h2>
                     <form onSubmit={signIn}>
-                        <p>welcome back to unimarket</p>
+                        <p>Welcome back to UniMarket</p>
                         <div className="userinput-container">
                             <div className="inputbox">
                             <h3 className="userinput">Enter email:</h3>
@@ -58,9 +58,9 @@ function SignIn() {
 
                             </div>
                         </div>
-                    <button class="forgotpassword"><a href="/forgotpassword">forgotpassword</a></button>
+                    <button><a href="/forgotpassword">forgotpassword</a></button>
                     <br></br>
-                    <button className="signinbutton" type="submit"> Sign In </button>
+                    <button className="signinbutton" type="submit">Sign In</button>
                     </form>
             </div>
         </div>

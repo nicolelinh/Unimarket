@@ -33,7 +33,7 @@ import ComparisonSearch from './pages/comparisonsearch';
 import Reviews from './pages/reviews';
 import ReviewsDisplay from './pages/reviewsdisplay';
 import CustomerReport from './pages/customerRoport';
-import Following from './pages/following';
+// import Following from './pages/following';
 
 
 
@@ -71,7 +71,7 @@ function App() {
           <Route path="/reviews" element={<Reviews/>}/>
           <Route path="/reviewsdisplay" element={<ReviewsDisplay/>}/>
           <Route path="/customerReport" element={<CustomerReport/>}/>
-          <Route path='/following' element={<Following/>}/>
+          {/* <Route path='/following' element={<Following/>}/> */}
         </Routes>
       </BrowserRouter>
       <Footer/>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../App.css';
+import '../css/signin.css';
 import { db } from '../firebaseConfig';
 import {collection, addDoc} from "firebase/firestore";
 
@@ -54,7 +55,7 @@ const ServiceRequest = () => {
             </label>
             <br />
             <button type="submit">Place Request</button>
-            <button class="cancel"><a href="/home">Cancel</a></button>
+            <button><a href="/home">Cancel</a></button>
         </form>
     );
 };
