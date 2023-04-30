@@ -1,17 +1,16 @@
-
+// carpoolDetails.js
 
 import React, { useEffect, useState, useContext } from "react";
 import { doc, setDoc, getDoc, getDocs, deleteDoc, updateDoc, arrayUnion, arrayRemove, collection, query, where, Timestamp, increment } from "firebase/firestore";
 import { db } from '../firebaseConfig';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { Helmet } from "react-helmet";
 import { Loader } from "@googlemaps/js-api-loader"
 // import { Map, GoogleApiWrapper } from 'google-maps-react';
 
 const CarpoolDetails = () => {
     const [details, setDetails] = useState([]);
-    const [API_KEY, setAPI_KEY] = useState("")
+    const [API_KEY, setAPI_KEY] = useState("");
 
     const FetchKey = async () => {
         await getDocs(query(collection(db, "API_KEY"))).then((querySnapshot) => {
@@ -50,7 +49,7 @@ const CarpoolDetails = () => {
     let listingButton; // this will either read "dm user" or "delete listing" based on who the seller is
     let submitEvent; // this will determine if user will delete the listing or be sent to "dm user" page...
     // checking is the seller of THIS listing is same as current user by checking emails since they're unique
-    if (details.seller !== JSON.parse(window.localStorage.getItem('USER_EMAIL'))){
+    if (details && details.seller !== JSON.parse(window.localStorage.getItem('USER_EMAIL'))){
         listingButton = <button type="submit">dm user button</button>
         submitEvent = (event) => handleMessageSelect(event, details.seller); 
     } else {
@@ -122,6 +121,7 @@ const CarpoolDetails = () => {
     }
 
 
+    // Using the Google maps JavaScript API to create a map
     let map;
     if (API_KEY !== "") {
         const loader = new Loader({
@@ -133,11 +133,13 @@ const CarpoolDetails = () => {
             const { Map, InfoWindow } = await window.google.maps.importLibrary("maps");
             const { Marker } = await window.google.maps.importLibrary("marker")
     
+            // lat/lng position of our location
             const position = {
                 lat: details.coords.fromCoords.lat,
                 lng: details.coords.fromCoords.lng
             }
     
+            // lat/lng position of the destination
             const toPosition = {
                 lat: details.coords.toCoords.lat,
                 lng: details.coords.toCoords.lng
@@ -154,6 +156,7 @@ const CarpoolDetails = () => {
               zoom: 10,
             });
     
+            // Markers for both start and end locations
             const fromMarker = new Marker({
                 map: map,
                 position: position,
@@ -165,6 +168,7 @@ const CarpoolDetails = () => {
                 position: toPosition,
             })
             
+            // Markers that will open with a text box when clicked, showing both start and end locations
             fromMarker.addListener("click", () => {
                 infoWindow.setContent("Starting Location");
                 infoWindow.open(map, fromMarker);

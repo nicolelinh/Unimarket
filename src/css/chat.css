@@ -35,17 +35,12 @@
 /*chat segment detailings*/
 .chat-sidebar {
     flex: .75;
-    border: 5px solid black;
     overflow: hidden;
-    border-radius: 30px 30px 30px 30px;
-    margin-right: 50px;
 }
 
 .chat-main {
     flex: 2;
     overflow: hidden;
-    border: 5px solid black;
-    border-radius: 30px 30px 30px 30px;
 }
 
 .chat-userChat {

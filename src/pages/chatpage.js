@@ -51,10 +51,12 @@ function ChatPage() {
 
 
     const changeConvo = async(uid) => {
-        console.log('changeconvo')
         // This function fires when clicking a certain user in the chat UI sidebar, so we find the user based on the id
         const data = await getDoc(doc(db, "userInfo", uid));
-        setCurrentChatUsername(data.data().userName)
+        console.log(data.data())
+        if (data.data().userName) {
+            setCurrentChatUsername(data.data().userName)
+        }
         setCurrentChatUid(uid);
 
         // Conversations are stored as a combination of the two ids, with the greater being first, this logic handles that
@@ -163,7 +165,7 @@ function ChatPage() {
                     <div className="chat-main">
                         <div className="chat-info">
                             <span className="chat-username">
-                                { 'insert username here and maybe date of last sent message' }
+                                { 'insert username here' }
                             </span>
                         </div>
                         <div className="chat-messages">
