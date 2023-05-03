@@ -34,15 +34,14 @@ function ChatPage() {
 
     useEffect(() => {
         const getChats = () => {
-            console.log('getchats')
             const chatDoc = onSnapshot(doc(db, "userInfo", currentUser.uid), (doc) => {
                 setChats(doc.data().conversations);
             });
 
-        return () => {
-            chatDoc();
-        }
-    };
+            return () => {
+                chatDoc();
+            }
+        };
         if (currentUser.uid) {
             getChats()
         }
@@ -54,8 +53,8 @@ function ChatPage() {
         // This function fires when clicking a certain user in the chat UI sidebar, so we find the user based on the id
         const data = await getDoc(doc(db, "userInfo", uid));
         console.log(data.data())
-        if (data.data().userName) {
-            setCurrentChatUsername(data.data().userName)
+        if (data.data().username) {
+            setCurrentChatUsername(data.data().username)
         }
         setCurrentChatUid(uid);
 
@@ -65,14 +64,15 @@ function ChatPage() {
         } else {
             setConvoID(uid + currentUser.uid)
         }
-            // Finding the conversation (array of messages) with the combined ID and setting it
-            const chatDoc = onSnapshot(doc(db, "messages", convoID), (doc) => {
-                setMessages(doc.data().messages)
-            })
+            
+        // Finding the conversation (array of messages) with the combined ID and setting it
+        const chatDoc = onSnapshot(doc(db, "messages", convoID), (doc) => {
+            setMessages(doc.data().messages)
+        })
     
-            return () => {
-                chatDoc();
-            }
+        return () => {
+            chatDoc();
+        }
     }
 
     const handleSubmit = async() => {
@@ -136,9 +136,6 @@ function ChatPage() {
 
 
     return (
-            
-        
-
             <div className="chat-home">
             <div className="chat-container">
                     <div className="chat-sidebar">
@@ -165,7 +162,7 @@ function ChatPage() {
                     <div className="chat-main">
                         <div className="chat-info">
                             <span className="chat-username">
-                                { 'insert username here' }
+                                { currentChatUsername }
                             </span>
                         </div>
                         <div className="chat-messages">

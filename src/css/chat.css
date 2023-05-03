@@ -33,10 +33,10 @@
 
 
 /*chat segment detailings*/
-.chat-sidebar {
+/* .chat-sidebar {
     flex: .75;
     overflow: hidden;
-}
+} */
 
 .chat-main {
     flex: 2;

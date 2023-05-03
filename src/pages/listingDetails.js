@@ -32,7 +32,6 @@ const Listingdetails = () => {
         await getDoc(docRef).then((docData)=>{
             const newData = docData.data();
             setDetails(newData);
-            console.log(details, newData);
         })
 
     }
@@ -77,7 +76,6 @@ const Listingdetails = () => {
     // then set the text according to whether or not they are following or unfollowing
     useEffect(() => {
         async function setInitialFollowLogic() {
-            console.log(currentUser.uid)
             const userDoc = await getDoc(doc(db, "userInfo", currentUser.uid))
             if (userDoc.data().following.includes(details.seller)) {
                 setFollowingText("Unfollow")
@@ -113,12 +111,21 @@ const Listingdetails = () => {
         // https://stackoverflow.com/questions/58408111/firebase-firestore-query-get-one-result
         event.preventDefault();
         // Building the query for finding the user ID of the current page
-        const userDoc = await getDoc(doc(db, "userInfo", currentUser.uid))
-        const userInfoRef = collection(db, "userInfo");
-        const q = query(userInfoRef, where("email", "==", userEmail)); // We know the email, but we need ID
-        const querySnapshot = await getDocs(q);
-        const x = querySnapshot.docs.map((doc) => ({...doc.data(), id: doc.id }))
-        const dmUID = x[0].uid // Since the query only returns ONE value (email is unique), first element of the array will hold the value
+        let userDoc;
+        let dmUID;
+        let dmUsername;
+        try {
+            userDoc = await getDoc(doc(db, "userInfo", currentUser.uid))
+            const userInfoRef = collection(db, "userInfo");
+            const q = query(userInfoRef, where("email", "==", userEmail)); // We know the email, but we need ID
+            const querySnapshot = await getDocs(q);
+            const x = querySnapshot.docs.map((doc) => ({...doc.data(), id: doc.id }));
+            dmUID = x[0].uid; // Since the query only returns ONE value (email is unique), first element of the array will hold the value
+            dmUsername = x[0].username;
+            console.log("DMUID " + dmUID)
+        } catch (e) {
+            alert("Error establishing a direct message. Please refresh and try again. If the error persists, please contact the user through other means (email or phone number)")
+        }
 
         // A conversation in the database is identified by a combination of ID's
         // the greater of the ID is first, this logic handles that
@@ -129,7 +136,7 @@ const Listingdetails = () => {
         } else {
             convoID = dmUID + currentUser.uid;
         }
-        const existingChat = await getDoc(doc(db, "messages", convoID))
+        const existingChat = await getDoc(doc(db, "messages", convoID));
 
         // If this is the first time being messaged, create a new conversation
         if (!existingChat.exists() && convoID) {
@@ -139,7 +146,7 @@ const Listingdetails = () => {
             await updateDoc(doc(db, "userInfo", currentUser.uid), {
                 ["conversations."+convoID]: {
                     uid: dmUID,
-                    userName: details.seller, // The clicked user's information
+                    userName: dmUsername, // The clicked user's information
                     date: Timestamp.now(), // Needed for sorting messages, (most recent)
                     lastMessage: "" // Lastmessage for ease of access, needed in the UI
                 }

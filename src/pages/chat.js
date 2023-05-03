@@ -4,7 +4,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from '../firebaseConfig';
-import { Link } from "react-router-dom";
 import { collection, getDocs, getDoc, setDoc, doc, updateDoc, Timestamp } from "firebase/firestore"
 import '../App.css';
 import { AuthContext } from "../context/AuthContext";
