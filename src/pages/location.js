@@ -14,6 +14,7 @@ function Location() {
     const [search, setSearch] = useState("Where are you going to?");
     const [locations, setLocations] = useState([])
     const [API_KEY, setAPI_KEY] = useState()
+    const [clicked, setClicked] = useState(false);
 
     let map;
     console.log(window.location.hostname);
@@ -25,8 +26,6 @@ function Location() {
             const data = querySnapshot.docs.map(
                 (doc) => ({...doc.data()})
             );
-            console.log('test')
-            console.log(data[0])
             setAPI_KEY(data[0].key)
         })
     }
@@ -206,35 +205,32 @@ function Location() {
                 }
           });
         }
-
-
+        setClicked(true);
     }
 
 
     return (
         <main>
             <div style={{ height: '400px', width: '100%' }} id="map">
-                <p>
-                    Map will load once a location is inputted below
+                <p class="pt-5">
+                    Map and all available carpools will load once a location is inputted below
                 </p>
             </div>
-            {search}
-            <form>
-                <input onChange={(event) => {
-                            setSearch(event.target.value);
-                        }} type="search" placeholder="location" aria-label="Search"></input>
-                <div>
-                    <button class="btn btn-primary" onClick={(e) => handleClick(e, search)} type="submit">View Carpools</button>
-                </div>
-            </form>
 
             <div>
-                {locations.map((loc) => {
+                {clicked && locations.map((loc) => {
                     return (<p> <b>{loc.location.location_from}</b> to <b>{loc.location.location_to}</b> on {loc.location.pick_up_time_date} driven by <Link to={{pathname:`/carpool/${loc.location.id}`}} >{loc.location.name}</Link> </p>)
                 })}
             </div>
+            <form>
+                <input class="mb-5" style={{ width: '50%' }} onChange={(event) => {
+                            setSearch(event.target.value);
+                        }} type="search" placeholder="Insert Location" aria-label="Insert location"></input>
+                <div>
+                    <button class="mb-5 btn btn-primary" onClick={(e) => handleClick(e, search)} type="submit">View map</button>
+                </div>
+            </form>
 
-            {/* {console.log(locations)} */}
         </main>
     )
 }
