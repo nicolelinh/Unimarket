@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthContextProvider } from './context/AuthContext';
-import { ConvoContextProvider } from './context/ConvoContext';
 // import '@fortawesome/fontawesome-free/css/all.min.css'; 
 // import 'bootstrap-css-only/css/bootstrap.min.css'; 
 // import 'mdbreact/dist/css/mdb.css';
@@ -12,11 +11,9 @@ import { ConvoContextProvider } from './context/ConvoContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <AuthContextProvider>
-    <ConvoContextProvider>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </ConvoContextProvider>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
   </AuthContextProvider>
 );
 

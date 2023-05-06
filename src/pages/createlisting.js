@@ -55,7 +55,8 @@ const Createlisting = () => {
                 price: price,
                 seller: JSON.parse(currUser), // need to parse first or else string contains ""
                 photo: imgURL,
-                timeCreated: Date().toLocaleString()
+                timeCreated: Date().toLocaleString(),
+                views: 1
             })
             console.log("Document submitted successfully");
             window.location.href='/listing-details/'+docRef.id; // on creation, redirect to the listing details user just created
