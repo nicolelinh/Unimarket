@@ -1,14 +1,13 @@
-<<<<<<< HEAD
-node_modules
-=======
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
+/functions
 /node_modules
 /.pnp
 .pnp.js
+.env
 .firebaserc
-/functions
+firebase.json
 
 # testing
 /coverage
@@ -27,4 +26,3 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
->>>>>>> main

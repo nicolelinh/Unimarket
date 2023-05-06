@@ -12,10 +12,7 @@ const CarpoolDisplay = () => {
   // Fetch data from Firebase
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, 'carpoolRequests'), (querySnapshot) => {
-      const requests = [];
-      querySnapshot.forEach((doc) => {
-        requests.push(doc.data());
-      });
+      const requests = querySnapshot.docs.map((doc) => ({...doc.data(), id: doc.id}))
       setCarpoolRequests(requests);
     });
     return unsubscribe;
@@ -26,6 +23,8 @@ const CarpoolDisplay = () => {
   }
   
   return (
+
+  
     <form  style={{ backgroundColor: '#F8F8F8', padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <h2>Available Carpools (For Drivers):</h2>
       <table style={{ border: '1px solid black' }}>
@@ -45,8 +44,14 @@ const CarpoolDisplay = () => {
           {carpoolRequests.map((request, index) => {
             //console.log('request:', request);
             return (
+              
               <tr key={index} style={{ border: '1px solid black' }}>
-                <td style={{ border: '1px solid black', padding: '8px' }}>{request.name}</td>
+                {console.log(request)}
+                <td style={{ border: '1px solid black', padding: '8px' }}>
+                  <Link to={{pathname:`/carpool/${request.id}`}} >{request.name}</Link>
+                  {/* <a href="">{request.name}
+                  </a> */}
+                </td>
                 <td style={{ border: '1px solid black', padding: '8px' }}>{request.phone_number}</td>
                 <td style={{ border: '1px solid black', padding: '8px' }}>{request.location_from}</td>
                 <td style={{ border: '1px solid black', padding: '8px' }}>{request.location_to}</td>
@@ -60,6 +65,7 @@ const CarpoolDisplay = () => {
         </tbody>
       </table>
       <Link to="/carpoolrequest">Redirect to request a carpool for yourself!</Link>
+      <Link to="/location">Or find carpools close to you using our location services!</Link>
     </form>
   );
 };

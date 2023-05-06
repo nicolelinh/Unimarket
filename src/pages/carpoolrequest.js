@@ -1,14 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import '../css/carpoolrequest.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // importing database link to carpool request listing, as well as the designated folder for inputs. 
 import { db } from '../firebaseConfig';
-import {collection, addDoc, onSnapshot} from "firebase/firestore";
+import {collection, addDoc, onSnapshot, getDocs, query } from "firebase/firestore";
+// import geocode from "../funcs/geocode"
+import axios from 'axios';
 
 // setting up of inputs for a base level carpool request. 
 const RequestCarpool = () => {
+  const currUser = window.localStorage.getItem('USER_EMAIL');
   const [item, setItem] = useState({ name: '', phone_number: '', location_from: '', location_to: '', pick_up_time_date: 'mm/dd/yy', est_drive_time: 0, how_many_passengers: 0, passenger_note: '' });
   const [carpoolRequests, setCarpoolRequests] = useState([]);
+
+  const [API_KEY, setAPI_KEY] = useState()
+
+  let navigate = useNavigate();
+
+    const FetchKey = async () => {
+        await getDocs(query(collection(db, "API_KEY"))).then((querySnapshot) => {
+            const data = querySnapshot.docs.map(
+                (doc) => ({...doc.data()})
+            );
+            console.log('test')
+            console.log(data[0])
+            setAPI_KEY(data[0].key)
+        })
+    }
+
+    useEffect(() => {
+        FetchKey();
+    }, [])
 
   
   const handleChange = (event) => {
@@ -20,11 +42,92 @@ const RequestCarpool = () => {
     setItem({ name: '', phone_number: '', location_from: '', location_to: '', pick_up_time_date:   'mm/dd/yy', est_drive_time: 0, how_many_passengers: 0, passenger_note: '' });
   };
 
+  // ------------------------------------------------Walid's Contribution---------------------------------------------------------------------------------
+  async function geocode(location) {
+    // Invoking the google API
+    return await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+      params: {
+          address: location,
+          key: API_KEY
+      }
+    })
+  }
   // addition of the user inputs into a single carpool listing request into the database folder. item (user inputs) is logged and transfered to the firebase. 
   const addCarpool = async (e) => {
+        let valid = true;
         e.preventDefault();
-        await addDoc(collection(db, 'carpoolRequests'), { ...item, timestamp: new Date() });
-        setItem({ name: '', location_from: '', location_to: '', pick_up_time_date: 'mm/dd/yy', est_drive_time: 0, how_many_passengers: 0, passenger_note: ''});
+
+        // don't use a geocoding function since I ran into some weird async
+        let coords = {
+          toCoords: {
+            lat: 0,
+            lng: 0,
+          },
+          fromCoords: {
+            lat: 0,
+            lng: 0,
+          }
+        }
+        // To Location
+        await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+          params: {
+            address: item.location_to,
+            key: API_KEY,
+          }
+        }).then((res) => {
+          if (res.data.status === 'ZERO_RESULTS') {
+            alert('Invalid "to" location! Please try again.')
+            valid = false;
+          } else {
+            coords.toCoords.lat = res.data.results[0].geometry.location.lat;
+            coords.toCoords.lng = res.data.results[0].geometry.location.lng;
+          }
+        }).catch((err) => {
+          console.log(err);
+          alert("An unknown error occurred. Please try again.");
+        })
+
+        // From Location
+        await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+          params: {
+            address: item.location_from,
+            key: API_KEY,
+          }
+        }).then((res) => {
+          if (res.data.status === 'ZERO_RESULTS') {
+            alert('Invalid "from" location! Please try again.');
+            valid = false;
+          } else {
+            coords.fromCoords.lat = res.data.results[0].geometry.location.lat;
+            coords.fromCoords.lng = res.data.results[0].geometry.location.lng;
+          }
+        }).catch((err) => {
+          console.log(err);
+          alert("An unknown error occurred. Please try again.");
+        })
+
+        if (!valid) { return; }
+        
+
+        await addDoc(collection(db, 'carpoolRequests'), { ...item, timestamp: new Date(), seller: JSON.parse(currUser), coords
+              // The lat and long are specifically stored in these locations
+              // coords: {
+              //   toCoords: {
+              //     lat: toGeocode.data.results[0].geometry.location.lat,
+              //     lng: toGeocode.data.results[0].geometry.location.lng
+              //   },
+              //   fromCoords: {
+              //     lat: fromGeocode.data.results[0].geometry.location.lat,
+              //     lng: fromGeocode.data.results[0].geometry.location.lng
+              //   } 
+              // }
+            }).catch((err) => {
+              console.log(err);
+              alert("An unknown error occurred. Please refresh the page and try again.");
+            });
+          navigate("/carpooldisplay");
+
+        // ------------------------------------------------End Walid's Contribution------------------------------------------------------------------------------------------
   }
 
   // Fetch data from Firebase
