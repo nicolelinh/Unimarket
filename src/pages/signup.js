@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState } from "react";
 import '../App.css';
 import '../css/signup.css';
 import { auth, db } from '../firebaseConfig'
@@ -45,7 +45,6 @@ function SignUp() {
             })
             .catch((error) => {
                 alert(error);
-                // ..
             });
     };
     

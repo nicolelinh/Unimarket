@@ -22,7 +22,6 @@ function SignIn() {
         })
         .catch((error) => {
             alert(error);
-            // ..
         });
     };
 

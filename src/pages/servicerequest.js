@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../App.css';
 import '../css/signin.css';
-import { db } from '../firebaseConfig';
+import { auth, db } from '../firebaseConfig';
 import {collection, addDoc} from "firebase/firestore";
 
 const ServiceRequest = () => {
@@ -18,7 +18,8 @@ const ServiceRequest = () => {
         await addDoc(collection(db, "services"), {
             name: service.name,
             usernote: service.usernote,
-            description: service.description
+            description: service.description,
+            uid: auth.currentUser.uid
         });
         setService({ name: '', description: '', usernote: '' });
     }
