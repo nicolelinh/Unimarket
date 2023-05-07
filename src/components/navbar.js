@@ -49,8 +49,11 @@ const Navbar = () => {
                             <li>
                                 <a className="nav-link" href="/request">request item</a>
                             </li>
+                            <li>
+                                <a className="nav-link" href="/servicerequest">service request</a>
+                            </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/">services</a>
+                                <a className="nav-link" href="/services">services</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="/signout">sign out</a>

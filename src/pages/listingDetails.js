@@ -207,7 +207,7 @@ const Listingdetails = () => {
             <div className="row">
                 <div className="col">
                     <img src={details.photo} alt="..." width="300" height="300"/>
-                    <p>compare item link goes here</p>
+                    <p><Link to={`/comparisonsearch/${did}`}>Compare Item</Link></p>
                 </div>
                 <div className="col">
                     <div>

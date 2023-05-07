@@ -22,12 +22,17 @@ import CarpoolDetails from './pages/carpoolDetails'
 import Chat from './pages/chat';
 import Following from './pages/following'
 import ChatPage from './pages/chatpage'
+import ServiceRequest from './pages/servicerequest';
 import Location from './pages/location'
 import { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
+import ServiceList from './pages/servicelist';
+import ServiceDetail from './pages/serviceDetail';
 import RequestSchool from './pages/requestschool';
 import UserProfile from './pages/userprofile';
 import UserHistory from './pages/userhistory';
+import ComparisonResult from './pages/comparisonresult';
+import ComparisonSearch from './pages/comparisonsearch';
 import Reviews from './pages/reviews';
 import ReviewsDisplay from './pages/reviewsdisplay';
 import CustomerReport from './pages/customerRoport';
@@ -59,19 +64,21 @@ function App() {
           <Route path="/carpooldisplay" element={<CarpoolDisplay/>}/>  
           <Route path="/chat" element={<Chat />} />
           <Route path="/chatpage" element={<ChatPage />} />
+          <Route path="/servicerequest" element={<ServiceRequest />} />
+          <Route path="/services" element={<ServiceList />} />
+          <Route path="/services/:id" element={<ServiceDetail />} />
           <Route path="/following" element={<Following />} />
           <Route path="/location" element={<Location />} />
-  
           <Route path="/requestschool" element={<RequestSchool/>} />
           <Route path="/userprofile" element={<UserProfile/>}/>
           <Route path="/userhistory" element={<UserHistory/>}/>
+          <Route path="/comparisonsearch/:id" element={<ComparisonSearch/>}/>
+          <Route path="/comparisonresult/:id/:id" element={<ComparisonResult/>}/>
           <Route path="/reviews" element={<Reviews/>}/>
           <Route path="/reviewsdisplay" element={<ReviewsDisplay/>}/>
           <Route path="/customerReport" element={<CustomerReport/>}/>
           <Route path='/following' element={<Following/>}/>
           <Route path='/favorites' element={<Favorites/>}/>
-
-          
         </Routes>
       </BrowserRouter>
       <Footer/>
