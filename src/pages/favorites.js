@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, query, where, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 
 function Favorites() {
@@ -50,6 +50,17 @@ function Favorites() {
 
     fetchMarketListings();
   }, []);
+
+  const removeFavorite = async (event, favoriteItemId) => {
+    event.preventDefault();
+    try {
+      await deleteDoc(doc(db, "favorites", favoriteItemId));
+      console.log("Document deleted successfully");
+      window.location.reload();
+    } catch (event) {
+      console.error("Error deleting document:", event);
+    }
+  };
   
   // Display the favorite list and the corresponding market listings
   return (
@@ -72,6 +83,7 @@ function Favorites() {
                         <img src={marketItem.photo} alt={marketItem.title} />
                         <p>{marketItem.description}</p>
                         <p>Price: {marketItem.price}</p>
+                        <button onClick={(e) => removeFavorite(e, item.id)}>Remove from favorites</button>
                       </li>
                     );
                   } else {

@@ -90,6 +90,7 @@ const Listingdetails = () => {
                 itemid: did
             })
             console.log("Document submitted successfully");
+            alert("The item has been added to favorites!");
         } catch (event){
             console.error("Error adding document:", event);
         }
