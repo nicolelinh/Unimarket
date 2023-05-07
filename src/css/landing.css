@@ -49,7 +49,13 @@ img.welcometo{
     padding-top: 200px;
 }
 /*buttons*/
-.sign{
+.buttons{
+    padding-left:14%;
+    display: flex;
+    gap: 15%;
+
+}
+.signup{
     padding-top: 30px;
     background-color: transparent;
     scale: 85%;
@@ -57,9 +63,22 @@ img.welcometo{
     border-color: transparent;
 
 }
-.sign:hover{
+.signup:hover{
     opacity: 2;
 }
+.signin{
+    padding-top: 30px;
+    background-color: transparent;
+    scale: 85%;
+    transition-duration: .3s;
+    border-color: transparent;
+
+}
+.signin:hover{
+    opacity: 2;
+}
+
+
 p{
     font-family: "Montserrat-Italic";
     font-size: 20px;

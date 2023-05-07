@@ -28,8 +28,8 @@ class Landing extends Component {
                                         <img className="bubble" src={bubble} alt="bubble" id="bubble"/>
                                     </div>
                                     <div class="buttons">
-                                    <button class="sign"><a href="/signup"><img src={signup}/></a></button>
-                                    <button class="sign"><a href="/signin"><img src={signin}/></a></button>
+                                    <button class="signup"><a href="/signup"><img src={signup}/></a></button>
+                                    <button class="signin"><a href="/signin"><img src={signin}/></a></button>
                                     </div>
                                 </div>
                             </div>

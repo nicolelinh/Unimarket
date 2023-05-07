@@ -9,11 +9,12 @@
     font-family: "Montserrat-BoldItalic";
     src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
 }
- 
+
+
 /*main container*/
 .SignUp{
     background: linear-gradient(180deg, rgba(45, 86, 78, 0.48) 0%, #F2ECDB 100%);    border-radius: 125px;
-    height: 650px;
+    height: 750px;
     width: 1000px;
     padding: 50px;
     margin: auto;
@@ -33,6 +34,9 @@ p.warning{
     font-size: 15px;
     padding-bottom: 20px;
 }
+h3{
+    padding-bottom: 2%;
+}
 
 /*userinput box edits*/
 input[type=password], input[type=email], input[type=text], select[type=school] {
@@ -41,11 +45,10 @@ input[type=password], input[type=email], input[type=text], select[type=school] {
     width: 700px;
     border-color: transparent;
     height: 50px;
+    padding-left: 10%;
 }
 ::placeholder{
     color: lightgrey;
-    position: relative;
-    padding-left: 20px;
     font-size: 20px;
     bottom: 3px;
 }
@@ -58,4 +61,8 @@ input[type=password], input[type=email], input[type=text], select[type=school] {
     padding-right: 120px;
     border-color: transparent;
     color: #2D564E;
+    width: auto
+}
+.signupbutton:hover{
+    opacity: 40%;
 }

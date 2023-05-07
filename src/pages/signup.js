@@ -124,7 +124,7 @@ function SignUp() {
                             />
                         </h3>
                     </div>
-                    <button className="signupbutton" type="submit"> Sign Up </button>
+                    <button className="signupbutton" type="submit">Sign Up</button>
                 </form>
         </div>
         </div>
