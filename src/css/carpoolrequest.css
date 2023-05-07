@@ -13,12 +13,9 @@
 /*cotainer regulates the page*/
 .container-carpool{
     margin: auto;
-    position: relative;
-    top: 20px;
-    padding-bottom: 40px;
     font-family: "Montserrat-Italic";
     background-image: url(../assets/carpoolbackground1.png);
-    background-size: auto;
+    background-size:contain;
 }
 .carpool-link{
     color: #287485;

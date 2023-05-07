@@ -35,7 +35,7 @@ p.warning{
 }
 
 /*userinput box edits*/
-input[type=password], input[type=email], input[type=text] {
+input[type=password], input[type=email], input[type=text], select[type=school] {
     margin: auto;
     border-radius: 30px;
     width: 700px;

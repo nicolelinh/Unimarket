@@ -21,13 +21,6 @@ const AuthDetails = () => {
             listen();
         };
     }, []);
-
-    // visible portion of the page(show the currently sign in user and if email is verified)
-    return (
-        <div>
-            {authUser ? <p>{`Signed In as ${authUser.email}, Email Verified: ${auth.currentUser.emailVerified}`}</p> : <p>Signed Out</p>}
-        </div>
-    );
 };
 
 export default AuthDetails;

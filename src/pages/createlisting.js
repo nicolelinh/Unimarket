@@ -126,7 +126,8 @@ const Createlisting = () => {
                         photo: downloadURL,
                         photoFileName: imgFileName,
                         timeCreated: Timestamp.fromDate(new Date()),
-                        tags: userTags // this will either be empty if they didnt select any tags, or contains the tags that are highlighted "green"
+                        tags: userTags, // this will either be empty if they didnt select any tags, or contains the tags that are highlighted "green"
+                        views: 1
                     })
                     console.log("Document submitted successfully");
                     window.location.href='/listing-details/'+docRef.id; // on creation, redirect to the listing details user just created

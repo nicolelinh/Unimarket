@@ -23,16 +23,19 @@ const Navbar = () => {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <a className="nav-link" href="/">following</a>
+                                <a className="nav-link" href="/following">following</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/chat">messages</a>
+                                <a className="nav-link" href="/chatpage">messages</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="/userprofile">profile</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="/userhistory">history</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/favorites">favorites</a>
                             </li>
                         </ul>
                         <a href="/">#</a>
@@ -46,8 +49,11 @@ const Navbar = () => {
                             <li>
                                 <a className="nav-link" href="/request">request item</a>
                             </li>
+                            <li>
+                                <a className="nav-link" href="/servicerequest">service request</a>
+                            </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/">services</a>
+                                <a className="nav-link" href="/services">services</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="/signout">sign out</a>

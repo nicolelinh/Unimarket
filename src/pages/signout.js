@@ -8,6 +8,9 @@ function SignOut () {
         .then(() => {
             localStorage.clear(); // clearing local storage so user data is no longer available
             console.log('Sign out successful');
+            
+            // redirects back to the home page
+            window.location.href = '/home'
         })
         .catch((error) => {
             console.log(error);
@@ -18,7 +21,7 @@ function SignOut () {
 
     // visible portion of the page(sign out the current user)
     return (
-        <div>
+        <div >
             {<button onClick={userSignOut}>Sign Out</button>}
         </div>
     );

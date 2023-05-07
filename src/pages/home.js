@@ -26,6 +26,8 @@ const Home = () => {
 
     useEffect(()=>{
         Fetchdata();
+        console.log('INFO: ')
+        console.log(info)
     }, [])
 
     const [email, setEmail] = useState(() => {
@@ -66,6 +68,34 @@ const Home = () => {
         return false;
     }
 
+
+    // Massive if/else chain is probbaly not the best way to approach this, but each sorting requirement is different
+    //------------------------------------------------------------Walid's Contribution-----------------------------------------------------------------------
+    const sortListings = (filter) => {
+        const x = [...info]
+        if (filter === "oldest") {
+            x.sort((first, second) => first.timeCreated - second.timeCreated)
+        }
+        else if (filter === "newest") {
+            x.sort((first, second) => second.timeCreated - first.timeCreated)
+        }
+        else if (filter === "lowest-price") {
+            x.sort((first, second) => Number(first.price.slice(1)) - Number(second.price.slice(1)))
+        }
+        else if (filter === "highest-price") {
+            x.sort((first, second) => Number(second.price.slice(1)) - Number(first.price.slice(1)))
+        }
+        else if (filter === "most-viewed") {
+            x.sort((first, second) => second.views - first.views)
+        } 
+        else if (filter === "least-viewed") {
+            x.sort((first, second) => first.views - second.views)
+        }
+        setInfo(x)
+    }
+    //--------------------------------------------------------------End Walid's Contribution------------------------------------------------------------------------
+
+
     document.title="Home";
 
     // if email is not empty, someone is signed in so it shows actual home page, NOT landing page
@@ -95,6 +125,16 @@ const Home = () => {
                         </div>
                         <div className="listings-cont">
                             <h3 className="listings-title"><em>most recent product listings</em></h3>
+                            <select className="sort-metrics" onChange = {(e) => sortListings(e.target.value)}>
+                                <option value="">order by</option>
+                                <option value="newest">newest (default)</option>
+                                <option value="oldest">oldest</option>
+                                <option value="most-viewed">most viewed</option>
+                                <option value="least-viewed">least viewed</option>
+                                <option value="lowest-price">lowest price</option>
+                                <option value="highest-price">highest price</option>
+                                {/* <option value="favorite-asc">most favorited</option> */}
+                            </select>
 
                             {/* dynamically create rows and columns based on how many listings are in database */}
                             <div className="row">
