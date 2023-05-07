@@ -10,23 +10,11 @@
     src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
 }
 
-.bg-green {
-    background-color: rgb(132, 173, 151);
+.signout-1{
+    padding-top: 15%;
+    padding-bottom: 20%;
 }
 
-.bg-darkgreen {
-    background-color: rgb(100, 143, 120);
-}
-
-.bg-gray{
-    background-color: gray;
-}
-
-.bg-darkgray{
-    background-color: rgb(78, 78, 78);
-}
-p.footer{
-    color: white;
-    font-size: 15px;
-    font-family: "Montserrat-Italic";
+.signout-border{
+    padding-top: 10px;
 }

@@ -1,5 +1,6 @@
 import { signOut } from "firebase/auth";
-import { auth } from '../firebaseConfig'
+import { auth } from '../firebaseConfig';
+import '../css/signout.css'
 
 function SignOut () {
     // sign out function
@@ -21,9 +22,14 @@ function SignOut () {
 
     // visible portion of the page(sign out the current user)
     return (
-        <div >
-            {<button onClick={userSignOut}>Sign Out</button>}
+        <body>
+        <div className="signout-1">
+            <p className="signout?">Are you sure you want to sign out?<br></br>Please click the "sign out" button to sign out</p>
+            <div className="signout-border">
+                <button className="signout" onClick={userSignOut}>Sign Out</button>
+            </div>
         </div>
+        </body>
     );
 }
 

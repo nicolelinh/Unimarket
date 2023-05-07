@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import '../App.css';
 import { auth } from '../firebaseConfig'
 import { sendPasswordResetEmail } from "firebase/auth";
 import '../css/forgotpassword.css';
@@ -25,12 +24,12 @@ function ForgotPassword (){
     // visible portion of the page(buttons and input fields)
     return (
         <div className="ForgotPassword">
+            <div className="c1">
             <h2>ForgotPassword</h2>
-                <form onSubmit={forgotPassword}>
+                <form className="forgotPassword" onSubmit={forgotPassword}>
                     <h4>Please enter email to send for password reset.</h4>
                     <div>
-                    <h3>Enter email:
-                    <input
+                    <input className="inputemail"
                         type="email"
                         placeholder="Email..."
                         value={newEmail}
@@ -38,10 +37,11 @@ function ForgotPassword (){
                             setNewEmail(event.target.value);
                         }}
                     />          
-                    </h3>
                 </div>
-                <button type="submit"> Submit </button>
+                <div className="spacer1"></div>
+                <button className="buttonsubmit" type="submit"> Submit </button>
                 </form>
+            </div>
         </div>
     );
 }
