@@ -161,7 +161,7 @@ const Searchresults = () => {
                 <div className="container">
                     <form className="d-flex search-form" onSubmit={(event) => {validateSearch(event)}}>
                             <input className="form-control me-2 search-input" id="usersearch" type="search" placeholder="search here" aria-label="Search" required></input>
-                            <button className="search-btn btn-outline-success" type="submit" >search by filter</button>
+                            <button className="search-btn btn-outline-success" type="submit" >search</button>
                     </form>
                     <h4>Or search by tags?</h4>
                     <div className="tags-input-container">
@@ -172,6 +172,13 @@ const Searchresults = () => {
                         )) }
                     </div>
                     <button type="button" onClick={() => searchByTags()}>search by tags</button>
+                    <div className="row">
+                            <div>
+                                <h4 className="question-1"><em>need to sell or request a market item?</em></h4>
+                                <h4 className="question-1"><em><a className="question-brown" href="/create-listing">sell</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="/request">request</a></em></h4>
+                            </div>
+                            {/* <div className="col"></div> */}
+                        </div>
                     <div className="listings-cont">
                         <h3 className="listings-title"><em>Search results for: {search}</em></h3>
 

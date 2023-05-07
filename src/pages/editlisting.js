@@ -20,8 +20,7 @@ const Editlisting = () => {
     const [imageURL, setImageURL] = useState([]);
     const [userTags, setUserTags] = useState([]);
     // getting user details from local storage
-    let saved = window.localStorage.getItem('USER_EMAIL');
-    let email = (JSON.parse(saved));
+    let email = (JSON.parse(window.localStorage.getItem('USER_EMAIL')));
 
     // static list of available tags user can choose from
     const [searchTags] = useState([
@@ -42,6 +41,7 @@ const Editlisting = () => {
                 setPrice(newData.price.split("$")[1]);
                 setExistingURL(newData.photo);
                 setUserTags(newData.tags); // setting tags to what is already chosen
+
                 // set existing tags as clicked
                 for (let i = 0; i < newData.tags.length; i++) {
                     //console.log(newData.tags[i])
@@ -249,11 +249,14 @@ const Editlisting = () => {
         window.history.back();
     }
 
-    document.title="Edit Listing"
+    document.title="Edit Listing";
 
-    // if email is not empty, someone is signed in so it shows actual home page, NOT landing page
-    // also checks if user signed in is same as the seller, so other person doesn't have access to this page to edit
-    // if (email !== "" && email === details.seller) {
+
+    // *** on first render, data is null so it takes "else" path. need to wait until data is grabbed
+    // *** cant do componentDidMount bc data used in return 
+
+    // if email is not empty, someone is signed in also checks if user signed in is same as the seller, so other person doesn't have access to this page to edit
+     // if (email !== "" && email === details.seller) {
         return (
             <div className="padding container"> {/* using grid system (className=container/row/col) for layout: https://react-bootstrap.github.io/layout/grid/*/}
                 <div className="row">
