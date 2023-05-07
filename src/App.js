@@ -36,6 +36,7 @@ import ComparisonSearch from './pages/comparisonsearch';
 import Reviews from './pages/reviews';
 import ReviewsDisplay from './pages/reviewsdisplay';
 import CustomerReport from './pages/customerRoport';
+import Favorites from './pages/favorites';
 
 
 
@@ -76,6 +77,8 @@ function App() {
           <Route path="/reviews" element={<Reviews/>}/>
           <Route path="/reviewsdisplay" element={<ReviewsDisplay/>}/>
           <Route path="/customerReport" element={<CustomerReport/>}/>
+          <Route path='/following' element={<Following/>}/>
+          <Route path='/favorites' element={<Favorites/>}/>
         </Routes>
       </BrowserRouter>
       <Footer/>

@@ -34,6 +34,9 @@ const Navbar = () => {
                             <li className="nav-item">
                                 <a className="nav-link" href="/userhistory">history</a>
                             </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/favorites">favorites</a>
+                            </li>
                         </ul>
                         <a href="/">#</a>
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
