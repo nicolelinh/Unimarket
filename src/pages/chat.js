@@ -114,7 +114,7 @@ function Chat() {
         
                                         <h4>Id: {user.uid}</h4>
                                         {/*Loop over all users, button with users info*/}
-                                        <button onClick={() => {handleSelect(user)}}>Chat with this user</button>
+                                        <button className="mainchat-userbutton" onClick={() => {handleSelect(user)}}>Chat with this user</button>
                                     </div>
                                     );
                             }

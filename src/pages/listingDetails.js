@@ -2,43 +2,40 @@
 import React, { Component, useEffect, useState, useContext } from "react";
 import { addDoc, doc, setDoc, getDoc, getDocs, deleteDoc, updateDoc, arrayUnion, arrayRemove, collection, query, where, Timestamp, increment } from "firebase/firestore";
 import { auth, db } from '../firebaseConfig';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { updateCurrentUser } from "firebase/auth";
-
-
+import { getStorage, ref, deleteObject } from "firebase/storage";
+import './tagsinput.css';
+import Error from "../components/error";
 
 // will display all listing details when a listing is clicked on from home page
 const Listingdetails = () => {
-    // get document id by parsing url
-
     const {currentUser} = useContext(AuthContext);
     let navigate = useNavigate(); 
-    const did = window.location.pathname.split("/")[2];
+    const did = window.location.pathname.split("/")[2];// get document id by parsing url
     const [details, setDetails] = useState([]);
     const [followingText, setFollowingText] = useState();
 
-
-    // grabs the single document from db based on the document ID
-    const getDetails = async () => {
-        const docRef = doc(db, "marketListings", did); // getting document reference 
-        
-        // This increments twice, probably something to do with the way React renders components, leading to this
-        // Code being run twice
-        // Not a big deal and not worth rewriting stuff to fix this, since its still an accurate showing of how many
-        // times something has been viewed
-        await updateDoc(docRef, {
-            views: increment(1)
-        })
-
-        await getDoc(docRef).then((docData)=>{
-            const newData = docData.data();
-            setDetails(newData);
-        })
-
-    }
-
     useEffect(()=>{
+        const getDetails = async () => {
+                const docRef = doc(db, "marketListings", did); // getting document reference 
+                
+                // This increments twice, probably something to do with the way React renders components, leading to this
+                // Code being run twice
+                // Not a big deal and not worth rewriting stuff to fix this, since its still an accurate showing of how many
+                // times something has been viewed
+                await updateDoc(docRef, {
+                    views: increment(1)
+                })
+                
+                await getDoc(docRef).then((docData)=>{
+                    const newData = docData.data();
+                    setDetails(newData);
+                    //console.log(details, newData);
+                })
+
+        }
         getDetails();
     }, []);
     
@@ -52,26 +49,8 @@ const Listingdetails = () => {
         submitEvent = (event) => handleMessageSelect(event, details.seller); 
         
     } else {
-        editButton = <Link to={{pathname:`/edit-listing/${did}`}}>edit</Link>
-        listingButton = <button type="submit">delete listing</button>
-        submitEvent = (event)=>deleteListing(event); // DELETES LISTING FROM DATABASE
+        editButton = <button onClick={() => navigate(`/edit-listing/${did}`)}>Edit Listing</button>
     }
-
-    // BE CAREFUL DEBUGGING!
-    const deleteListing = async (e) => {
-        e.preventDefault();
-
-        try{
-            // grabs the document in database by the document ID
-            const docRef = doc(db, "marketListings", did);
-            await deleteDoc(docRef); // deletes document
-            console.log("Document successfully deleted! ");
-            window.location.href='/home'; // takes user to home page once record has been deleted
-        } catch(e){
-            console.log("Error deleting document: ", e);
-        } 
-    }
-
 
     //this is a button function for the user to save the item as a favorite to follow
     //it will add in the document id to a new collection, saving the user id and document id
@@ -79,7 +58,7 @@ const Listingdetails = () => {
     // Fetch the user's list items from Firestore
     
     //info needed to create favorite item
-    const userid = auth.currentUser.uid;
+    const userid = currentUser.uid;
     const itemid = did;
 
     const addFavorite = async (event) =>{
@@ -102,6 +81,7 @@ const Listingdetails = () => {
     // then set the text according to whether or not they are following or unfollowing
     useEffect(() => {
         async function setInitialFollowLogic() {
+
             const userDoc = await getDoc(doc(db, "userInfo", currentUser.uid))
             if (userDoc.data().following.includes(details.seller)) {
                 setFollowingText("Unfollow")
@@ -194,17 +174,53 @@ const Listingdetails = () => {
     }
     // -----------------------------------------------------------------End Walid's Contribution-----------------------------------------------------------
 
+    const [email, setEmail] = useState(() => {
+        // getting user details from local storage
+        const saved = window.localStorage.getItem('USER_EMAIL');
+        const initialValue = JSON.parse(saved);
+        return initialValue || "";
+    }, []);
 
+    // makes sure search bar input is valid
+    async function validateSearch(e) {
+        e.preventDefault();
+
+        var searchBarInput = document.getElementById('usersearch').value; // grabbing input from form below
+        var searchBarInputURL = searchBarInput.replace(/\s/g, '_'); // replacing whitespace with an _ to create URL
+        var searchBarLimit = document.getElementById('usersearch').value.length;
+        var isValidSearch = false;
+
+        if (searchBarLimit <= 40 || searchBarInput > 0) {
+            isValidSearch = true;
+        } else {
+            alert('Search Bar character limit is 40 characters.');
+        }
+
+        if (isValidSearch) {
+            console.log("redirecting to: " + searchBarInputURL);
+            // removing tagsearch so previous results dont show up
+            window.localStorage.removeItem('USER_TAGGABLESEARCH');
+            //saving search bar input to local storage so it can be accessed and used in searchresults.js page
+            window.localStorage.setItem('USER_SEARCHBARINPUT', JSON.stringify(searchBarInput));
+            // takes user to /search-results/words_entered_in_search_bar
+            window.location.href=("/search-results/"+searchBarInputURL);
+        }
+        return false;
+    }
+    
     document.title="Listing Details";
 
+// if email is not empty, someone is signed in so it shows actual home page, NOT landing page
+if (email !== "") {
     return (
         <div className="padding container"> {/* using grid system (className=container/row/col) for layout: https://react-bootstrap.github.io/layout/grid/*/}
 
             {/* using bootstrap for search bar form */}
-            <form className="d-flex search-form">
-                <input className="form-control me-2 search-input" type="search" placeholder="search here" aria-label="Search"></input>
-                <button className="search-btn btn-outline-success" type="submit">search by filter</button>
+            <form className="d-flex search-form" onSubmit={(event) => {validateSearch(event)}}>
+                <input className="form-control me-2 search-input" id="usersearch" type="search" placeholder="search here" aria-label="Search" required></input>
+                <button className="search-btn btn-outline-success" type="submit" >search</button>
             </form>
+            <br></br>
             <div className="row">
                 <div className="col">
                     <img src={details.photo} alt="..." width="300" height="300"/>
@@ -220,15 +236,29 @@ const Listingdetails = () => {
                         <p><button id="following" onClick={() => {handleFollow(details.seller)}}>{followingText}</button></p>
                         <h5>Description:</h5>
                         <p>{details.description}</p>
+                        <h5>Tags:</h5>
+                            <div className="tags-input-container">
+                                    { details.tags?.map((tag, index) => (
+                                        <div className="tag-item" id={index} key={index}>
+                                            <span className="text">{tag}</span>
+                                        </div>
+                                    )) }
+                            </div>
                         {editButton}
                         {/* based on if listing belongs to current user, action of the button is different, as shown above */}
                         <form onSubmit={submitEvent}>{listingButton}</form>
+                        <br></br>
                         <button onClick={addFavorite}>Add to Favorites</button>
                     </div>
                 </div>
             </div>
         </div>
     )
+} else {
+        return(
+            <Error/>
+        )
+    }
 }
 
 export default Listingdetails;
