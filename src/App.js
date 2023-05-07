@@ -31,6 +31,7 @@ import UserHistory from './pages/userhistory';
 import Reviews from './pages/reviews';
 import ReviewsDisplay from './pages/reviewsdisplay';
 import CustomerReport from './pages/customerRoport';
+import Favorites from './pages/favorites';
 
 
 
@@ -68,6 +69,8 @@ function App() {
           <Route path="/reviewsdisplay" element={<ReviewsDisplay/>}/>
           <Route path="/customerReport" element={<CustomerReport/>}/>
           <Route path='/following' element={<Following/>}/>
+          <Route path='/favorites' element={<Favorites/>}/>
+
           
         </Routes>
       </BrowserRouter>
