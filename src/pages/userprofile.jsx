@@ -45,9 +45,9 @@ function UserProfile() {
           <img className="profilepic" src={profilepic} alt="profilepic" />
           <div className="userinformation">
             <p className="userprofile">
-              {userProfileData?.school}
+              school: {userProfileData?.school}
               <br />
-              {userProfileData?.username}
+              username: {userProfileData?.username}
             </p>
           </div>
           <button className="userhistory">
