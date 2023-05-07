@@ -19,6 +19,7 @@ const ServiceRequest = () => {
             name: service.name,
             usernote: service.usernote,
             description: service.description,
+            seller: auth.currentUser.email,
             uid: auth.currentUser.uid
         });
         setService({ name: '', description: '', usernote: '' });

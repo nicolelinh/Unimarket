@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from '../firebaseConfig';
+import { doc, updateDoc, setDoc, getDoc, getDocs, collection, query, where, Timestamp } from "firebase/firestore";
+import { auth, db } from '../firebaseConfig';
+import { useNavigate } from 'react-router-dom';
 
 const ComparisonResult = () => {
     const did = window.location.pathname.split("/")[2];
     const did2 = window.location.pathname.split("/")[3];
     const [details, setDetails] = useState([]);
     const [details2, setDetails2] = useState([]);
+    let navigate = useNavigate(); 
 
     // Back function do redirect to previous page
     const goBack = () => {
@@ -33,7 +35,6 @@ const ComparisonResult = () => {
         })
     }
     
-
     useEffect(()=>{
         getDetails();       //first listing
         getDetails2();      //second listing
@@ -56,6 +57,66 @@ const ComparisonResult = () => {
         },
     ];
 
+      // Handles logic for message button
+  const handleMessageSelect = async (event, userEmail) => {
+    // https://stackoverflow.com/questions/58408111/firebase-firestore-query-get-one-result
+    event.preventDefault();
+    // Building the query for finding the user ID of the current page
+    let userDoc;
+    let dmUID;
+    let dmUsername;
+    try {
+        userDoc = await getDoc(doc(db, "userInfo", auth.currentUser.uid))
+        const userInfoRef = collection(db, "userInfo");
+        const q = query(userInfoRef, where("email", "==", userEmail)); // We know the email, but we need ID
+        const querySnapshot = await getDocs(q);
+        const x = querySnapshot.docs.map((doc) => ({...doc.data(), id: doc.id }));
+        dmUID = x[0].uid; // Since the query only returns ONE value (email is unique), first element of the array will hold the value
+        dmUsername = x[0].username;
+        console.log("DMUID " + dmUID)
+    } catch (e) {
+        alert("Error establishing a direct message. Please refresh and try again. If the error persists, please contact the user through other means (email or phone number)")
+    }
+
+    // A conversation in the database is identified by a combination of ID's
+    // the greater of the ID is first, this logic handles that
+    let convoID = null;
+    if (auth.currentUser.uid > dmUID) {
+
+        convoID = auth.currentUser.uid + dmUID;
+    } else {
+        convoID = dmUID + auth.currentUser.uid;
+    }
+    const existingChat = await getDoc(doc(db, "messages", convoID));
+
+    // If this is the first time being messaged, create a new conversation
+    if (!existingChat.exists() && convoID) {
+        await setDoc(doc(db, "messages", convoID), { messages: [] });
+
+        // Update the database for both the currently logged in user and the clicked user to reflect the new conversation
+        await updateDoc(doc(db, "userInfo", auth.currentUser.uid), {
+            ["conversations."+convoID]: {
+                uid: dmUID,
+                userName: dmUsername, // The clicked user's information
+                date: Timestamp.now(), // Needed for sorting messages, (most recent)
+                lastMessage: "" // Lastmessage for ease of access, needed in the UI
+            }
+        });
+
+        // Update the database for the other user (listing page owner, NOT logged in user)
+        await updateDoc(doc(db, "userInfo", dmUID), {
+            ["conversations."+convoID]: {
+                uid: auth.currentUser.uid,
+                userName: userDoc.data().username, 
+                date: Timestamp.now(), 
+                lastMessage: "" 
+            }
+        });
+    }
+    // If the chat already exists, we are just taken to the chat page
+    navigate('/chatpage');   
+  }
+
     return (
         <div>
             {/*Display everything inside of listing variables with spacing in between to clearly compare details between the selected listings*/}
@@ -67,7 +128,7 @@ const ComparisonResult = () => {
                     <p>Price: {listing.price}</p>
                     <p>Seller: {listing.seller}</p>
                     <p>{listing.description}</p>
-                    <button>dm user button</button>
+                    <button onClick={(event) =>handleMessageSelect(event, listing.seller)}>dm user button</button>
                 </div>
                 ))}
             </div>

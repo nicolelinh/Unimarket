@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from "react";
-import { doc, collection, getDocs, orderBy, query, getDoc, where } from "firebase/firestore";
+import { doc, collection, getDocs, query, getDoc, where } from "firebase/firestore";
 import { db } from '../firebaseConfig';
 import ComparisonListing from '../components/comparisonlisting';
 import Landing from "./landing";
@@ -10,6 +10,29 @@ const ComparisonSearch = () => {
     const [info, setInfo] = useState([]);
     const did = window.location.pathname.split("/")[2];
     const [details, setDetails] = useState([]);
+
+    const sortListings = (filter) => {
+        const x = [...info]
+        if (filter === "oldest") {
+            x.sort((first, second) => first.timeCreated - second.timeCreated)
+        }
+        else if (filter === "newest") {
+            x.sort((first, second) => second.timeCreated - first.timeCreated)
+        }
+        else if (filter === "lowest-price") {
+            x.sort((first, second) => Number(first.price.slice(1)) - Number(second.price.slice(1)))
+        }
+        else if (filter === "highest-price") {
+            x.sort((first, second) => Number(second.price.slice(1)) - Number(first.price.slice(1)))
+        }
+        else if (filter === "most-viewed") {
+            x.sort((first, second) => second.views - first.views)
+        } 
+        else if (filter === "least-viewed") {
+            x.sort((first, second) => first.views - second.views)
+        }
+        setInfo(x)
+    }
 
     // grabs the single document from db based on the document ID
     const getDetails = async () => {
@@ -90,8 +113,18 @@ const ComparisonSearch = () => {
                                     <p>{details.description}</p>
                                 </div>
                             </div>
-                        <h3 className="listings-title"><em>most recent product listings</em></h3>
-
+                        <h3 className="listings-title"><em>most recent product listings</em>
+                            <select className="sort-metrics" onChange = {(e) => sortListings(e.target.value)}>
+                                <option value="">order by</option>
+                                <option value="newest">newest (default)</option>
+                                <option value="oldest">oldest</option>
+                                <option value="most-viewed">most viewed</option>
+                                <option value="least-viewed">least viewed</option>
+                                <option value="lowest-price">lowest price</option>
+                                <option value="highest-price">highest price</option>
+                                {/* <option value="favorite-asc">most favorited</option> */}
+                            </select>
+                        </h3>
                         {/* dynamically create rows and columns based on how many listings are in database */}
                         <div className="row">
                             {/* this maps all the documents grabbed earlier and uses the data from each to create a Listing card */}

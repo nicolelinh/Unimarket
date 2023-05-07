@@ -76,7 +76,6 @@ function App() {
           <Route path="/reviews" element={<Reviews/>}/>
           <Route path="/reviewsdisplay" element={<ReviewsDisplay/>}/>
           <Route path="/customerReport" element={<CustomerReport/>}/>
-          {/* <Route path='/following' element={<Following/>}/> */}
         </Routes>
       </BrowserRouter>
       <Footer/>
