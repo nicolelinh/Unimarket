@@ -19,7 +19,7 @@ const Searchresults = () => {
     const [userTags, setUserTags] = useState([]); 
     // static list of available tags user can choose from
     const [searchTags] = useState([
-        "electronics", "books", "home", "furniture", "clothing, shoes & accessories", "pets", "music, movies & games", "school supplies"
+        "electronics", "books", "home", "furniture", "clothing & shoes", "pets", "music & movies", "video games", "school supplies"
     ]);
 
     useEffect(()=>{
@@ -157,13 +157,12 @@ const Searchresults = () => {
     if (email !== "") {
         return (
             <div>
-                <h3>Re-do Search? </h3>
+                <h2>Re-do Search? </h2>
                 <div className="container">
                     <form className="d-flex search-form" onSubmit={(event) => {validateSearch(event)}}>
                             <input className="form-control me-2 search-input" id="usersearch" type="search" placeholder="search here" aria-label="Search" required></input>
                             <button className="search-btn btn-outline-success" type="submit" >search</button>
                     </form>
-                    <h4>Or search by tags?</h4>
                     <div className="tags-input-container">
                         { searchTags.map((tag, index) => (
                             <div className="tag-item" id={index} key={index}>

@@ -17,7 +17,7 @@ const Createlisting = () => {
     const [userTags, setUserTags] = useState([]);
     // static list of available tags user can choose from
     const [searchTags] = useState([
-        "electronics", "books", "home", "furniture", "clothing, shoes & accessories", "pets", "music, movies & games", "school supplies"
+        "electronics", "books", "home", "furniture", "clothing & shoes", "pets", "music & movies", "video games", "school supplies"
     ]);
 
     useEffect(() => {
