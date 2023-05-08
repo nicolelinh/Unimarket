@@ -1,0 +1,36 @@
+/*questions? ask dev nicole nguyen*/
+
+/*import font family and standardize the name from font folder*/
+@font-face {
+    font-family: "Montserrat-Italic";
+    src: local("Montserrat-Italic"), url("../fonts/Montserrat-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat-BoldItalic";
+    src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
+}
+
+.following-background{
+    background-image: url(../assets/following-background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.listings-title{
+    font-family: "Montserrat-BoldItalic";
+}
+
+.following-items{
+    background: linear-gradient(180deg, rgba(149, 185, 178, 0.9) 0%, rgba(229, 202, 133, 0.159) 103.15%);
+    padding-bottom: 10px;
+    border-radius: 10px;
+    padding-right: 10px;
+}
+
+.row{
+    padding-left: 20px;
+}
+
+.following-spacer{
+    height: 50px;
+}

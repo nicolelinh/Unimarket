@@ -158,12 +158,10 @@
 
 
 /*chat broder background*/
-div.background-chatpage{
-    width: 1420px;
-    height: 835px;
-    position: absolute;
-    top: 110px;
-    border-radius: 50px;
-    z-index: -1;
-    background: linear-gradient(180deg, rgba(101, 152, 127, 0.83) 0%, #FAE8C6 100%);
+
+.chat-home{
+    z-index: 1;
+}
+.chatpage-spacer{
+    height: 10px;
 }

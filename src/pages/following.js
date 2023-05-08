@@ -3,6 +3,7 @@ import { collection, getDoc, doc, getDocs, query, where } from "firebase/firesto
 import { db } from '../firebaseConfig';
 import { AuthContext } from '../context/AuthContext';
 import Listing from '../components/listing';
+import '../css/following.css';
 
 const Following = () => {
     // Set up React states for keeping track of the following list (users), and the listings
@@ -55,12 +56,13 @@ const Following = () => {
 
             })}
         </section>
-        <section>
+        <body className="following-background">
             <div className="padding container">
+                
                 <div className="listings-cont">
                     <h3 className="listings-title"><em>listings from your followed users</em></h3>
-
                     {/* dynamically create rows and columns based on how many listings are in database */}
+                    <div className="following-items">
                     <div className="row">
                         {/* this maps all the documents grabbed earlier and uses the data from each to create a Listing card */}
                         {
@@ -78,11 +80,13 @@ const Following = () => {
                             ))
                         }
                     </div>
+                    </div>
                     {/* allow max of 4 listings per page to test, if over, then go to next page OR continuous scrolling*/}
                     
                 </div>
             </div>
-        </section>
+            <div className="following-spacer"></div>
+        </body>
     </main>
     )
     //---------------------I did not write anything in this return, reused from other pages-----------------------------

@@ -136,6 +136,10 @@ function ChatPage() {
 
 
     return (
+        <main>
+            <body>
+            <center>
+            <div className="chat-border"></div>
             <div className="chat-home">
             <div className="chat-container">
                     <div className="chat-sidebar">
@@ -188,9 +192,12 @@ function ChatPage() {
                     </div>
 
                 </div>
-                <div className="background-chatpage"></div>
                 </div>
-
+                <div className="chatpage-spacer"></div>
+                </center>
+            </body>
+        </main>
+            
     )
 }
 
