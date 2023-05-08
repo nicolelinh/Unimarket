@@ -11,6 +11,74 @@ const ComparisonSearch = () => {
     const did = window.location.pathname.split("/")[2];
     const [details, setDetails] = useState([]);
 
+
+    // grabs the single document from db based on the document ID
+    const getDetails = async () => {
+        const docRef = doc(db, "marketListings", did); // getting document reference 
+        await getDoc(docRef).then((docData)=>{
+            const newData = docData.data();
+            setDetails(newData);
+            console.log(details, newData);
+        })
+    }
+
+    useEffect(()=>{
+        getDetails();
+    }, []);
+
+    // grabs all documents in marketListings collection in db
+    // need to filter/query db to only show listings from your school and by creation date? and those that arent yours? 
+    const marketRef = collection(db, "marketListings");
+    const Fetchdata = async () => {
+        await getDocs(query(marketRef, where('__name__', '!=', did))).then((querySnapshot)=>{
+            const newData = querySnapshot.docs.map((doc)=> ({...doc.data(), id:doc.id}));
+            setInfo(newData);
+            console.log(info, newData);
+            console.log(did)
+        })
+    }
+
+    useEffect(()=>{
+        Fetchdata();
+    }, []);
+
+    const [email, setEmail] = useState(() => {
+    // getting user details from local storage
+        const saved = window.localStorage.getItem('USER_EMAIL');
+        const initialValue = JSON.parse(saved);
+        return initialValue || "";
+        }, []);
+
+    async function validateSearch(e) {
+        e.preventDefault();
+
+        var searchBarInput = document.getElementById('usersearch').value; // grabbing input from form below
+        var searchBarInputURL = searchBarInput.replace(/\s/g, '_'); // replacing whitespace with an _ to create URL
+        var searchBarLimit = document.getElementById('usersearch').value.length;
+        var isValidSearch = false;
+
+        if (searchBarLimit <= 40 || searchBarInput > 0) {
+            isValidSearch = true;
+        } else {
+            alert('Search Bar character limit is 40 characters.');
+        }
+
+        if (isValidSearch) {
+            console.log("redirecting to: " + searchBarInputURL);
+            // useEffect(()=>{
+            //     window.localStorage.setItem('USER_SEARCHBARINPUT', JSON.stringify(searchBarInput));
+            // }, [])
+
+            // removing tagsearch so previous results dont show up
+            window.localStorage.removeItem('USER_TAGGABLESEARCH');
+            //saving search bar input to local storage so it can be accessed and used in searchresults.js page
+            window.localStorage.setItem('USER_SEARCHBARINPUT', JSON.stringify(searchBarInput));
+            // takes user to /search-results/words_entered_in_search_bar
+            window.location.href=("/search-results/"+searchBarInputURL);
+        }
+        return false;
+    }
+
     const sortListings = (filter) => {
         const x = [...info]
         if (filter === "oldest") {
@@ -34,47 +102,6 @@ const ComparisonSearch = () => {
         setInfo(x)
     }
 
-    // grabs the single document from db based on the document ID
-    const getDetails = async () => {
-        const docRef = doc(db, "marketListings", did); // getting document reference 
-        await getDoc(docRef).then((docData)=>{
-            const newData = docData.data();
-            setDetails(newData);
-            console.log(details, newData);
-        })
-    }
-
-    useEffect(()=>{
-        getDetails();
-    }, []);
-
-    window.addEventListener('load', () => {
-        Fetchdata();
-    });
-
-    // grabs all documents in marketListings collection in db
-    // need to filter/query db to only show listings from your school and by creation date? and those that arent yours? 
-    const marketRef = collection(db, "marketListings");
-    const Fetchdata = async () => {
-        await getDocs(query(marketRef, where('__name__', '!=', did))).then((querySnapshot)=>{
-            const newData = querySnapshot.docs.map((doc)=> ({...doc.data(), id:doc.id}));
-            setInfo(newData);
-            console.log(info, newData);
-            console.log(did)
-        })
-    }
-
-    useEffect(()=>{
-        Fetchdata();
-    }, []);
-
-    const [email, setEmail] = useState(() => {
-        // getting user details from local storage
-        const saved = window.localStorage.getItem('USER_EMAIL');
-        const initialValue = JSON.parse(saved);
-        return initialValue || "";
-      }, []);
-
     document.title="Home";
 
     // if email is not empty, someone is signed in so it shows actual home page, NOT landing page
@@ -84,9 +111,9 @@ const ComparisonSearch = () => {
             <section>
                 <div className="padding container">
                     <h1 className="pill-form">Welcome {email}</h1>
-                    <form className="d-flex search-form">
-                        <input className="form-control me-2 search-input" type="search" placeholder="search here" aria-label="Search"></input>
-                        <button className="search-btn btn-outline-success" type="submit">search by filter</button>
+                    <form className="d-flex search-form" onSubmit={(event) => {validateSearch(event)}}>
+                            <input className="form-control me-2 search-input" id="usersearch" type="search" placeholder="search here" aria-label="Search" required></input>
+                            <button className="search-btn btn-outline-success" type="submit" >search</button>
                     </form>
                     <div className="row">
                         <div className="col col-spacing">
@@ -113,10 +140,10 @@ const ComparisonSearch = () => {
                                     <p>{details.description}</p>
                                 </div>
                             </div>
-                        <h3 className="listings-title"><em>most recent product listings</em>
+                        <h3 className="listings-title"><em>most recent product listings</em></h3>
                             <select className="sort-metrics" onChange = {(e) => sortListings(e.target.value)}>
                                 <option value="">order by</option>
-                                <option value="newest">newest (default)</option>
+                                <option value="newest">newest</option>
                                 <option value="oldest">oldest</option>
                                 <option value="most-viewed">most viewed</option>
                                 <option value="least-viewed">least viewed</option>
@@ -124,14 +151,13 @@ const ComparisonSearch = () => {
                                 <option value="highest-price">highest price</option>
                                 {/* <option value="favorite-asc">most favorited</option> */}
                             </select>
-                        </h3>
                         {/* dynamically create rows and columns based on how many listings are in database */}
                         <div className="row">
                             {/* this maps all the documents grabbed earlier and uses the data from each to create a Listing card */}
                             {
-                                info?.map((data, i)=>(
+                                info?.map((data, index)=>(
                                     // only allow 4 listings per column by dividing col by 3
-                                    <div className="col-3">
+                                    <div className="col-3" key={index}>
                                         <ComparisonListing
                                         title={data.title}
                                         description={data.description}
@@ -147,6 +173,13 @@ const ComparisonSearch = () => {
                         {/* allow max of 4 listings per page to test, if over, then go to next page OR continuous scrolling*/}
                         
                     </div>
+                </div>
+                <div className="row">
+                    <div className="col col-spacing">
+                        <h4 className="question-3"><em>have something to say?</em></h4>
+                        <h4 className="question-3"><em><a className="question-brown" href="/reviews">review</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="/customerreport">report</a></em></h4>
+                    </div>
+                    {/* <div className="col"></div> */}
                 </div>
             </section>
         </main>

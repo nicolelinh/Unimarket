@@ -122,7 +122,7 @@ const ComparisonResult = () => {
             {/*Display everything inside of listing variables with spacing in between to clearly compare details between the selected listings*/}
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             {listings.map((listing, index) => (
-                <div className="comparison-result">
+                <div className="comparison-result" key={index}>
                     <img src={listing.photo} alt="..." width="300" height="300"/>
                     <h2>{listing.title}</h2>
                     <p>Price: {listing.price}</p>
