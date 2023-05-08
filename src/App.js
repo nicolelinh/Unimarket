@@ -10,7 +10,7 @@ import Navbar from './components/navbar';
 import Footer from './components/footer';
 import Landing from './pages/landing';
 import Createlisting from './pages/createlisting';
-import Listingdetails from './pages/listingdetails';
+import Listingdetails from './pages/listingDetails';
 import Editlisting from './pages/editlisting';
 import Request from './pages/request'
 import CarpoolRequest from './pages/carpoolrequest'
