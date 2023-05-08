@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { storage, db } from '../firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
+import { Link } from 'react-router-dom';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 const RequestItem = () => {
   const [item, setItem] = useState({
+    buyer: '',
     name: '',
     description: '',
     price: 0,
@@ -40,6 +42,7 @@ const RequestItem = () => {
 
           // Add item data (including image URL) to Firestore
           const docRef = await addDoc(collection(db, 'requestListings'), {
+            buyer: item.buyer,
             name: item.name,
             description: item.description,
             price: item.price,
@@ -49,6 +52,7 @@ const RequestItem = () => {
           });
 
           setItem({
+            buyer: '',
             name: '',
             description: '',
             price: 0,
@@ -62,6 +66,7 @@ const RequestItem = () => {
     } else {
       // If no image was selected, just add item data to Firestore
       const docRef = await addDoc(collection(db, 'requestListings'), {
+        buyer: item.buyer,
         name: item.name,
         description: item.description,
         price: item.price,
@@ -71,6 +76,7 @@ const RequestItem = () => {
       });
 
       setItem({
+        buyer: '',
         name: '',
         description: '',
         price: 0,
@@ -93,8 +99,15 @@ const RequestItem = () => {
     <div>
       <br />
       <div style={{ background: 'linear-gradient(rgb(132, 173, 151), white)', borderRadius: '20px', padding: '20px', display: 'inline-block', justifyContent: 'center' }}>
+      <h2>Request Item</h2>
+      <Link to="/requestdisplay">Redirect to see requested items!</Link>
         <form onSubmit={addRequest} style={{ display: 'flex', flexDirection: 'row' }}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <br />
+            <label style={{ alignSelf: 'flex-start' }}>
+              your name:
+              <textarea name="buyer" value={item.buyer} onChange={handleChange} required/>
+            </label>
             <br />
             <label style={{ alignSelf: 'flex-start' }}>
               image:
@@ -144,7 +157,7 @@ const RequestItem = () => {
             <br />
             <label style={{ alignSelf: 'flex-start' }}>
               item name:
-              <input type="text" name="name" value={item.name} onChange={handleChange} required/>
+              <textarea name="name" value={item.name} onChange={handleChange} required/>
             </label>
             <br />
           </div>
@@ -173,6 +186,8 @@ const RequestItem = () => {
           </div>
         </form>
       </div>
+      <br />
+      <br />
     </div>
   );
     
