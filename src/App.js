@@ -36,6 +36,7 @@ import CustomerReport from './pages/customerRoport';
 import Favorites from './pages/favorites';
 import Searchresults from './pages/searchresults';
 import Error from './components/error';
+import RequestDisplay from './pages/requestdisplay';
 
 function App() {
 
@@ -78,6 +79,7 @@ function App() {
           <Route path='/favorites' element={<Favorites/>}/>
           <Route exact path="/search-results/:docid" element={<Searchresults/>} />
           <Route path="*" element={<Error/>} />
+          <Route path="/requestdisplay" element={<RequestDisplay/>}/>
         </Routes>
       </BrowserRouter>
       <Footer/>
