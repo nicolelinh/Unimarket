@@ -7,6 +7,7 @@ import '../App.css';
 import '../css/home.css';
 
 const ComparisonSearch = () => {
+    // Majority of code is written by Leilani and was copied from home.js to complete Use Case #14
     const [info, setInfo] = useState([]);
     const did = window.location.pathname.split("/")[2];
     const [details, setDetails] = useState([]);
@@ -49,6 +50,7 @@ const ComparisonSearch = () => {
         return initialValue || "";
         }, []);
 
+    // Checks searchbar for validity and redirects to the correct results
     async function validateSearch(e) {
         e.preventDefault();
 
@@ -79,6 +81,7 @@ const ComparisonSearch = () => {
         return false;
     }
 
+    // sort listings on page (code written by Walid and copied code from home.js to develop Use Case #14)
     const sortListings = (filter) => {
         const x = [...info]
         if (filter === "oldest") {
