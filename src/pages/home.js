@@ -102,8 +102,9 @@ const Home = () => {
     if (email !== "") {
         return (
             <main>
-                <section>
-                    <div className="padding container">
+                <body className="home-body">
+                    <div className="padding-1">
+                        <center>
                         <h1 className="pill-form">Welcome {email}</h1>
                         <form className="d-flex search-form" onSubmit={(event) => {validateSearch(event)}}>
                             <input className="form-control me-2 search-input" id="usersearch" type="search" placeholder="search here" aria-label="Search" required></input>
@@ -112,20 +113,24 @@ const Home = () => {
                         <div className="row">
                             <div className="col col-spacing">
                                 <h4 className="question-1"><em>need to sell or request a market item?</em></h4>
-                                <h4 className="question-1"><em><a className="question-brown" href="/create-listing">sell</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="/request">request</a></em></h4>
+                                <h4 className="question1-brown"><em><a className="question-brown" href="/create-listing">sell</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="/request">request</a></em></h4>
                             </div>
                             {/* <div className="col"></div> */}
                         </div>
                         <div className="row">
                             {/* <div className="col"></div> */}
                             <div className="col col-spacing">
-                                <h4 className="question-2"><em>looking for carpool or other services?</em></h4>
-                                <h4 className="question-2"><em><a className="question-brown" href="/carpoolrequest">carpool</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="/">other services</a></em></h4>
+                                <div className="row2-background">
+                                    <h4 className="question-2"><em>looking for carpool or other services?</em></h4>
+                                    <div className="home-pad1">
+                                        <h4><em><a className="question-brown" href="/carpoolrequest">carpool</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="/">other services</a></em></h4>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div className="listings-cont">
-                            <h3 className="listings-title"><em>most recent product listings</em></h3>
-                            <select className="sort-metrics" onChange = {(e) => sortListings(e.target.value)}>
+                        <div className="listings">
+                            <h3 className="listings-title">most recent product listings
+                                <select className="sort-metrics" onChange = {(e) => sortListings(e.target.value)}>
                                 <option value="">order by</option>
                                 <option value="newest">newest (default)</option>
                                 <option value="oldest">oldest</option>
@@ -134,7 +139,9 @@ const Home = () => {
                                 <option value="lowest-price">lowest price</option>
                                 <option value="highest-price">highest price</option>
                                 {/* <option value="favorite-asc">most favorited</option> */}
-                            </select>
+                                </select>
+                            </h3>
+                            <div className="listingbanner-1"></div>
 
                             {/* dynamically create rows and columns based on how many listings are in database */}
                             <div className="row">
@@ -155,15 +162,18 @@ const Home = () => {
                                 }
                             </div>
                         </div>
+                        </center>
                     </div>
+                    
                     <div className="row">
                         <div className="col col-spacing">
                             <h4 className="question-3"><em>have something to say?</em></h4>
                             <h4 className="question-3"><em><a className="question-brown" href="/reviews">review</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="/customerreport">report</a></em></h4>
                         </div>
                         {/* <div className="col"></div> */}
+                        
                     </div>
-                </section>
+                </body>
             </main>
         )
     } else {

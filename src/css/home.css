@@ -10,9 +10,18 @@
     src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
 }
 
+/*padding and background for home*/
+.home-body{
+    background-image: url(../assets/home-background.png);
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: right;
+    background-position-y: 140px;
+    background-size: cover;
+}
 
-.padding{
-    margin-top: 1.5em;
+.padding-1{
+    margin-top: 3%;
     margin-bottom: 1.5em;
 }
 
@@ -20,13 +29,11 @@
 .pill-form{
     /* margin-top: 1.5em;
     margin-bottom: 5em; */
-    position: relative;
     top: 30px;
-    padding: .70em;
-    width: 80%;
-    height: 100px;
-    margin: auto;
-    border-radius: 50px !important;
+    padding: 0.8em;
+    width: 50%;
+    height: 30%;
+    border-radius: 80px !important;
     background-image: linear-gradient(180deg, rgba(45, 101, 94, 0.83) 0%, #F2ECDB 100%);
     color: white;
     font-family: "Montserrat-BoldItalic";
@@ -35,11 +42,11 @@
 
 .search-form{
     position: relative;
-    top: 35px;
+    top: -10px;
     padding-top: 0.5rem;
     padding-bottom: 1rem;
-    width: 60%;
-    height: 80px;
+    width: 45%;
+    height: 90px;
     margin: auto;
     margin-top: -20px;
     left: 70px;
@@ -50,70 +57,113 @@
     padding-top: 2px;
     border-radius: 50px !important;
     background-image: linear-gradient(to right, white, gray);
-
+    border-width: 7px !important;
+    border-color: grey !important;
 }
 
 .search-btn{
     background-color: rgb(85, 85, 85);
     color: white;
     border: 2px solid rgb(85, 85, 85);
-    width: 20%;
+    width: 150px;
+    height: 60%;
     margin:auto;
     margin-left: -185px;
-    
+    position: relative;
+    right: 2%;
 }
 
 .search-btn:hover{
     background:rgb(199, 199, 199);
 }
 
-
-
 .question-1{
-    position: relative;
     text-align: left;
-    background-color: white;
-    padding-top: 40px;
-    padding-right: 200px;
-    width:75%;
+    background-color: transparent;;
+    padding-left: 18%;
     margin:auto;
 }
 
 .question-brown{
+    font-family: "Montserrat-BoldItalic";
     color: burlywood;
     padding-bottom: 20px;
+    padding-right: 2%;
+    margin:auto;
+
 }
 
+.question-brown:hover{
+    opacity: 40%;
+}
+
+.question1-brown{
+    padding-right: 13%;
+    margin:auto;
+
+}
+
+/*row 2/ question2 style*/
+.row2-background{
+    background-color: rgba(255, 255, 255, 0.7);
+}
 .question-2{
-    text-align: right;
-    background-color: white;
-    padding-top: 2px;
+    padding-left: 35%;
+    background-color: transparent;
     padding-bottom: 2px;
     padding-right: 1em;
     width:75%;
     margin:auto;
 }
 
-.listings-cont{
-    background-image:linear-gradient(rgb(132, 173, 151), white);
+.home-pad1{
+    padding-top: 10px;
+    padding-left: 55%;
+}
+
+
+.listings{
+    background:linear-gradient(180deg, rgba(159, 187, 182, 0.69) 0%, rgba(242, 236, 219, 0) 100%);
     padding-top: 1.5em;
-    padding-left: 1em;
-    padding-right: 1em;
     border-radius: 6px;
 }
 
+.listingbanner-1{
+    background: linear-gradient(89.73deg, #FFFFFF 28.37%, rgba(255, 255, 255, 0) 96.28%);
+    transform: matrix(-1, 0, 0, 1, 0, 0);
+    height: 15px;
+    position: relative;
+    top: -10px;
+    position: right;
+}
+
 .listings-title{
+    font-family: "Montserrat-BoldItalic";
+    font-size: 30px !important;
+    color: #2D564E !important;
+    padding-left: 40px;
     text-align: left;
-    background-image: linear-gradient(to right, white, rgb(132, 173, 151));
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    padding-left: 1em;
-    
+    padding-top: 1em;
+    padding-bottom: 1em;
+    background:linear-gradient(89.73deg, #FFFFFF 28.37%, rgba(255, 255, 255, 0) 96.28%);
 }
 
 .sort-metrics {
     outline: rgb(85, 85, 85) solid 2px;
     border-radius: 50px !important;
-    margin-left: 1em;
+    font-family: "Montserrat-Italic";
+    height: 30px;
+    font-size: medium;
     width: 20%;
+    position: relative;
+    margin: auto;
+    left: 80%;
+    right: auto;
+    top: -5px;
+}
+
+
+/* listing boxes */
+.col-3{
+    font-family: "Montserrat-Italic";
 }
