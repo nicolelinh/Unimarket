@@ -12,15 +12,15 @@ class RequestSchool extends Component {
         }
         return(
             <main>
-                <section>
-                    <div classname="spacer">
+                <body>
+                    <div classname="reqschool-spacer">
                         <div className= "mainrequest">
                             <h1 className="request-title">UniMarket RequestSchool</h1>
                             <h2 className="request">Would you like your school to join unimarket?<br></br>Please submit a request by emailing us, and Customer Service will help!</h2>
                             <button className="copybutton" onClick={copyText}>unimarket@gmail.com</button>
-                            </div>
                         </div>
-                </section>
+                    </div>
+                </body>
             </main>
         )
 
