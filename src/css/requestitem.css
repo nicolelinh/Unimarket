@@ -38,20 +38,19 @@
     padding-bottom: 40px;
 }
 
-.requestitem-link{
-    color: #2e927e;
-    transition: 0.2s ease-in;
-
-}
-
 .requestitem-imagebtn{
     padding-left: 10px;
 }
 
 .requestitem-link:hover{
     font-family: "Montserrat-BoldItalic";
-    color: #ada240;
     transition: 0.2s ease-in;
+}
+
+.requestitem-link{
+    color: #287485;
+    transition: 0.2s ease-in;
+
 }
 
 .requestitem-submit{

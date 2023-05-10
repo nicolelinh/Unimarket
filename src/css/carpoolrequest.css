@@ -23,10 +23,12 @@
 }
 .carpool-link{
     color: #287485;
+    transition: 0.2s ease-in;
 }
 
 .carpool-link:hover{
     font-family: "Montserrat-BoldItalic";
+    transition: 0.2s ease-in;
 }
 
 label{
