@@ -25,6 +25,10 @@
     color: #287485;
 }
 
+.carpool-link:hover{
+    font-family: "Montserrat-BoldItalic";
+}
+
 label{
     color: #7A6736;
 }

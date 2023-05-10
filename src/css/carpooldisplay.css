@@ -1,0 +1,62 @@
+/*questions? ask dev nicole nguyen*/
+
+/*import font family and standardize the name from font folder*/
+@font-face {
+    font-family: "Montserrat-Italic";
+    src: local("Montserrat-Italic"), url("../fonts/Montserrat-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat-BoldItalic";
+    src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
+}
+
+.carpooldisplay-padding{
+    padding-top: 40px;
+    padding-bottom: 20px;
+    background-image: url('../assets/carpoolbackground1.png');
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.carpooldisplay-padding2{
+    padding: 20px;
+    font-family: "Montserrat-Italic";
+}
+
+.carpooldisplay-title{
+    color: #2D564E;
+}
+
+.carpooldisplay-table{
+    background-color: #ffffffab;
+    backdrop-filter: blur(2px);
+    font-family: "Montserrat-Italic";
+}
+
+.carpooldisplay-columns{
+    background: linear-gradient(to right, rgba(246, 230, 196, 0.19) 0%, rgba(129, 170, 150, 0.14) 100%);
+}
+
+.carpooldisplay-row:hover{
+    background:linear-gradient(270deg, rgba(159, 187, 182, 0.416) 0%, #f7edd2a8 100%);
+}
+
+.carpooldisplay-namelinks{
+    color: #398f7e;
+}
+.carpooldisplay-namelinks:hover{
+    color:#398f7e;
+    background-color: transparent;
+    width: max-content;
+    font-family:"Montserrat-BoldItalic";
+}
+
+.carpooldisplay-bottomlinks{
+    color: #398f7e;
+    
+}
+
+.carpooldisplay-bottomlinks:hover{
+    font-family: "Montserrat-BoldItalic" ;
+}
