@@ -38,6 +38,8 @@
     max-width: 500px;
     max-height: 500px;
     border-radius: 30px;
+    border: 20px solid rgba(255, 255, 255, 0.788);
+    margin: 60px;
 }
 
 .editlisting-jpegbutton{

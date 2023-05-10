@@ -267,12 +267,13 @@ const Editlisting = () => {
             <div className="editlisting-title"><h2>Edit a Product</h2></div>
                 <div className="row">
                     <div className="col">
+                        <div className="padding container">
                         {/* shows original listing photo or new one if they uploaded one */}
-                        { imageURL.length > 0 ? ( imageURL?.map((imageSrc, index) => (<img className="editlisting-jpeg" key={index} src={imageSrc} alt="something user uploaded"/>))) : (<img src={i} width="300" height="300" alt="something user uploaded"/>) } 
-                        
+                        { imageURL.length > 0 ? ( imageURL?.map((imageSrc, index) => (<img className="editlisting-jpeg" key={index} src={imageSrc} alt="something user uploaded"/>))) : (<img className="editlisting-jpeg" src={i}alt="something user uploaded"/>) } 
                         <br></br>
                         <input className='editlisting-jpegbutton' id="userimg" type="file" onChange={onImageChange}/>
                         <p>only files types "jpg, jpeg, png" allowed</p>
+                        </div>
                     </div>
                     <div className="col">
                         <div>
@@ -306,8 +307,16 @@ const Editlisting = () => {
                             <button type="button" className='editlisting-buttons' data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Delete Listing
                             </button>
-
-                            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <br></br><br></br>
+                            <button className='editlisting-buttons' onClick={() => cancel()}>cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+            
+            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div className="modal-dialog">
                                     <div className="modal-content">
                                         <div className="modal-header">
@@ -324,15 +333,6 @@ const Editlisting = () => {
                                     </div>
                                 </div>
                             </div>
-                            
-                            <br></br><br></br>
-                            <button className='editlisting-buttons' onClick={() => cancel()}>cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-            </div>
             </center>
         )
     // } else {

@@ -11,72 +11,65 @@
 }
 
 /*padding hq*/
-.createlisting-background{
+.listingdetails-background{
     background-image: url('../assets/listing-background.png');
     background-repeat: no-repeat;
     background-position: bottom;
     background-size: cover;
-    padding-top: 40px;
+    padding-top: 10px;
     padding-bottom: 30px;
 }
 
-.createlisting-querycard{
+.listingdetails-querycard{
     background: linear-gradient(180deg, rgba(149, 185, 178, 0.371) 0%, rgba(241, 234, 213, 0.181) 100%);
-    border-radius: 30px;
+    border-radius: 60px;
     min-width: fit-content;
     min-height: fit-content;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(3px);
     padding: 40px;
+    font-family: "Montserrat-Italic";
+}
+
+.listingdetails-padding1{
+    padding: 10px;
+}
+
+.listingdetails-padding2{
+    align-items: center;
+    margin: auto;
+
 }
 
 /*asset design*/
-.createlisting-jpeg{
+.listingdetails-jpeg{
     min-height: fit-content;
     min-width: fit-content;
     max-width: 500px;
     max-height: 500px;
     border-radius: 30px;
     border: 20px solid rgba(255, 255, 255, 0.788);
+    margin: auto;
+    align-items: center;
 }
 
-.createlisting-jpegbutton{
-    padding-left: 40px;
-    min-width: fit-content;
-    min-height: fit-content;
-    border: transparent;
+.listingdetails-comparebtn{
+    color: #287485;
 }
 
-.createlisting-itemtitle{
-    width: 200px;
+.listingdetails-comparebtn:hover{
+    font-family: "Montserrat-BoldItalic";
 }
 
-.createlisting-description{
-    width: 600px;
-    padding: 20px;
-    transition: 0.2s ease-in;
+.listingdetails-userlink{
+    color: #287485;
 }
 
-.createlisting-description:hover{
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    transition: 0.2s ease-in;
+.listingdetails-userlink:hover{
+    font-family: "Montserrat-BoldItalic";
 }
 
-.createlisting-itemprice{
-    padding: 5px;
-    padding-left: 10px;
-}
-
-.createlisting-itemprice:hover{
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    transition: 0.2s ease-in;
-}
-
-.tag-item:hover{
-    opacity: 50%;
-}
-
-.createlisting-buttons{
+.listingdetails-buttons{
     border-radius: 20px;
     border: 2px solid #E1D6B9;
     padding: 5px;
@@ -87,7 +80,7 @@
     transition: 0.2s ease-out;
 }
 
-.createlisting-buttons:hover{
+.listingdetails-buttons:hover{
     min-width: fit-content;
     min-height: fit-content;
     padding: 10px;

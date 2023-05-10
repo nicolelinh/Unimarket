@@ -8,6 +8,7 @@ import { updateCurrentUser } from "firebase/auth";
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import './tagsinput.css';
 import Error from "../components/error";
+import '../css/listingdetails.css';
 
 // will display all listing details when a listing is clicked on from home page
 const Listingdetails = () => {
@@ -45,11 +46,11 @@ const Listingdetails = () => {
     let submitEvent; // this will determine if user will delete the listing or be sent to "dm user" page...
     // checking is the seller of THIS listing is same as current user by checking emails since they're unique
     if (details.seller !== JSON.parse(window.localStorage.getItem('USER_EMAIL'))){
-        listingButton = <button type="submit">dm user button</button>
+        listingButton = <button className="listingdetails-buttons" type="submit">dm user button</button>
         submitEvent = (event) => handleMessageSelect(event, details.seller); 
         
     } else {
-        editButton = <button onClick={() => navigate(`/edit-listing/${did}`)}>Edit Listing</button>
+        editButton = <button className="listingdetails-buttons" onClick={() => navigate(`/edit-listing/${did}`)}>Edit Listing</button>
     }
 
     //this is a button function for the user to save the item as a favorite to follow
@@ -213,27 +214,31 @@ const Listingdetails = () => {
 // if email is not empty, someone is signed in so it shows actual home page, NOT landing page
 if (email !== "") {
     return (
+        <center>
+            <div className="listingdetails-background">
         <div className="padding container"> {/* using grid system (className=container/row/col) for layout: https://react-bootstrap.github.io/layout/grid/*/}
-
             {/* using bootstrap for search bar form */}
             <form className="d-flex search-form" onSubmit={(event) => {validateSearch(event)}}>
                 <input className="form-control me-2 search-input" id="usersearch" type="search" placeholder="search here" aria-label="Search" required></input>
                 <button className="search-btn btn-outline-success" type="submit" >search</button>
             </form>
             <br></br>
+            <div className="listingdetails-querycard">
             <div className="row">
                 <div className="col">
-                    <img src={details.photo} alt="..." width="300" height="300"/>
-                    <p><Link to={`/comparisonsearch/${did}`}>Compare Item</Link></p>
+                    <img className= 'listingdetails-jpeg' src={details.photo} alt="..."/>
+                    <br/>
+                    <div className="listingdetails-padding1"></div>
+                    <p><Link className="listingdetails-comparebtn" to={`/comparisonsearch/${did}`}>Compare Item</Link></p>
                 </div>
                 <div className="col">
-                    <div>
+                    <div className="listingdetails-padding2">
                         {/* uses details from document grabbed earlier to fill out elements below */}
                         <h4>Price: {details.price}</h4> 
-                        <h4>Title: {details.title}</h4>
+                        <h4>Title:<br/> [ {details.title} ]</h4>
                         <h5>Seller:</h5>
-                        <p><a href="#">{details.seller}</a></p> {/* TO-DO: link to user profile*/}
-                        <p><button id="following" onClick={() => {handleFollow(details.seller)}}>{followingText}</button></p>
+                        <p><a className="listingdetails-userlink" href="#">{details.seller}</a></p> {/* TO-DO: link to user profile*/}
+                        <p><button className="listingdetails-buttons" id="following" onClick={() => {handleFollow(details.seller)}}>{followingText}</button></p>
                         <h5>Description:</h5>
                         <p>{details.description}</p>
                         <h5>Tags:</h5>
@@ -244,15 +249,19 @@ if (email !== "") {
                                         </div>
                                     )) }
                             </div>
+                            <br/>
                         {editButton}
                         {/* based on if listing belongs to current user, action of the button is different, as shown above */}
                         <form onSubmit={submitEvent}>{listingButton}</form>
                         <br></br>
-                        <button onClick={addFavorite}>Add to Favorites</button>
+                        <button className="listingdetails-buttons" onClick={addFavorite}>Add to Favorites</button>
                     </div>
                 </div>
             </div>
         </div>
+        </div>
+        </div>
+        </center>
     )
 } else {
         return(
