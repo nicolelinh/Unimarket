@@ -34,8 +34,8 @@
 .createlisting-jpeg{
     min-height: fit-content;
     min-width: fit-content;
-    max-width: 500px;
-    max-height: 500px;
+    max-width: 300px;
+    max-height: 400px;
     border-radius: 30px;
     border: 20px solid rgba(255, 255, 255, 0.788);
 }
