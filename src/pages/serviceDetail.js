@@ -110,6 +110,7 @@ const ServiceDetail = () => {
   }
 
   return (
+    <center>
     <div className='servicedetail-padding1'>
     <div className="servicedetail">
         <h2>Name: {service.name}</h2><br/>
@@ -126,6 +127,7 @@ const ServiceDetail = () => {
         </div>
     </div>
     </div>
+    </center>
   );
 };
 

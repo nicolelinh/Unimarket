@@ -49,5 +49,6 @@ textarea{
     backdrop-filter: blur(3px) ;
     background: linear-gradient(180deg, rgba(149, 185, 178, 0.509) 0%, rgba(233, 221, 192, 0.627) 100%);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    
 }
 
