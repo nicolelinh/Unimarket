@@ -145,7 +145,7 @@ const RequestCarpool = () => {
   // updates on general visual appeal. 
   return (
     <div className='container-carpool'>
-      <br />
+      <br/>
       <form onSubmit={addCarpool} style={{ background: 'linear-gradient(180deg, rgba(149, 185, 178, 0.9) 0%, rgba(233, 221, 192, 0.9) 100%)', borderRadius: '50px', padding: '20px', display: 'inline-block', flexDirection: 'column', alignItems: 'center' }}>
         <h2>Carpool Request</h2>
         <Link className='carpool-link' to="/carpooldisplay">Redirect to Available Carpools</Link>

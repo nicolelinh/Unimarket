@@ -12,10 +12,14 @@
 
 /*cotainer regulates the page*/
 .container-carpool{
+    padding-top: 20px;
+    padding-bottom: 20px;
     margin: auto;
     font-family: "Montserrat-Italic";
     background-image: url(../assets/carpoolbackground1.png);
-    background-size:contain;
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
 }
 .carpool-link{
     color: #287485;
