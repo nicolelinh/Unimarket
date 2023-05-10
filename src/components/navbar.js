@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import './navbar.css';
+import icon from '../assets/HomeButton.png';
 
 const Navbar = () => {
     const [email, setEmail] = useState(() => {
@@ -12,16 +13,14 @@ const Navbar = () => {
     // checking if USER_EMAIL is empty or not, if not then someone is signed in so navbar links change
     if (email !== "") {
         return (
+            <center>
             <nav className="navbar navbar-expand-sm navbar-dark bg-green">
-                <div className="container">
-                    <a className="navbar-brand" href="/home"><b>UniMarket</b></a>
-                    
+                <div className="container">                    
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-
                     <div className="collapse navbar-collapse" id="navbarNav">
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        <ul className="navbar-nav">
                             <li className="nav-item">
                                 <a className="nav-link" href="/following">following</a>
                             </li>
@@ -37,19 +36,20 @@ const Navbar = () => {
                             <li className="nav-item">
                                 <a className="nav-link" href="/favorites">favorites</a>
                             </li>
-                        </ul>
-                        <a href="/">#</a>
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                <a className="nav-link" href="/">market</a>
-                            </li>
+                            </ul>
+                            <button className= "nav-button">
+                                <a href="/home">
+                                <img src={icon} alt="home" />
+                                </a>
+                            </button>
+                            <ul className="navbar-nav">
                             <li className="nav-item">
                                 <a className="nav-link" href="/carpoolrequest">carpool</a>
                             </li>
-                            <li>
+                            <li className="nav-item">
                                 <a className="nav-link" href="/request">request item</a>
                             </li>
-                            <li>
+                            <li className="nav-item">
                                 <a className="nav-link" href="/servicerequest">service request</a>
                             </li>
                             <li className="nav-item">
@@ -62,6 +62,7 @@ const Navbar = () => {
                     </div>
                 </div>
             </nav>
+            </center>
         )
     }
     else {
@@ -69,7 +70,6 @@ const Navbar = () => {
             <nav className="navbar navbar-expand-sm navbar-dark bg-green">
                 <div className="container">
                     <a className="navbar-brand" href="/"><b>UniMarket</b></a>
-                    
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
