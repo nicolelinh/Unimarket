@@ -59,30 +59,34 @@ function UserHistory(){
     <body>
       <center>
       <div className='background-border'>
-      <div className='padding1'>
-      <h1>User History</h1>
+        <div className='history-padding'>
+      <div className='history-padding1'>
+      <h1 className='history-title'>User History</h1>
       <p>Put notes for your item progress and the item link to keep track of your activity!</p>
+      
       <form onSubmit={handleFormSubmit}>
         <label>
-          Notes:
-          <input type="text" value={newItemText} onChange={(e) => setNewItemText(e.target.value)} />
+          Notes:<br></br>
+          <input className="history-input" type="text" value={newItemText} onChange={(e) => setNewItemText(e.target.value)} />
         </label>
         <br></br>
         <label>
-          Link:
-          <input type="text" value={newItemLink} onChange={(e) => setNewItemLink(e.target.value)} /> {/* Add link input field */}
+          Link:<br></br>
+          <input className="history-input" type="text" value={newItemLink} onChange={(e) => setNewItemLink(e.target.value)} /> {/* Add link input field */}
         </label>
-        <br></br><button type="submit">Add Item</button>
+        <div className='button-padding'></div>
+        <br></br><button className="history-submit" type="submit">Add Item</button>
       </form>
       <ul className='display-list'>
         {todoList.map((item) => (
           <li key={item.id}>
             {item.text} {item.link && <a href={item.link}> ({item.link})</a>} {/* Display link as clickable anchor tag */}
             (created at {item.createdAt.toLocaleString()})
-            <button className='delete-button' onClick={() => handleDeleteButtonClick(item.id)}>Delete</button>
+            <br></br><button className='delete-button' onClick={() => handleDeleteButtonClick(item.id)}>Delete</button>
           </li>
         ))}
       </ul>
+      </div>
       </div>
       </div>
       </center>

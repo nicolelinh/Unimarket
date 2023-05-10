@@ -13,23 +13,58 @@
     src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
 }
 
-.background-border{
-    background-color: white;
-    margin-top:40px;
-    margin-bottom: 40px;
-    width: 75%;
+.history-padding{
+    padding: 40px;
 }
-.padding1{
+
+.history-title {
+    font-family: "Montserrat-BoldItalic";
+}
+
+.background-border{
+    background-image: url('../assets/background5.png');
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+.history-padding1{
     box-sizing: border-box;
     top: 40px;
     font-family: "Montserrat-Italic";
     padding-top: 40px;
     padding-bottom: 40px;
+    padding: 30px;
     width: 40%;
-    background-color: white;
+    background: linear-gradient(180deg, rgba(246, 230, 196, 0.19) 0%, rgba(129, 170, 150, 0.14) 100%);
     border-radius: 50px;
     margin: auto;
-    color: #2D564E;   
+    color: #2D564E; 
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+}
+
+.history-input[type="text"]{
+    max-width: 300px;
+    margin: auto;
+    display: flex; /* Use flexbox */
+    flex-wrap: wrap; /* Allow items to wrap to next line if there's not enough space */
+    justify-content: space-between; /* Distribute items evenly with space between them */
+    align-items: center; /* Center items vertically within the container */
+}
+
+input[type="text"]:hover{
+    border: 2px solid #E8C366;
+    transition: 0.3s;
+}
+
+input[type="text"]:focus{
+    transition: 0.3s;
+    border: 2px solid #3a6d63;
+}
+
+
+.history-submit{
+    top: 20px;
 }
 
 button{
