@@ -10,6 +10,17 @@
     src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
 }
 
+.main-container-req{
+    padding-top: 60px;
+    padding-bottom: 17%;
+    background-image: url('../assets/background-label.png');
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: bottom;
+    background-size: contain;
+}
+
+
 /*this container holds all communication and text for user to request school*/
 div.mainrequest{
     font-family: "Montserrat-Italic";
@@ -32,6 +43,8 @@ button.copybutton{
     font-family: "Montserrat-Italic";
     color: #2D564E;
     border: transparent;
+    border-radius: 20px;
+    transition: 0.2s;
 }
 
 /*text editing*/

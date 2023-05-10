@@ -12,8 +12,13 @@
 
 /*container set-up and padding*/
 .main-container{
-    padding-top: 30px;
-    padding-bottom: 10px;
+    padding-top: 60px;
+    padding-bottom: 11%;
+    background-image: url('../assets/background-label.png');
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: bottom;
+    background-size: contain;
 }
 
 /*font editing*/

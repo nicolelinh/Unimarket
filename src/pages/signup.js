@@ -53,7 +53,7 @@ function SignUp() {
     
     // visible portion of the page(buttons and input fields)
     return (
-        <div className="padding">
+        <div className="main-container">
         <div className="SignUp">
             <h2>Create an account</h2>
                 <p className="desc">You must have a valid school email to use UniMarket</p>

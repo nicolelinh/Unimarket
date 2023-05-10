@@ -10,6 +10,15 @@
     src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
 }
 
+.main-container{
+    padding-top: 60px;
+    padding-bottom: 11%;
+    background-image: url('../assets/background-label.png');
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: bottom;
+    background-size: contain;
+}
 
 /*main container*/
 .SignUp{
