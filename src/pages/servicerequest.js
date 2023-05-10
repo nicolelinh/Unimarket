@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../App.css';
+import '../css/servicerequest.css';
 import '../css/signin.css';
 import { auth, db } from '../firebaseConfig';
 import {collection, addDoc} from "firebase/firestore";
@@ -26,10 +26,13 @@ const ServiceRequest = () => {
     }
 
     return (
+        <div className='servicerequest-padding1'>
+            <center>
+            <div className='servicerequest-form'>
         <form onSubmit={submitRequest}>
-            <h2>Create Service Request</h2>
+            <p className='servicerequest-title'>Create Service Request</p>
             <label>
-                Name:
+                Name:<br/>
                 <input
                 type="text"
                 name="name"
@@ -37,10 +40,10 @@ const ServiceRequest = () => {
                 onChange={handleChange}
                 />
             </label>
-            <br />
-            <label>
-                Description:
-                <textarea
+            <br/>
+            <label className='servicerequest-name'>
+                Description:<br/>
+                <textarea className='servicerequest-text'
                 name="description"
                 value={service.description}
                 onChange={handleChange}
@@ -48,17 +51,22 @@ const ServiceRequest = () => {
             </label>
             <br />
             <label>
-                User Note:
-                <textarea
+                User Note:<br/>
+                <textarea className='servicerequest-text'
                 name="usernote"
                 value={service.usernote}
                 onChange={handleChange}
                 />
             </label>
             <br />
-            <button type="submit">Place Request</button>
-            <button><a href="/home">Cancel</a></button>
+            <div className='servicerequest-padding2'>
+            <button className='servicerequest-button1' type="submit">Place Request</button>
+            <button className='servicerequest-button2'><a href="/home">Cancel</a></button>
+            </div>
         </form>
+        </div>
+        </center>
+        </div>
     );
 };
 
