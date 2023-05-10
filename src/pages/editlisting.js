@@ -4,6 +4,7 @@ import { doc, getDoc, deleteDoc } from "firebase/firestore";
 import { db } from '../firebaseConfig';
 import { getStorage, ref, getDownloadURL, uploadBytesResumable, deleteObject } from "firebase/storage";
 import Error from "../components/error";
+import '../css/editlisting.css';
 
 // will allow the user to edit a listing they've previously created
 const Editlisting = () => {
@@ -51,7 +52,8 @@ const Editlisting = () => {
                     const existingTag = document.getElementById(index);
                     //console.log(window.getComputedStyle(existingTag).backgroundColor);
                     // setting existing tags as green so user knows what's already been chosen
-                    existingTag.style.backgroundColor = "seagreen";
+                    existingTag.style.backgroundColor = "#2D564E";
+                    existingTag.style.color='white';
                 }
             })
         }
@@ -94,7 +96,7 @@ const Editlisting = () => {
             //add selected tag to userTag list
             setUserTags(userTags.concat(tagName));
             // change background color so user knows its selected
-            clickedTag.style.backgroundColor="seagreen";
+            clickedTag.style.backgroundColor="#FFB800";
         }
     }
 
@@ -258,30 +260,33 @@ const Editlisting = () => {
     // if email is not empty, someone is signed in also checks if user signed in is same as the seller, so other person doesn't have access to this page to edit
      // if (email !== "" && email === details.seller) {
         return (
+            <center>
+            <div className="editlisting-background">
             <div className="padding container"> {/* using grid system (className=container/row/col) for layout: https://react-bootstrap.github.io/layout/grid/*/}
+            <div className="editlisting-title"><h2>Edit a Product</h2></div>
                 <div className="row">
                     <div className="col">
                         {/* shows original listing photo or new one if they uploaded one */}
-                        { imageURL.length > 0 ? ( imageURL?.map((imageSrc, index) => (<img key={index} src={imageSrc} width="300" height="300" alt="something user uploaded"/>))) : (<img src={i} width="300" height="300" alt="something user uploaded"/>) } 
+                        { imageURL.length > 0 ? ( imageURL?.map((imageSrc, index) => (<img className="editlisting-jpeg" key={index} src={imageSrc} alt="something user uploaded"/>))) : (<img src={i} width="300" height="300" alt="something user uploaded"/>) } 
                         
                         <br></br>
-                        <input id="userimg" type="file" onChange={onImageChange}/>
+                        <input className='editlisting-jpegbutton' id="userimg" type="file" onChange={onImageChange}/>
                         <p>only files types "jpg, jpeg, png" allowed</p>
                     </div>
                     <div className="col">
                         <div>
                             {/* sets all listing details on change event of each input area */}
                             <form style={{marginTop:"50px" }} onSubmit={(event) => {validateData(event)}}>
-                                <h5>item title:</h5>
+                                <h5 className="editlisting-itemtitle">item title:</h5>
                                 <input type="text" id="usertitle" placeholder={details.title} defaultValue={t}
                                 onChange={(e)=>{setTitle(e.target.value)}} required />
                                 <br/><br/>
                                 <h5>item description:</h5>
-                                <textarea type="text" id="userdesc" placeholder={details.description} defaultValue={d}
+                                <textarea  className='editlisting-description' type="text" id="userdesc" placeholder={details.description} defaultValue={d}
                                 onChange={(e)=>{setDesc(e.target.value)}} required />
                                 <br/><br/>
                                 <h5>item price:</h5>
-                                <input type="number" id="userprice" placeholder={details.price} defaultValue={p}
+                                <input className="editlisting-itemprice" type="number" id="userprice" placeholder={details.price} defaultValue={p}
                                 onChange={(e)=>{setPrice(e.target.value)}} required />
                                 <br/><br/>
                                 <h5>tags:</h5>
@@ -293,11 +298,11 @@ const Editlisting = () => {
                                     )) }
                                 </div>
                                 <br/><br/>
-                                <button type="submit">re-list item</button>
+                                <button className='editlisting-buttons' type="submit">re-list item</button>
                             </form>
                             {/* Adding modal here: https://getbootstrap.com/docs/5.3/components/modal/ */}
                             <br></br>
-                            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <button className='editlisting-buttons'  type="button"data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Delete Listing
                             </button>
 
@@ -320,11 +325,13 @@ const Editlisting = () => {
                             </div>
                             
                             <br></br><br></br>
-                            <button onClick={() => cancel()}>cancel</button>
+                            <button className='editlisting-buttons' onClick={() => cancel()}>cancel</button>
                         </div>
                     </div>
                 </div>
             </div>
+            </div>
+            </center>
         )
     // } else {
     //     return(
