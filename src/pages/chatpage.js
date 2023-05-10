@@ -6,6 +6,7 @@ import { db, storage } from '../firebaseConfig';
 import { getDoc, doc, onSnapshot, updateDoc, arrayUnion, Timestamp } from "firebase/firestore"
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
 import Message from "../components/chat/Message"
+import send from '../assets/send-arrow.png';
 
 import "../css/chat.css"
 
@@ -138,8 +139,9 @@ function ChatPage() {
     return (
         <main>
             <body>
+            <div className="chat-background">
             <center>
-            <div className="chat-border"></div>
+            <div className="chat-border">
             <div className="chat-home">
             <div className="chat-container">
                     <div className="chat-sidebar">
@@ -185,16 +187,16 @@ function ChatPage() {
                                     <label htmlFor="chat-img" style={{ cursor: "pointer" }}>
                                         Image
                                     </label>
-                                    <button className="" onClick={handleSubmit}>Send</button>
+                                    <button className="chat-send" onClick={handleSubmit}><img src={send} alt="Send"/></button>
                                 </div>  
                             </div>
                         </div>
                     </div>
-
                 </div>
                 </div>
-                <div className="chatpage-spacer"></div>
+                </div>
                 </center>
+                </div>
             </body>
         </main>
             

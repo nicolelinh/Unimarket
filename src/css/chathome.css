@@ -10,13 +10,13 @@
     src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
 }
 
+
+
 /*default conditioning for the entire container as a whole*/
 .container-mainchat{
     top: 40px;
     font-family: "Montserrat-Italic";
     padding-top: 90px;
-    height: 700px;
-    width: 600px;
     position: relative;
     background-color: white;
     border-radius: 50px;
@@ -36,17 +36,4 @@
     border: transparent;
     width: 200px;
     height: 40px;
-}
-
-/*creating a border for the chat selection*/
-.container-mainchat-background{
-    position: relative;
-    height: 750px;
-    width: 650px;
-    background: linear-gradient(180deg, rgba(101, 152, 127, 0.83) 0%, #FAE8C6 100%);
-    position: relative;
-    margin: auto;
-    top: -685px;
-    border-radius: 70px;
-    z-index: -1;
 }
