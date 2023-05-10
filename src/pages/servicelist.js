@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../firebaseConfig';
 import { getDocs, collection } from "firebase/firestore";
 import profilepic from '../assets/profilepic.png';
-import '../App.css';
+import '../css/servicelist.css';
 import { Link } from 'react-router-dom';
 
 const ServiceList = () => {
@@ -44,13 +44,15 @@ const ServiceList = () => {
     }
 
     return (
+        <center>
+        <div className='servicelist-padding1'>
       <div className="service-list">
         {/*Title*/}
-        <h1>Other Services</h1>
+        <h1 className='servicelist-title'>Other Services</h1>
         {/*This part is essentially just the services (it currrently only contains the name and description)*/}
         {services.slice(startIndex, endIndex).map((service) => {
             return(
-                <div key={service.id} style={{ border: '3px solid black', borderRadius: '20px', margin: '3%', marginLeft: '20%', marginRight: '20%' }}>
+                <div className='servicelist-card' key={service.id} style={{borderRadius: '20px', margin: '3%', marginLeft: '20%', marginRight: '20%' }}>
                     <Link to={`/services/${service.id}`} style={{ textDecoration: 'none' }}>
                         <div style={{ display: 'flex', flexDirection: 'row', padding: '1%' }}>
                             <img className="profilepic" src={profilepic} alt="profilepic" id="profilepic"/>
@@ -63,11 +65,14 @@ const ServiceList = () => {
         })}
         {/*This portion creates the the prev and next page button and keeps track of the current page*/}
         <div className="pagination-container" style={{ display: 'flex', justifyContent: 'center' }}>
-            <button onClick={handlePrev} disabled={currentPage === 1}>Prev</button>
+            <button className='servicelist-button1' onClick={handlePrev} disabled={currentPage === 1}>Prev</button>
             <p>Page {currentPage} of {totalPages}</p>
-            <button onClick={handleNext} disabled={currentPage === totalPages}>Next</button>
+            <button className='servicelist-button2' onClick={handleNext} disabled={currentPage === totalPages}>Next</button>
         </div>
+        
       </div>
+      </div>
+      </center>
     );
 }
 

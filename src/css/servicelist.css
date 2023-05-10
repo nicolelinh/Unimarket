@@ -1,0 +1,73 @@
+/*questions? ask dev nicole nguyen*/
+
+/*import font family and standardize the name from font folder*/
+@font-face {
+    font-family: "Montserrat-Italic";
+    src: local("Montserrat-Italic"), url("../fonts/Montserrat-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat-BoldItalic";
+    src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
+}
+
+/*padding hq*/
+.servicelist-padding1{
+    padding-top: 50px;
+    padding-bottom: 30px;
+    background-image: url('../assets/services-background.png');
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: cover;
+}
+
+/*asset detailing*/
+.service-list{
+    background: linear-gradient(180deg, rgba(149, 185, 178, 0.509) 0%, rgba(233, 221, 192, 0.627) 100%);
+    padding: 30px;
+    min-width: fit-content;
+    width: 1000px;    
+    border-radius: 30px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(3px);
+}
+
+.servicelist-title{
+    color: #2D564E;
+    font-family: "Montserrat-BoldItalic";
+}
+
+.servicelist-card{
+    background-color: rgba(255, 255, 255, 0.758);
+    transition: 0.2s ease-in;
+}
+
+.servicelist-card:hover{
+    background:linear-gradient(-270deg, rgba(159, 187, 182, 0.416) 0%, #f7edd2a8 100%);
+    transition: 0.2s ease-in;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.servicelist-button1{
+    margin-right: 10px;
+    border-radius: 25px;
+    border: 2px solid #6e9f9697;
+    background: rgba(255, 255, 255, 0.692);
+    color: #2D564E;
+    transition: 0.2s ease-out;
+}
+
+.servicelist-button2{
+    margin-left: 10px;
+    border-radius: 25px;
+    border: 2px solid #6e9f9697;
+    background: rgba(255, 255, 255, 0.692);
+    color: #2D564E;
+    transition: 0.2s ease-out;
+}
+
+.servicelist-button1:hover, .servicelist-button2:hover{
+    background-color: #2D564E;
+    color: white;
+    border: transparent;
+    transition: 0.2s ease-in;
+}
