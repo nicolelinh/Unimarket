@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { collection, getDocs, query, where, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
+import '../css/favorites.css';
 
 function Favorites() {
   const [favoriteList, setFavoriteList] = useState([]);
@@ -66,31 +67,35 @@ function Favorites() {
   return (
     <body>
       <center>
-        <div className='background-border'>
+        <div className='favorites-padding'>
           <div className='padding1'>
           <center>
           <div className='background-border'>
             <div className='padding1'>
-              <h1>Favorites</h1>
-              <p>{currentUser.uid}</p>
+              <h1 className='favorites-title'>Favorites</h1>
               <ul className='display-list'>
                 {favoriteList.map((item) => {
                   const marketItem = marketListings.find(marketItem => marketItem.id === item.itemid);
                   if (marketItem) {
                     return (
-                      <li key={item.id}>
-                        <h3>{marketItem.title}</h3>
+                      <li className="favorites-itemcard" key={item.id}>
+                        <center>
+                        <p className='favorites-titlecard'>{marketItem.title}</p>
                         <img src={marketItem.photo} alt={marketItem.title} />
                         <p>{marketItem.description}</p>
                         <p>Price: {marketItem.price}</p>
-                        <button onClick={(e) => removeFavorite(e, item.id)}>Remove from favorites</button>
+                        <button className='favorites-delete' onClick={(e) => removeFavorite(e, item.id)}>Remove from favorites</button>
+                        <div className='favorites-padding2'></div>
+                        </center>
                       </li>
+                      
                     );
                   } else {
                     return null;
                   }
                 })}
               </ul>
+              
             </div>
           </div>
         </center>

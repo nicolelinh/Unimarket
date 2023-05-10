@@ -1,0 +1,69 @@
+/*questions? ask dev nicole nguyen*/
+
+/*import font family and standardize the name from font folder*/
+@font-face {
+    font-family: "Montserrat-Italic";
+    src: local("Montserrat-Italic"), url("../fonts/Montserrat-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat-BoldItalic";
+    src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
+}
+
+
+.favorites-padding{
+    background-image: url('../assets/following-background.png');
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 50px;
+}
+
+.favorites-title{
+    font-family: "Montserrat-BoldItalic";
+    color: #2D564E;
+}
+
+.favorites-itemcard{
+    display: inline-block;
+    width: calc(33.33% - 20px);
+    margin: 10px;
+    text-align: center;
+    vertical-align: top;
+    background: linear-gradient(180deg, rgba(246, 230, 196, 0.19) 0%, rgba(129, 170, 150, 0.14) 100%);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    min-width: fit-content;
+    max-width: fit-content;
+    border-radius: 10px;
+    list-style-type: none;
+}
+.favorites-itemcard:before{
+    backdrop-filter: blur(10px);
+}
+
+.favorites-titlecard{
+    size: 100px;
+    font-family: "Montserrat-Italic";
+}
+
+.favorites-delete{
+    font-family: "Montserrat-Italic";
+    color:#b52a22;
+    background-color: rgba(255, 255, 255, 0.562);
+    width: fit-content;
+    height: fit-content;
+    transition: 0.2s;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+}
+
+.favorites-delete:hover{
+    opacity: 100%;
+    background-color: white;
+
+}
+
+.favorites-padding2{
+    height: 20px;
+}
