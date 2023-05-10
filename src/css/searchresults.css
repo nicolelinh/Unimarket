@@ -1,0 +1,34 @@
+/*questions? ask dev nicole nguyen*/
+
+/*import font family and standardize the name from font folder*/
+@font-face {
+    font-family: "Montserrat-Italic";
+    src: local("Montserrat-Italic"), url("../fonts/Montserrat-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat-BoldItalic";
+    src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
+}
+
+/*padding hq*/
+.searchresult-padding1{
+    padding-top: 50px;
+    padding-bottom: 30px;
+    background-image: url('../assets/searchresults-background.png');
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-position: left;
+    background-size: contain;
+    font-family: "Montserrat-Italic";
+}
+
+.searchresults-searchbar{
+    padding-top: 20px;
+    padding-right: 140px;
+}
+
+/*asset decor*/
+.searchresults-questions{
+    padding-top: 20px;
+    align-items: center;
+}

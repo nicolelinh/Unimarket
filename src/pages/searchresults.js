@@ -5,6 +5,7 @@ import Listing from "../components/listing";
 import Fuse from "fuse.js";
 import './tagsinput.css';
 import Error from "../components/error";
+import '../css/searchresults.css';
 
 const Searchresults = () => {
     // get user inputted search by parsing url
@@ -85,7 +86,8 @@ const Searchresults = () => {
             //add selected tag to userTag list
             setUserTags(userTags.concat(tagName));
             // change background color so user knows its selected
-            clickedTag.style.backgroundColor="seagreen";
+            clickedTag.style.backgroundColor="#2D564E";
+            clickedTag.style.color="white";
         }
     }
 
@@ -156,13 +158,16 @@ const Searchresults = () => {
     // if email is not empty, someone is signed in so it shows actual home page, NOT landing page
     if (email !== "") {
         return (
-            <div>
+            <center>
+            <div className="searchresult-padding1">
                 <h2>Re-do Search? </h2>
                 <div className="container">
+                    <div className='searchresults-searchbar'>
                     <form className="d-flex search-form" onSubmit={(event) => {validateSearch(event)}}>
                             <input className="form-control me-2 search-input" id="usersearch" type="search" placeholder="search here" aria-label="Search" required></input>
                             <button className="search-btn btn-outline-success" type="submit" >search</button>
                     </form>
+                </div>
                     <div className="tags-input-container">
                         { searchTags.map((tag, index) => (
                             <div className="tag-item" id={index} key={index}>
@@ -171,13 +176,16 @@ const Searchresults = () => {
                         )) }
                     </div>
                     <button type="button" onClick={() => searchByTags()}>search by tags</button>
+                    <center>
                     <div className="row">
-                            <div>
-                                <h4 className="question-1"><em>need to sell or request a market item?</em></h4>
-                                <h4 className="question-1"><em><a className="question-brown" href="/create-listing">sell</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="/request">request</a></em></h4>
+                            <div className="searchresults-questions">
+                                <h4 className="searchresults-question-1"><em>need to sell or request a market item?</em></h4>
+                                <h4 className="searchresults-question-1answer"><em><a className="question-brown" href="/create-listing">sell</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="/request">request</a></em></h4>
                             </div>
+                        
                             {/* <div className="col"></div> */}
                         </div>
+                    </center>
                     <div className="listings-cont">
                         <h3 className="listings-title"><em>Search results for: {search}</em></h3>
 
@@ -203,6 +211,7 @@ const Searchresults = () => {
                     </div>
                 </div>
             </div>
+            </center>
         )
     } else {
         return(
