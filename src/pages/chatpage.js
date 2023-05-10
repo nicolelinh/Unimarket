@@ -183,7 +183,7 @@ function ChatPage() {
                             <div className="chat-input">
                                 <input className="chat-input-form" type="text" placeholder="text" onChange={(text) => setText(text.target.value)} value={text}/>
                                 <div className="chat-submit">
-                                    <input type="file" id="chat-img" onChange={(image) => setImage(image.target.files[0])}/>
+                                <input type="file" id="chat-img" onChange={(image) => setImage(image.target.files[0])}/>
                                     <label htmlFor="chat-img" style={{ cursor: "pointer" }}>
                                         Image
                                     </label>

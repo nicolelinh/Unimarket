@@ -4,7 +4,6 @@ import { db } from "../firebaseConfig";
 import "../App.css";
 import profilepic from "../assets/profilepic.png";
 import "../css/userprofile.css";
-import profilebackground from "../assets/profilebackground.png";
 import userhistory from "../assets/userhistory.png";
 import { AuthContext } from "../context/AuthContext";
 
@@ -41,8 +40,8 @@ function UserProfile() {
     <main>
       <section>
         <div className="profilecontainer">
-          <h1 className="userprofile">{userProfileData?.email}</h1>
           <img className="profilepic" src={profilepic} alt="profilepic" />
+          <h1 className="userprofile">{userProfileData?.email}</h1>
           <div className="userinformation">
             <p className="userprofile">
               school: {userProfileData?.school}
@@ -56,11 +55,6 @@ function UserProfile() {
             </a>
           </button>
         </div>
-        <img
-          className="profilebackground"
-          src={profilebackground}
-          alt="profilebackground"
-        />
       </section>
     </main>
   );

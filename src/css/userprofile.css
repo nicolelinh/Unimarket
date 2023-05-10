@@ -14,7 +14,6 @@
 button.userhistory{
     border: transparent;
     background-color: transparent;
-    position: relative;
     top: 10px;
     scale: 80%;
 }
@@ -26,15 +25,12 @@ button.userhistory:hover{
 /*this container encloses all of the text and information provided for user profile
   it also standardizes the text and formatting of all content inside*/
 div.profilecontainer{
-    width: 600px;
+    width: fit-content;
     border-radius: 138px;
-    padding: 50px;
+    padding:45px;
     margin: auto;
     background: linear-gradient(180deg, rgba(184, 206, 167, 0.48) 0%, #7EB0BB 100%);    filter:blur(px);
-    position: relative;
-    top: 100px;
-    scale: 120%;
-    z-index: 1;
+    top: 130px;
 }
 img.profilepic{
     scale: 90%;
