@@ -16,9 +16,9 @@
     background-size: cover;
 }
 
-.listings-title{
+.following-title{
     font-family: "Montserrat-BoldItalic";
-    padding-top: 55px !important;
+    font-size: 40px;
 }
 
 .following-items{

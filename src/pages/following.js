@@ -58,9 +58,8 @@ const Following = () => {
         </section>
         <body className="following-background">
             <div className="padding container">
-                
                 <div className="listings-cont">
-                    <h3 className="listings-title"><em>listings from your followed users</em></h3>
+                    <p className="following-title">listings from your followed users</p>
                     {/* dynamically create rows and columns based on how many listings are in database */}
                     <div className="following-items">
                     <div className="row">

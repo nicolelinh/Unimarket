@@ -1,5 +1,4 @@
 // carpoolDetails.js
-
 import React, { useEffect, useState, useContext } from "react";
 import { doc, setDoc, getDoc, getDocs, deleteDoc, updateDoc, arrayUnion, arrayRemove, collection, query, where, Timestamp, increment } from "firebase/firestore";
 import { db } from '../firebaseConfig';
@@ -7,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { Loader } from "@googlemaps/js-api-loader"
 // import { Map, GoogleApiWrapper } from 'google-maps-react';
+import '../css/carpooldetails.css';
 
 const CarpoolDetails = () => {
     const [details, setDetails] = useState([]);
@@ -50,10 +50,10 @@ const CarpoolDetails = () => {
     let submitEvent; // this will determine if user will delete the listing or be sent to "dm user" page...
     // checking is the seller of THIS listing is same as current user by checking emails since they're unique
     if (details && details.seller !== JSON.parse(window.localStorage.getItem('USER_EMAIL'))){
-        listingButton = <button type="submit">dm user button</button>
+        listingButton = <button className="carpooldetails-dmbutton" type="submit">dm user button</button>
         submitEvent = (event) => handleMessageSelect(event, details.seller); 
     } else {
-        listingButton = <button type="submit">delete listing</button>
+        listingButton = <button className="carpooldetails-dmbutton" type="submit">delete listing</button>
         submitEvent = (event)=>deleteListing(event); // DELETES LISTING FROM DATABASE
     }
 
@@ -183,26 +183,29 @@ const CarpoolDetails = () => {
     
 
     return (
+        <div className="carpooldetails-background">
+            <center>
         <div className="padding container"> {/* using grid system (className=container/row/col) for layout: https://react-bootstrap.github.io/layout/grid/*/}
             <div className="row">
-                <div style={{ height: '400px', width: '100%' }}id="map">
-
+                <div className="col"style={{ height: '400px', width: '100%' }}id="map">
                 </div>
                 <div className="col">
-                    <div>
+                    <div className="carpooldetails-details">
                         {/* uses details from document grabbed earlier to fill out elements below */}
-                        <h4>Name: {details.name}</h4>
+                        <h4 className="carpooldetails-name">Name: {details.name}</h4>
                         <p><a href="#">Link to profile {details.seller}</a></p> {/* TO-DO: link to user profile*/}
-                        <h4>From: {details.location_from}</h4>
-                        <h4>To: {details.location_to}</h4>
-                        <h5>Contact:</h5>
-                        <h6>{details.phone_number}</h6>
+                        <h4 className="carpooldetails-subdetails">From: {details.location_from}</h4>
+                        <h4 className="carpooldetails-subdetails">To: {details.location_to}</h4>
+                        <h5 className="carpooldetails-subdetails">Contact:</h5>
+                        <h6 className="carpooldetails-subdetails">[ {details.phone_number} ]</h6>
                         <div>
-                            <h6>OR</h6>
+                            <h6 className="carpooldetails-subdetails">OR</h6>
+                            <div className="carpooldetails-buttonpadding">
                             <form onSubmit={submitEvent}>{listingButton}</form>
+                            </div>
                         </div>
                         {/* <p><button id="following" onClick={() => {handleFollow(details.seller)}}>{followingText}</button></p> */}
-                        <h5>Description:</h5>
+                        <h5 className="carpooldetails-subdetails">Description:</h5>
                         {/* <p>{details.description}</p> */}
                         {/* {editButton} */}
                         {/* based on if listing belongs to current user, action of the button is different, as shown above */}
@@ -210,6 +213,8 @@ const CarpoolDetails = () => {
                     </div>
                 </div>
             </div>
+        </div>
+        </center>
         </div>
     )
 }
