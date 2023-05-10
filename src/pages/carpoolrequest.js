@@ -146,7 +146,7 @@ const RequestCarpool = () => {
   return (
     <div className='container-carpool'>
       <br/>
-      <form onSubmit={addCarpool} style={{ background: 'linear-gradient(180deg, rgba(149, 185, 178, 0.9) 0%, rgba(233, 221, 192, 0.9) 100%)', borderRadius: '50px', padding: '20px', display: 'inline-block', flexDirection: 'column', alignItems: 'center' }}>
+      <form className="carpoolrequest-form" onSubmit={addCarpool} style={{ borderRadius: '50px', padding: '20px', display: 'inline-block', flexDirection: 'column', alignItems: 'center' }}>
         <h2>Carpool Request</h2>
         <Link className='carpool-link' to="/carpooldisplay">Redirect to Available Carpools</Link>
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
