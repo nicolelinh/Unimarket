@@ -31,6 +31,7 @@ nav{
     scale: 70%;
     width: fit-content;
     transition: 0.3s ease;
+    border: transparent;
 }
 
 .navbar{

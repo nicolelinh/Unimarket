@@ -41,6 +41,7 @@
     margin: auto;
     color: #2D564E; 
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(3px);
 }
 
 .history-input[type="text"]{
@@ -55,6 +56,7 @@
 input[type="text"]:hover{
     border: 2px solid #E8C366;
     transition: 0.3s;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 input[type="text"]:focus{
@@ -62,28 +64,65 @@ input[type="text"]:focus{
     border: 2px solid #3a6d63;
 }
 
-
 .history-submit{
-    top: 20px;
+    min-width: fit-content;
+    min-height: fit-content;
+    border-radius: 30px;
+    border: 2px solid #6e9f9697;
+    background: transparent;
+    color: #2D564E;
+    transition: 0.2s ease-in;
+    width: 25%;
 }
 
-button{
-    border: grey;
-    width: 25%;
-    
+.history-submit:hover{
+    min-width: fit-content;
+    min-height: fit-content;
+    background-color: #2D564E;
+    padding: 10px;
+    color: white;
+    border: transparent;
+    transition: 0.2s ease-in;
 }
+
 button:hover{
     filter: brightness(90%);
 }
+
 .delete-button{
-    margin-left: 10px;
+    min-width: fit-content;
+    min-height: fit-content;
+    border-radius: 30px;
+    border: 2px solid #6e9f9697;
+    background: transparent;
+    color: #2D564E;
+    transition: 0.2s ease-in;
+    width: 25%;
+}
+
+.delete-button:hover{
+    min-width: fit-content;
+    min-height: fit-content;
+    padding: 3px;
+    background-color: #2D564E;
+    color: white;
+    border: transparent;
+    transition: 0.2s ease-in;
 }
 
 li{
     padding-top: 10px;
+    list-style: none;
 }
 
 .display-list{
     padding-top: 20px;
 }
 
+.userhistory-links{
+    color: #498f81;
+}
+
+.userhistory-links:hover{
+    font-family: "Montserrat-BoldItalic";
+}

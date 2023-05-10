@@ -80,7 +80,7 @@ function UserHistory(){
       <ul className='display-list'>
         {todoList.map((item) => (
           <li key={item.id}>
-            {item.text} {item.link && <a href={item.link}> ({item.link})</a>} {/* Display link as clickable anchor tag */}
+            {item.text} {item.link && <a className='userhistory-links' href={item.link}> ({item.link})</a>} {/* Display link as clickable anchor tag */}
             (created at {item.createdAt.toLocaleString()})
             <br></br><button className='delete-button' onClick={() => handleDeleteButtonClick(item.id)}>Delete</button>
           </li>

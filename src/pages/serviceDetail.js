@@ -3,6 +3,7 @@ import { auth, db } from '../firebaseConfig';
 import { useParams } from 'react-router-dom';
 import { doc, updateDoc, setDoc, getDoc, getDocs, deleteDoc, collection, query, where, Timestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import '../css/servicedetail.css';
 
 const ServiceDetail = () => {
   const { id } = useParams();
@@ -109,21 +110,22 @@ const ServiceDetail = () => {
   }
 
   return (
+    <div className='servicedetail-padding1'>
     <div className="servicedetail">
-        <h2>Name: {service.name}</h2>
-        <h2>User Note: {service.usernote}</h2>
+        <h2>Name: {service.name}</h2><br/>
+        <h2>User Note: {service.usernote}</h2><br/>
         <p>Description: {service.description}</p>
         {auth.currentUser.uid === service.uid && (
           <button onClick={handleDelete}>Delete Service</button>
         )}
         {auth.currentUser.uid !== service.uid && (
-          <button onClick={submitEvent}>dm user button</button>
+          <button className='servicedetail-buttons' onClick={submitEvent}>dm user button</button>
         )}
-        <div>
-          <button onClick={goBack}>Go Back</button>
+        <div><br/>
+          <button className='servicedetail-buttons' onClick={goBack}>Go Back</button>
         </div>
     </div>
-    
+    </div>
   );
 };
 
