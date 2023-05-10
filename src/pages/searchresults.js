@@ -175,7 +175,7 @@ const Searchresults = () => {
                             </div>
                         )) }
                     </div>
-                    <button type="button" onClick={() => searchByTags()}>search by tags</button>
+                    <button className='searchresults-buttons' type="button" onClick={() => searchByTags()}>search by tags</button>
                     <center>
                     <div className="row">
                             <div className="searchresults-questions">
