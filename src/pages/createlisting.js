@@ -4,6 +4,7 @@ import { db } from '../firebaseConfig';
 import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import './tagsinput.css';
 import Error from "../components/error";
+import '../css/createlisting.css';
 
 const Createlisting = () => {
     // grabs user data from local storage
@@ -57,7 +58,8 @@ const Createlisting = () => {
             //add selected tag to userTag list
             setUserTags(userTags.concat(tagName));
             // change background color so user knows its selected
-            clickedTag.style.backgroundColor="seagreen";
+            clickedTag.style.backgroundColor="#2D564E";
+            clickedTag.style.color="white";
         }
     }
 
@@ -153,29 +155,32 @@ const Createlisting = () => {
     // if email is not empty, someone is signed in so it shows actual home page, NOT landing page
     if (email !== "") {
         return (
+            <center>
+            <div className="createlisting-background">
             <div className="padding container"> {/* using grid system (className=container/row/col) for layout: https://react-bootstrap.github.io/layout/grid/*/}
+                <div className="createlisting-title"><h2>Sell a Product</h2></div>
                 <div className="row">
                     <div className="col">
                         {/* allows user to upload an image and will preview that image back to the user, this maps image saved to img element */}
-                        { imageURL.map((imageSrc, index) => ( <img key={index} src={imageSrc} width="300" height="300" alt="something user uploaded"/> )) } 
+                        { imageURL.map((imageSrc, index) => ( <img className="createlisting-jpeg" key={index} src={imageSrc}alt="something user uploaded"/> )) } 
                         <br></br>
-                        <input id="userimg" type="file" onChange={onImageChange} required/>
+                        <input className='createlisting-jpegbutton' id="userimg" type="file" onChange={onImageChange} required/>
                         <p>only files types "jpg, jpeg, png" allowed</p>
                     </div>
                     <div className="col">
                         <div>
                             {/* sets all listing details on change event of each input area */}
-                            <form style={{marginTop:"50px" }} onSubmit={(event) => {validateData(event)}}>
-                                <h5>item title:</h5>
+                            <form style={{marginTop:"40px" }} onSubmit={(event) => {validateData(event)}}>
+                                <h5 className="createlisting-itemtitle">item title:</h5>
                                 <input id="usertitle" type="text" placeholder="title"
                                 onChange={(e)=>{setTitle(e.target.value)}} required/>
                                 <br/><br/>
                                 <h5>item description:</h5>
-                                <textarea id="userdesc" type="text" placeholder="description"
+                                <textarea className='createlisting-description' id="userdesc" type="text" placeholder="description"
                                 onChange={(e)=>{setDesc(e.target.value)}} required/>
                                 <br/><br/>
                                 <h5>item price:</h5>
-                                <input id="userprice" type="number" placeholder="your price"
+                                <input  className="createlisting-itemprice" id="userprice" type="number" placeholder="your price"
                                 onChange={(e)=>{setPrice(e.target.value)}} required/>
                                 <br/><br/>
                                 <h5>tags:</h5>
@@ -187,15 +192,16 @@ const Createlisting = () => {
                                     )) }
                                 </div>
                                 <br/><br/>
-                                <button type="submit">list item</button>
+                                <button className='createlisting-buttons' type="submit">list item</button>
                             </form>
                             <br></br>
-                            <button onClick={() => cancel()}>cancel</button>
+                            <button className='createlisting-buttons' onClick={() => cancel()}>cancel</button>
                         </div>
                     </div>
                 </div>
             </div>
-
+            </div>
+            </center>
         )
     } else {
         return(

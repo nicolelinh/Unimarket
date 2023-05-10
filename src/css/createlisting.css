@@ -1,0 +1,97 @@
+/*questions? ask dev nicole nguyen*/
+
+/*import font family and standardize the name from font folder*/
+@font-face {
+    font-family: "Montserrat-Italic";
+    src: local("Montserrat-Italic"), url("../fonts/Montserrat-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat-BoldItalic";
+    src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
+}
+
+/*padding hq*/
+.createlisting-background{
+    background-image: url('../assets/listing-background.png');
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: cover;
+    padding-top: 40px;
+    padding-bottom: 30px;
+}
+
+.padding{
+    background: linear-gradient(180deg, rgba(149, 185, 178, 0.371) 0%, rgba(241, 234, 213, 0.181) 100%);
+    border-radius: 30px;
+    min-width: fit-content;
+    min-height: fit-content;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(3px);
+
+}
+
+/*asset design*/
+.createlisting-jpeg{
+    min-height: fit-content;
+    min-width: fit-content;
+    max-width: 500px;
+    max-height: 500px;
+    border-radius: 30px;
+}
+
+.createlisting-jpegbutton{
+    padding-left: 40px;
+    min-width: fit-content;
+    min-height: fit-content;
+    border: transparent;
+}
+
+.createlisting-itemtitle{
+    width: 200px;
+}
+
+.createlisting-description{
+    width: 600px;
+    padding: 20px;
+    transition: 0.2s ease-in;
+}
+
+.createlisting-description:hover{
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    transition: 0.2s ease-in;
+}
+
+.createlisting-itemprice{
+    padding: 5px;
+    padding-left: 10px;
+}
+
+.createlisting-itemprice:hover{
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    transition: 0.2s ease-in;
+}
+
+.tag-item:hover{
+    opacity: 50%;
+}
+
+.createlisting-buttons{
+    border-radius: 20px;
+    border: 2px solid #E1D6B9;
+    padding: 5px;
+    width: 140px;
+    min-width: fit-content;
+    min-height: fit-content;
+    background-color: rgba(255, 255, 255, 0.731);
+    transition: 0.2s ease-out;
+}
+
+.createlisting-buttons:hover{
+    min-width: fit-content;
+    min-height: fit-content;
+    padding: 10px;
+    border: transparent;
+    background: #2D564E;
+    color: white;
+    transition: 0.2s ease-out;
+}
