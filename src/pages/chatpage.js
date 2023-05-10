@@ -5,7 +5,7 @@ import { AuthContext } from '../context/AuthContext';
 import { db, storage } from '../firebaseConfig';
 import { getDoc, doc, onSnapshot, updateDoc, arrayUnion, Timestamp } from "firebase/firestore"
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
-import Message from "../components/chat/Message"
+import Message from "../components/chat/Message";
 import send from '../assets/send-arrow.png';
 
 import "../css/chat.css"
