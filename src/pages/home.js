@@ -123,7 +123,7 @@ const Home = () => {
                                 <div className="row2-background">
                                     <h4 className="question-2"><em>looking for carpool or other services?</em></h4>
                                     <div className="home-pad1">
-                                        <h4><em><a className="question-brown" href="/carpoolrequest">carpool</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="/">other services</a></em></h4>
+                                        <h4><em><a className="question-brown" href="/carpoolrequest">carpool</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="/services">other services</a></em></h4>
                                     </div>
                                 </div>
                             </div>
