@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
-import "../App.css";
 import profilepic from "../assets/profilepic.png";
 import "../css/userprofile.css";
 import userhistory from "../assets/userhistory.png";
@@ -38,26 +37,29 @@ function UserProfile() {
 
   return (
     <main>
-      <section>
+      
+      <body>
+        <div className="profile-padding">
         <div className="profilecontainer">
           <img className="profilepic" src={profilepic} alt="profilepic" />
-          <h1 className="userprofile">{userProfileData?.email}</h1>
+          <h1 className="userprofile">{userProfileData?.username}</h1>
           <div className="userinformation">
             <p className="userprofile">
-              school: {userProfileData?.school}
+            school:<br></br>[ {userProfileData?.school} ]
               <br />
-              username: {userProfileData?.username}
+              email:<br></br>[ {userProfileData?.email} ]
             </p>
           </div>
+          <div className="button-padding"></div>
+
           <button className="userhistory">
-            <a href="/userhistory">
-              <img src={userhistory} alt="userhistory" />
+            <a href="/userhistory"><img src= {userhistory} alt="User History"/>
             </a>
           </button>
         </div>
-      </section>
-    </main>
-  );
-}
-
+        </div>
+        </body>
+        </main>
+        );
+        }
 export default UserProfile;

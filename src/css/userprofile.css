@@ -11,12 +11,18 @@
 }
 
 /*user history button to link user to thier history from the profile page*/
-button.userhistory{
-    border: transparent;
-    background-color: transparent;
-    top: 10px;
-    scale: 80%;
+.button-padding{
+    padding-top: 30px;
 }
+
+.userhistory{
+    height: fit-content;
+    width: fit-content;
+    background-color: transparent;
+    scale: 80%;
+    transition-duration: 0.2s;
+}
+
 
 button.userhistory:hover{
     filter: brightness(90%);
@@ -24,13 +30,24 @@ button.userhistory:hover{
 
 /*this container encloses all of the text and information provided for user profile
   it also standardizes the text and formatting of all content inside*/
+.profile-padding{
+    padding: 60px;
+    background-image: url('../assets/profilebackground.png');
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: auto;
+}
 div.profilecontainer{
-    width: fit-content;
+    min-width: fit-content;
+    width: 40%;
     border-radius: 138px;
     padding:45px;
     margin: auto;
     background: linear-gradient(180deg, rgba(184, 206, 167, 0.48) 0%, #7EB0BB 100%);    filter:blur(px);
-    top: 130px;
+    backdrop-filter: blur(2px);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.10);
+
 }
 img.profilepic{
     scale: 90%;
@@ -46,7 +63,7 @@ h1.userprofile{
 
 /*inside this is the white text containing user information and standardizes its format*/
 div.userinformation{
-    border-radius: 14px;
+    border-radius: 30px;
     background: white;
     padding: 20px;
     text-align: center;
