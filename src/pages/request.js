@@ -3,6 +3,7 @@ import { storage, db } from '../firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import '../css/requestitem.css';
 
 const RequestItem = () => {
   const [item, setItem] = useState({
@@ -96,31 +97,33 @@ const RequestItem = () => {
   */
 
   return (
-    <div>
-      <br />
-      <div style={{ background: 'linear-gradient(rgb(132, 173, 151), white)', borderRadius: '20px', padding: '20px', display: 'inline-block', justifyContent: 'center' }}>
+    <div className='requestitem-padding1'>
+      <br/>
+      <div className='requestitem-content'>
       <h2>Request Item</h2>
-      <Link to="/requestdisplay">Redirect to see requested items!</Link>
+      <Link className='requestitem-link' to="/requestdisplay">Redirect to see requested items!</Link>
+        <div className='requestitem-padding2'>
         <form onSubmit={addRequest} style={{ display: 'flex', flexDirection: 'row' }}>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <br />
-            <label style={{ alignSelf: 'flex-start' }}>
-              your name:
-              <textarea name="buyer" value={item.buyer} onChange={handleChange} required/>
+          <div class='col'>
+            <br/>
+            <label style={{ alignSelf: 'flex-start', padding: '10px' }}>
+              your name:<br/> 
+              <textarea className="requestitem-userinput"name="buyer" value={item.buyer} onChange={handleChange} required/>
             </label>
-            <br />
-            <label style={{ alignSelf: 'flex-start' }}>
+            <br/>
+            <label style={{ alignSelf: 'flex-start', padding: '15px', paddingLeft: '60px' }}>
               image:
-              <input type="file" name="image" onChange={handleChange} />
+              <input className="requestitem-imagebtn" type="file" name="image" onChange={handleChange} />
             </label>
-            <br />
-            <div style={{ background: 'linear-gradient(gray, white)', borderRadius: '20px', padding: '20px', display: 'inline-block', justifyContent: 'center' }}>
+            <br/>
+            <div style={{ background: 'white', borderRadius: '20px', padding: '20px', display: 'inline-block', justifyContent: 'center' }}>
               <div style={{ background: 'white' }}>
-                <div style={{ marginLeft: '50px' }}>
+                <div>
                   {item.imageUrl && <img src={item.imageUrl} alt="Uploaded item" style={{ maxWidth: '500px' }}/>}
                 </div>
               </div>
             </div>
+            <br/>
             <label style={{ alignSelf: 'flex-start' }}> 
               <div style={{
                 display: 'flex',
@@ -128,7 +131,7 @@ const RequestItem = () => {
                 transform: 'rotate(45deg)',
                 width: '80px',
                 height: '80px',
-                backgroundColor: '#e0e0e0',
+                background: 'linear-gradient(-225deg, rgba(61, 114, 125, 0.7) 15.43%, rgba(214, 204, 181, 0.7) 72.66%)',
                 borderRadius: '5px',
               }}>
                 <input
@@ -137,7 +140,7 @@ const RequestItem = () => {
                   value={item.price}
                   onChange={handleChange}
                   style={{
-                    background: '#e0e0e0',
+                    background: 'transparent',
                     border: 'none',
                     padding: '10px',
                     borderRadius: '5px',
@@ -145,46 +148,48 @@ const RequestItem = () => {
                     width: 'calc(100% - 30px)',
                     height: 'calc(100% - 30px)',
                     position: 'absolute',
-                    top: '15px',
-                    left: '15px',
+                    top: '12px',
+                    left: '22px',
                     fontSize: '16px',
                     textAlign: 'center',
+                    color: 'white'
                   }}
                   required
                 />
               </div>
             </label>
-            <br />
-            <label style={{ alignSelf: 'flex-start' }}>
-              item name:
-              <textarea name="name" value={item.name} onChange={handleChange} required/>
+            <br/>
+            <label style={{ alignSelf: 'flex-start', padding: '15px' }}>
+              item name:<br/>
+              <textarea className="requestitem-userinput" name="name" value={item.name} onChange={handleChange} required/>
             </label>
             <br />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div class='col'>
             <br />
-            <label style={{ alignSelf: 'flex-start' }}>
+            <label style={{ alignSelf: 'flex-start', padding: '15px'  }}>
               quality:
               <br />
-              <textarea name="quality" value={item.quality} onChange={handleChange} required/>
+              <textarea className="requestitem-userinput" name="quality" value={item.quality} onChange={handleChange} required/>
             </label>
             <br />
-            <label style={{ alignSelf: 'flex-start' }}>
+            <label style={{ alignSelf: 'flex-start', padding: '15px'  }}>
               item description:
               <br />
-              <textarea name="description" value={item.description} onChange={handleChange} required/>
+              <textarea className="requestitem-userinput" name="description" value={item.description} onChange={handleChange} required/>
             </label>
             <br />
-            <label style={{ alignSelf: 'flex-start' }}>
+            <label style={{ alignSelf: 'flex-start', padding: '15px'  }}>
               merchant note:
               <br />
-              <textarea name="merchant_note" value={item.merchant_note} onChange={handleChange} required/>
+              <textarea className="requestitem-userinput" name="merchant_note" value={item.merchant_note} onChange={handleChange} required/>
             </label>
             <br />
-            <button type="submit" style={{backgroundColor: '#84ad97', borderRadius: '5px', padding: '10px', border: 'none', color: '#fff', cursor: 'pointer'}}>request item</button>
+            <button className="requestitem-submit" type="submit">request item</button>
             <br />
           </div>
         </form>
+        </div>
       </div>
       <br />
       <br />
