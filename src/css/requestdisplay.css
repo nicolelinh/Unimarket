@@ -1,0 +1,45 @@
+/*questions? ask dev nicole nguyen*/
+
+/*import font family and standardize the name from font folder*/
+@font-face {
+    font-family: "Montserrat-Italic";
+    src: local("Montserrat-Italic"), url("../fonts/Montserrat-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat-BoldItalic";
+    src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
+}
+
+/*padding hq*/
+.requestdisplay-background{
+    background-image: url('../assets/listing-background2.png');
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: contain;
+    font-family: "Montserrat-Italic";
+}
+
+.requestdisplay-title{
+    color: #2D564E;
+    font-family: "Montserrat-BoldItalic";
+}
+
+/*asset detailing*/
+.requestdisplay-columns{
+    background: linear-gradient(to right, rgba(246, 230, 196, 0.19) 0%, rgba(129, 170, 150, 0.14) 100%);
+}
+
+.requestdisplay-item{
+    background: rgba(255, 255, 255, 0.462);
+}
+
+.requestdisplay-redirectlink{
+    padding-bottom: 15px;
+    color:#3e8778;
+    transition: 0.3s ease-in-out;
+}
+
+.requestdisplay-redirectlink:hover{
+    font-family: "Montserrat-BoldItalic";
+    transition: 0.3s ease-in-out;
+}

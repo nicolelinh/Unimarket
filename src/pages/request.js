@@ -3,7 +3,7 @@ import { storage, db } from '../firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import '../css/requestitem.css';
+import '../css/request.css';
 
 const RequestItem = () => {
   const [item, setItem] = useState({
