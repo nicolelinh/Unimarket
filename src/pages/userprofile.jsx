@@ -42,7 +42,7 @@ function UserProfile() {
         <div className="profile-padding">
         <div className="profilecontainer">
           <img className="profilepic" src={profilepic} alt="profilepic" />
-          <h1 className="userprofile">{userProfileData?.username}</h1>
+          <p className="userprofile-username">{userProfileData?.username}</p>
           <div className="userinformation">
             <p className="userprofile">
             school:<br></br>[ {userProfileData?.school} ]

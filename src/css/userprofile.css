@@ -6,8 +6,8 @@
     src: local("Montserrat-Italic"), url("../fonts/Montserrat-Italic.ttf") format("truetype");
 }
 @font-face {
-    font-family: "Montserrat";
-    src: local("Montserrat-Black"), url("../fonts/Montserrat-Black.ttf") format("truetype");
+    font-family: "Montserrat-BoldItalic";
+    src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
 }
 
 /*user history button to link user to thier history from the profile page*/
@@ -48,6 +48,11 @@ div.profilecontainer{
     backdrop-filter: blur(2px);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.10);
 
+}
+
+.userprofile-username{
+    font-family: "Montserrat-BoldItalic";
+    font-size: 40px;
 }
 img.profilepic{
     scale: 90%;
