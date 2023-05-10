@@ -263,6 +263,7 @@ const Editlisting = () => {
             <center>
             <div className="editlisting-background">
             <div className="padding container"> {/* using grid system (className=container/row/col) for layout: https://react-bootstrap.github.io/layout/grid/*/}
+            <div className="editlisting-querycard">
             <div className="editlisting-title"><h2>Edit a Product</h2></div>
                 <div className="row">
                     <div className="col">
@@ -329,6 +330,7 @@ const Editlisting = () => {
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
             </div>
             </center>

@@ -158,6 +158,7 @@ const Createlisting = () => {
             <center>
             <div className="createlisting-background">
             <div className="padding container"> {/* using grid system (className=container/row/col) for layout: https://react-bootstrap.github.io/layout/grid/*/}
+                <div className="createlisting-querycard">
                 <div className="createlisting-title"><h2>Sell a Product</h2></div>
                 <div className="row">
                     <div className="col">
@@ -199,6 +200,7 @@ const Createlisting = () => {
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
             </div>
             </center>
