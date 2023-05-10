@@ -1,14 +1,13 @@
 // location.js
-
 import React, { useState, useEffect, useContext } from "react";
 import { db } from '../firebaseConfig';
 import { collection, getDocs, query } from "firebase/firestore"
-import '../App.css';
 import { AuthContext } from "../context/AuthContext";
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import haversine from 'haversine-distance';
 import { Loader } from "@googlemaps/js-api-loader"
+import '../css/location.css';
 
 function Location() {
     const [search, setSearch] = useState("Where are you going to?");
@@ -211,26 +210,31 @@ function Location() {
 
     return (
         <main>
+            <center className="location-center">
+            <div className="location-padding">
             <div style={{ height: '400px', width: '100%' }} id="map">
                 <p class="pt-5">
-                    Map and all available carpools will load once a location is inputted below
+                    All available carpools will load once a location is inputted below
                 </p>
             </div>
-
-            <div>
+            
+            <div className="location-padding3">
+            <div className='location-googlemap'>
                 {clicked && locations.map((loc) => {
-                    return (<p> <b>{loc.location.location_from}</b> to <b>{loc.location.location_to}</b> on {loc.location.pick_up_time_date} driven by <Link to={{pathname:`/carpool/${loc.location.id}`}} >{loc.location.name}</Link> </p>)
+                    return (<p> <b>{loc.location.location_from}</b> to <b>{loc.location.location_to}</b> on {loc.location.pick_up_time_date} driven by <Link className="location-resultlinks"to={{pathname:`/carpool/${loc.location.id}`}} >{loc.location.name}</Link> </p>)
                 })}
             </div>
+            </div>
             <form>
-                <input class="mb-5" style={{ width: '50%' }} onChange={(event) => {
+                <input className="location-searchform" style={{ width: '50%' }} onChange={(event) => {
                             setSearch(event.target.value);
                         }} type="search" placeholder="Insert Location" aria-label="Insert location"></input>
-                <div>
-                    <button class="mb-5 btn btn-primary" onClick={(e) => handleClick(e, search)} type="submit">View map</button>
+                <div className="location-padding2">
+                    <button class="location-searchbutton" onClick={(e) => handleClick(e, search)} type="submit">View map</button>
                 </div>
             </form>
-
+            </div>
+            </center>
         </main>
     )
 }
