@@ -40,6 +40,7 @@
 
 .chat-sidebar {
     background: linear-gradient(321.31deg, rgb(255, 255, 255) -36.64%, rgba(255, 255, 255, 0) 40.67%);
+    width: 22%;
 }
 
 .chat-main {
@@ -64,7 +65,7 @@
 }
 
 .chat-p {
-    font-size: 12px
+    font-size: 12px;
 }
 
 .chat-recent {
