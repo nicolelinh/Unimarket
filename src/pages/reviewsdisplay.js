@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from '../firebaseConfig';
 import { Link } from 'react-router-dom';
+import '../css/reviewdisplay.css';
 
 /* 
 previous work:
@@ -34,10 +35,10 @@ const ReviewsDisplay = () => {
   // form for display purposes (to actually implement inputs). 
   // certain styles were used to make it more orderly and fashionable.  
   return (
-    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div className="reviewdisplay-padding" style={{display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <h2>Reviews</h2>
-      <table style={{ border: '1px solid black', }}>
-        <thead style={{ border: '1px solid black' }}>
+      <table className='reviewsdisplay-table' style={{ border: '1px solid #A2A2A2', }}>
+        <thead className='reviewsdisplay-toprow' style={{ border: '1px solid #A2A2A2' }}>
           <tr>
             <th>Name</th>
             <th>Item</th>
@@ -47,16 +48,16 @@ const ReviewsDisplay = () => {
         </thead>
         <tbody>
         {reviews.sort((a, b) => a.sellerName.localeCompare(b.sellerName)).map((review) => (
-            <tr key={review.id} style={{ border: '1px solid black' }}>
-                <td>{review.sellerName}</td>  
-                <td>{review.item}</td>
-                <td>{review.description}</td>
-                <td>{review.rating}</td>
+            <tr  key={review.id} style={{ border: '1px solid #A2A2A2' }}>
+                <td className='reviewsdisplay-userrows'>{review.sellerName}</td>  
+                <td className='reviewsdisplay-userrows'>{review.item}</td>
+                <td className='reviewsdisplay-userrows'>{review.description}</td>
+                <td className='reviewsdisplay-userrows'>{review.rating}</td>
             </tr>
         ))}
         </tbody>
       </table>
-      <Link to="/reviews">Redirect to post a review!</Link>
+      <Link className='reviewdisplay-link' to="/reviews">Redirect to post a review!</Link>
     </div>
   );
 };

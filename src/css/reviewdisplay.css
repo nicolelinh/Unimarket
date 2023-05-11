@@ -1,0 +1,47 @@
+/*questions? ask dev nicole nguyen*/
+
+/*import font family and standardize the name from font folder*/
+@font-face {
+    font-family: "Montserrat-Italic";
+    src: local("Montserrat-Italic"), url("../fonts/Montserrat-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat-BoldItalic";
+    src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
+}
+
+/*padding hq*/
+.reviewdisplay-padding{
+    padding-top: 55px;
+    padding-bottom: 40px;
+    display: flex;
+    margin: auto;
+    font-family: "Montserrat-Italic";
+    background-image: url('../assets/background6.png');
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: cover;
+}
+
+/*asset decor*/
+.reviewsdisplay-table{
+    background: rgba(255, 255, 255, 0.692);
+    backdrop-filter: blur(3px);
+}
+
+.reviewsdisplay-toprow{
+    background: linear-gradient(to right, rgba(246, 230, 196, 0.375) 0%, rgba(129, 170, 150, 0.299) 100%);
+}
+
+.reviewsdisplay-userrows{
+    padding: 3px;
+}
+
+.reviewdisplay-link{
+    padding-top: 10px;
+    color: #398f7e;
+}
+
+.reviewdisplay-link:hover{
+    font-family: "Montserrat-BoldItalic";
+}
