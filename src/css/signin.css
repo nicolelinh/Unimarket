@@ -72,13 +72,46 @@ button a{
 }
 
 .signinbutton{
-    background-color: transparent;
-    font-family: "Montserrat-BoldItalic";
-    font-size: 20px;
-    border-color: transparent;
-    color: #2D564E;
-    padding-top: 15px;
+    border-radius: 20px;
+    border: 2px solid #2D564E;
+    padding: 5px;
+    width: 140px;
+    min-width: fit-content;
+    min-height: fit-content;
+    background-color: rgba(255, 255, 255, 0.731);
+    transition: 0.2s ease-out;
 }
 .signinbutton:hover{
-    opacity: 40%;
+    min-width: fit-content;
+    min-height: fit-content;
+    padding: 5px;
+    border: transparent;
+    background: #2D564E;
+    color: white;
+    transition: 0.2s ease-out;
+}
+
+.forgotpass{
+    border-radius: 4px;
+    border: 2px solid #2D564E;
+    padding: 5px;
+    width: 140px;
+    min-width: fit-content;
+    min-height: fit-content;
+    background-color: rgba(255, 255, 255, 0.731);
+    transition: 0.2s ease-out;
+}
+
+.forgotpass:hover{
+    min-width: fit-content;
+    min-height: fit-content;
+    padding: 5px;
+    border: transparent;
+    background: #2D564E;
+    color: white;
+    transition: 0.2s ease-out;
+}
+
+.singin-padding1{
+    height: 10px;
 }

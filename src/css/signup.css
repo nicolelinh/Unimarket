@@ -64,14 +64,22 @@ input[type=password], input[type=email], input[type=text], select[type=school] {
 
 /*button edit*/
 .signupbutton{
-    background-color: transparent;
-    font-family: "Montserrat-BoldItalic";
-    font-size: 20px;
-    padding-right: 120px;
-    border-color: transparent;
-    color: #2D564E;
-    width: auto
+    border-radius: 20px;
+    border: 2px solid #2D564E;
+    padding: 5px;
+    width: 140px;
+    min-width: fit-content;
+    min-height: fit-content;
+    background-color: rgba(255, 255, 255, 0.731);
+    transition: 0.2s ease-out;
+    margin-right: 120px;
 }
 .signupbutton:hover{
-    opacity: 40%;
+    min-width: fit-content;
+    min-height: fit-content;
+    padding: 5px;
+    border: transparent;
+    background: #2D564E;
+    color: white;
+    transition: 0.2s ease-out;
 }
