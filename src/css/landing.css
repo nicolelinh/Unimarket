@@ -25,7 +25,8 @@ img.welcometo{
 /*asset positioning*/
 .body{
     display: flex;
-    margin: auto;
+    margin-left: -10%;
+    margin-top: -6%;
 }
 .col{
     float: left;
@@ -36,12 +37,9 @@ img.welcometo{
 /*left asset*/
 /*bubble*/
 .logo{
-    position:relative;
-    padding-left: 150px;
 }
 .bubble{
     position:relative;
-    padding-left: 20px;
     padding-top: 77px;
 }
 .bubbleslogan{
@@ -50,9 +48,9 @@ img.welcometo{
 }
 /*buttons*/
 .buttons{
-    padding-left:14%;
+    padding: left 3%;
     display: flex;
-    gap: 15%;
+    gap: 4%;
 
 }
 .signup{
@@ -84,3 +82,4 @@ p{
     font-size: 20px;
     color: #2D564E;
 }
+

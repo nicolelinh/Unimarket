@@ -13,8 +13,8 @@ class Landing extends Component {
 
         return(
             <main>
-                <section>
-                    <div class="main">
+                <body>
+                    <div class="landing-padding container">
                         <div class="main_container">
                             <img className="welcometo" src={welcometo} alt="welcometo" id="welcometo"/>
                             <br></br>
@@ -33,10 +33,11 @@ class Landing extends Component {
                                     </div>
                                 </div>
                             </div>
+                            <br/>
                             <p className="description">our goal is to ultimately provide every college campus a local community where students can safely market items and exchange services amongst themselves</p>
                         </div>
                     </div>
-                </section>
+                </body>
             </main>
         )
     }
