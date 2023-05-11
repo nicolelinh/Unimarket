@@ -260,8 +260,8 @@ const RequestCarpool = () => {
           </label>
         </div>
         <br />
-        <button type="submit" onClick={handleCancel} style={{borderRadius: '5px', padding: '10px', border: 'none', color: '#84ad97', cursor: 'pointer', background: 'transparent', marginRight: 'auto' }}><h2 style={{ margin: '0', fontSize: '16px' }}>Cancel</h2></button>
-        <button type="submit" style={{borderRadius: '5px', padding: '10px', border: 'none', color: '#84ad97', cursor: 'pointer', background: 'transparent', marginLeft: 'auto' }}><h2 style={{ margin: '0', fontSize: '16px' }}>Place Request</h2></button>
+        <button className='carpoolrequest-buttons' type="submit" onClick={handleCancel}>Cancel</button>
+        <button className='carpoolrequest-buttons' type="submit">Place Request</button>
         <br></br>
         <br />
       </form>
