@@ -48,9 +48,8 @@ img.welcometo{
 }
 /*buttons*/
 .buttons{
-    padding: left 3%;
+    padding: left 2%;
     display: flex;
-    gap: 4%;
 
 }
 .signup{
