@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { db } from '../firebaseConfig';
 import { collection, addDoc } from "firebase/firestore";
+import '../css/report.css';
 
 function CustomerReport() {
   const [reportData, setReportData] = useState({ 
@@ -25,7 +26,7 @@ function CustomerReport() {
   };
 
   return (
-    <div>
+    <div className='report-background'>
       <br />
       <form onSubmit={handleSubmit} style={{ background: 'linear-gradient(180deg, rgba(149, 185, 178, 0.9) 0%, rgba(233, 221, 192, 0.9) 100%)', borderRadius: '50px', padding: '20px', display: 'inline-block', flexDirection: 'column', alignItems: 'center' }}>
         <h2>Report User</h2>
@@ -65,8 +66,8 @@ function CustomerReport() {
         </label>
         <br />
         <br />
-        <button type="submit" onClick={() => setReportData({ userName: '', date: '', reason: '' })} style={{borderRadius: '5px', padding: '10px', border: 'none', color: '#84ad97', cursor: 'pointer', background: 'transparent', marginRight: 'auto' }}><h2 style={{ margin: '0', fontSize: '16px' }}>Cancel</h2></button>
-        <button type="submit" style={{borderRadius: '5px', padding: '10px', border: 'none', color: '#84ad97', cursor: 'pointer', background: 'transparent', marginLeft: 'auto' }}><h2 style={{ margin: '0', fontSize: '16px' }}>Report</h2></button>
+        <button className='report-buttons' type="submit" onClick={() => setReportData({ userName: '', date: '', reason: '' })}>Cancel</button>
+        <button className='report-buttons' type="submit">Report</button>
       </form>
       <br />
       <br />
