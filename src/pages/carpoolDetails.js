@@ -193,13 +193,12 @@ const CarpoolDetails = () => {
                     <div className="carpooldetails-details">
                         {/* uses details from document grabbed earlier to fill out elements below */}
                         <h4 className="carpooldetails-name">Name: {details.name}</h4>
-                        <p><a href="#">Link to profile {details.seller}</a></p> {/* TO-DO: link to user profile*/}
                         <h4 className="carpooldetails-subdetails">From: {details.location_from}</h4>
                         <h4 className="carpooldetails-subdetails">To: {details.location_to}</h4>
                         <h5 className="carpooldetails-subdetails">Contact:</h5>
                         <h6 className="carpooldetails-subdetails">[ {details.phone_number} ]</h6>
+                        <p>{details.seller}</p> 
                         <div>
-                            <h6 className="carpooldetails-subdetails">OR</h6>
                             <div className="carpooldetails-buttonpadding">
                             <form onSubmit={submitEvent}>{listingButton}</form>
                             </div>
