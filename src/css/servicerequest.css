@@ -61,7 +61,7 @@
     transition: 0.2s ease-in;
 }
 
-.servicerequest-button1{
+.servicerequest-button1, .servicerequest-button2{
     min-width: fit-content;
     min-height: fit-content;
     margin-right: 40px;

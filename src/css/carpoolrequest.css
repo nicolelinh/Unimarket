@@ -52,3 +52,23 @@ textarea{
     
 }
 
+.carpoolrequest-buttons{
+    border-radius: 20px;
+    border: 2px solid #2D564E;
+    padding: 5px;
+    width: 140px;
+    min-width: fit-content;
+    min-height: fit-content;
+    background-color: rgba(255, 255, 255, 0.731);
+    transition: 0.2s ease-out;
+}
+
+.carpoolrequest-buttons:hover{
+    min-width: fit-content;
+    min-height: fit-content;
+    padding: 10px;
+    border: transparent;
+    background: #2D564E;
+    color: white;
+    transition: 0.2s ease-out;
+}

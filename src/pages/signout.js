@@ -22,6 +22,7 @@ function SignOut () {
 
     // visible portion of the page(sign out the current user)
     return (
+        <center>
         <body>
         <div className="signout-1">
             <p className="signout?">Are you sure you want to sign out?<br></br>Please click the "sign out" button to sign out</p>
@@ -30,6 +31,7 @@ function SignOut () {
             </div>
         </div>
         </body>
+        </center>
     );
 }
 

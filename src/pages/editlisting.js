@@ -304,7 +304,7 @@ const Editlisting = () => {
                             </form>
                             {/* Adding modal here: https://getbootstrap.com/docs/5.3/components/modal/ */}
                             <br></br>
-                            <button type="button" className='editlisting-buttons' data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <button type="button" className='editlisting-delete' data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Delete Listing
                             </button>
                             <br></br><br></br>
