@@ -1,0 +1,76 @@
+/*questions? ask dev nicole nguyen*/
+
+/*import font family and standardize the name from font folder*/
+@font-face {
+    font-family: "Montserrat-Italic";
+    src: local("Montserrat-Italic"), url("../fonts/Montserrat-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat-BoldItalic";
+    src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
+}
+
+/*padding hq*/
+.comparisonresult-background{
+    padding-bottom: 30px;
+    font-family: "Montserrat-Italic";
+    background-image: url('../assets/comparison-background.png');
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: contain;
+}
+
+.comparisonresult-padding1{
+    padding-top: 50px;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    min-width: fit-content;
+}
+
+/*asset decor*/
+.comparisonresult-result{
+    background: linear-gradient(180deg, rgba(149, 185, 178, 0.371) 0%, rgba(241, 234, 213, 0.181) 100%);
+    border-radius: 30px;
+    min-width: fit-content;
+    min-height: fit-content;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(3px);
+    padding: 40px;
+    width: 400px;
+}
+
+.comparisonresult-jpg{
+    min-height: fit-content;
+    min-width: fit-content;
+    max-width: 100px;
+    max-height: 200px;
+    border-radius: 30px;
+    border: 20px solid rgba(255, 255, 255, 0.788);
+}
+
+.comparisinresult-itemtitle{
+    padding-top: 10px;
+}
+
+.comparisonresult-buttons{
+    border-radius: 20px;
+    border: 2px solid #E1D6B9;
+    padding: 5px;
+    width: 170px;
+    min-width: fit-content;
+    min-height: fit-content;
+    background-color: rgba(255, 255, 255, 0.731);
+    transition: 0.2s ease-out;
+}
+
+.comparisonresult-buttons:hover{
+    min-width: fit-content;
+    min-height: fit-content;
+    width: 170px;
+    padding: 10px;
+    border: transparent;
+    background: #2D564E;
+    color: white;
+    transition: 0.2s ease-out;
+}

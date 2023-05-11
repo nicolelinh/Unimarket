@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { doc, updateDoc, setDoc, getDoc, getDocs, collection, query, where, Timestamp } from "firebase/firestore";
 import { auth, db } from '../firebaseConfig';
 import { useNavigate } from 'react-router-dom';
+import '../css/comparisonresult.css';
 
 const ComparisonResult = () => {
     const did = window.location.pathname.split("/")[2];
@@ -118,21 +119,21 @@ const ComparisonResult = () => {
   }
 
     return (
-        <div>
+        <div className="comparisonresult-background">
             {/*Display everything inside of listing variables with spacing in between to clearly compare details between the selected listings*/}
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div className='comparisonresult-padding1'>
             {listings.map((listing, index) => (
-                <div className="comparison-result" key={index}>
-                    <img src={listing.photo} alt="..." width="300" height="300"/>
-                    <h2>{listing.title}</h2>
+                <div className="comparisonresult-result" key={index}>
+                    <img className='comparisonresult-jpg' src={listing.photo} alt="..." width="300" height="300"/>
+                    <h2 className="comparisinresult-itemtitle">{listing.title}</h2>
                     <p>Price: {listing.price}</p>
                     <p>Seller: {listing.seller}</p>
                     <p>{listing.description}</p>
-                    <button onClick={(event) =>handleMessageSelect(event, listing.seller)}>dm user button</button>
+                    <button className='comparisonresult-buttons' onClick={(event) =>handleMessageSelect(event, listing.seller)}>dm user button</button>
                 </div>
                 ))}
             </div>
-            <button onClick={goBack}>Go Back</button>
+            <button className='comparisonresult-buttons' onClick={goBack}>Go Back</button>
         </div>
       );
 };

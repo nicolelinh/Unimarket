@@ -1,0 +1,64 @@
+/*questions? ask dev nicole nguyen*/
+
+/*import font family and standardize the name from font folder*/
+@font-face {
+    font-family: "Montserrat-Italic";
+    src: local("Montserrat-Italic"), url("../fonts/Montserrat-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat-BoldItalic";
+    src: local("Montserrat-BoldItalic"), url("../fonts/Montserrat-BoldItalic.ttf") format("truetype");
+}
+
+/*padding hq*/
+.comparisonsearch-background{
+    font-family: "Montserrat-Italic";
+    background-image: url('../assets/background6.png');
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: contain;
+}
+
+.comparisonsearch-padding1{
+    height: 15px;
+}
+
+/*asset decor*/
+.comparisonsearch-initialitem{
+    background: linear-gradient(180deg, rgba(149, 185, 178, 0.509) 0%, rgba(233, 221, 192, 0.627) 100%);
+    padding: 30px;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 20px;
+    backdrop-filter: blur(3px);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.comparisonsearch-picture{
+    background-color: white;
+    max-width: 300px;
+    max-height: 400px;
+    border: 15px solid rgba(255, 255, 255, 0.788);
+    border-radius: 25px;
+}
+
+.comparisonsearch-itemtitle{
+    padding-top: 15px;
+}
+
+.comparisonsearch-searchtitle{
+    padding-top: 20px;
+    font-family: "Montserrat-BoldItalic";
+    color: #44605A;
+    font-size: 35px;
+}
+
+.comparisonseatch-filter{
+    outline: rgb(85, 85, 85) solid 2px;
+    border-radius: 50px !important;
+    font-family: "Montserrat-Italic";
+    height: 30px;
+    font-size: medium;
+    width: 20%;
+    padding-left: 10px;
+}

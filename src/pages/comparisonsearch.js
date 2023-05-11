@@ -3,8 +3,7 @@ import { doc, collection, getDocs, query, getDoc, where } from "firebase/firesto
 import { db } from '../firebaseConfig';
 import ComparisonListing from '../components/comparisonlisting';
 import Landing from "./landing";
-import '../App.css';
-import '../css/home.css';
+import '../css/comparisonsearch.css';
 
 const ComparisonSearch = () => {
     // Majority of code is written by Leilani and was copied from home.js to complete Use Case #14
@@ -111,40 +110,24 @@ const ComparisonSearch = () => {
     if (email !== "") {
         return (
             <main>
-            <section>
+                <center>
+            <body>
+                <div className="comparisonsearch-background">
                 <div className="padding container">
-                    <h1 className="pill-form">Welcome {email}</h1>
-                    <form className="d-flex search-form" onSubmit={(event) => {validateSearch(event)}}>
-                            <input className="form-control me-2 search-input" id="usersearch" type="search" placeholder="search here" aria-label="Search" required></input>
-                            <button className="search-btn btn-outline-success" type="submit" >search</button>
-                    </form>
-                    <div className="row">
-                        <div className="col col-spacing">
-                            <h4 className="question-1"><em>need to sell or request a market item?</em></h4>
-                            <h4 className="question-1"><em><a className="question-brown" href="/create-listing">sell</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="#">request</a></em></h4>
-                        </div>
-                        {/* <div className="col"></div> */}
-                    </div>
-                    <div className="row">
-                        {/* <div className="col"></div> */}
-                        <div className="col col-spacing">
-                            <h4 className="question-2"><em>looking for carpool or other services?</em></h4>
-                            <h4 className="question-2"><em><a className="question-brown" href="#">carpool</a>&nbsp;&nbsp;&nbsp;<a className="question-brown" href="#">other services</a></em></h4>
-                        </div>
-                    </div>                                                                                                                                                                                       
+                    <h2>Choose an item to compare with:</h2>                                                                                                                                                                         
                     <div className="listings-cont">
                             {/* Displays the first listing selected for comparison */}
-                            <div style={{ justifyContent: 'normal' }}>
+                            <div className='comparisonsearch-initialitem' style={{ justifyContent: 'normal' }}>
                                 <div className="comparison-result">
-                                    <img src={details.photo} alt="..." width="300" height="300"/>
-                                    <h2>{details.title}</h2>
+                                    <img className='comparisonsearch-picture' src={details.photo} alt="..."/>
+                                    <h2 className='comparisonsearch-itemtitle'>{details.title}</h2>
                                     <p>Price: {details.price}</p>
                                     <p>Seller: {details.seller}</p>
                                     <p>{details.description}</p>
                                 </div>
                             </div>
-                        <h3 className="listings-title"><em>most recent product listings</em></h3>
-                            <select className="sort-metrics" onChange = {(e) => sortListings(e.target.value)}>
+                        <p className="comparisonsearch-searchtitle">product listings</p>
+                            <select className="comparisonseatch-filter" onChange = {(e) => sortListings(e.target.value)}>
                                 <option value="">order by</option>
                                 <option value="newest">newest</option>
                                 <option value="oldest">oldest</option>
@@ -155,6 +138,7 @@ const ComparisonSearch = () => {
                                 {/* <option value="favorite-asc">most favorited</option> */}
                             </select>
                         {/* dynamically create rows and columns based on how many listings are in database */}
+                        <div className="comparisonsearch-padding1"></div>
                         <div className="row">
                             {/* this maps all the documents grabbed earlier and uses the data from each to create a Listing card */}
                             {
@@ -184,7 +168,9 @@ const ComparisonSearch = () => {
                     </div>
                     {/* <div className="col"></div> */}
                 </div>
-            </section>
+                </div>
+            </body>
+            </center>
         </main>
         )
     }
