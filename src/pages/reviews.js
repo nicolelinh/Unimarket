@@ -4,7 +4,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import profilepic from '../assets/profilepic.png';
-import '../css/userprofile.css';
+import '../css/reviews.css';
 
 /*
 steps to figuring out star rating system: run npm install react-icons --save
@@ -46,11 +46,11 @@ const Reviews = () => {
     // form for display purposes (to actually implement inputs). 
     // certain styles were used to make it more orderly and fashionable.  
     return (
-        <div >
+        <div className="reviews-background">
             <br></br>
-            <form onSubmit={handleSubmit} style={{ background: 'linear-gradient(180deg, rgba(149, 185, 178, 0.9) 0%, rgba(233, 221, 192, 0.9) 100%)', borderRadius: '50px', padding: '20px', display: 'inline-block', flexDirection: 'column', alignItems: 'center' }}>
+            <form className='reviews-form' onSubmit={handleSubmit} style={{background: 'linear-gradient(180deg, rgba(149, 185, 178, 0.509) 0%, rgba(233, 221, 192, 0.627) 100%)', borderRadius: '50px', padding: '20px', display: 'inline-block', flexDirection: 'column', alignItems: 'center' }}>
             <h2>Reviews</h2>
-            <div><Link to="/reviewsdisplay">Redirect to Existing Reviews</Link></div>
+            <div><Link className='reviews-link' to="/reviewsdisplay">Redirect to Existing Reviews</Link></div>
             <img className="profilepic" src={profilepic} alt="profilepic" id="profilepic"/>
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <label style={{ flex: '0 0 100px' }}>
@@ -116,7 +116,7 @@ const Reviews = () => {
                     </label>
                 </div>
                 <br />
-                <button style={{borderRadius: '5px', padding: '10px', border: 'none', color: '#84ad97', cursor: 'pointer', background: 'transparent'}} type={() => handleSubmit}><h2 style={{ margin: '0', fontSize: '16px' }}>publish review</h2></button>
+                <button className= 'reviews-button' >publish review</button>
                 <br />
                 <br />
             </form>
