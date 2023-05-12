@@ -105,7 +105,7 @@ const Home = () => {
                 <body className="home-body">
                     <div className="padding-1">
                         <center>
-                        <h1 className="pill-form">Welcomee {email}</h1>
+                        <h1 className="pill-form">Welcome {email}</h1>
                         <form className="d-flex search-form" onSubmit={(event) => {validateSearch(event)}}>
                             <input className="form-control me-2 search-input" id="usersearch" type="search" placeholder="search here" aria-label="Search" required></input>
                             <button className="search-btn btn-outline-success" type="submit" >search</button>
