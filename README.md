@@ -19,7 +19,7 @@ You may also see any lint errors in the console.
 
 ### `npm install --legacy-peer-deps`
 
-In case 'npm start' does not work and did not properly install the dependencies, run this command. 
+In case 'npm start' does not work and did not properly install the dependencies, run this command and then 'npm start'.
 
 ### `npm test`
 
